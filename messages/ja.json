@@ -1,0 +1,231 @@
+{
+  "common": {
+    "bookConsultation": "無料カウンセリング予約",
+    "bookConsultationShort": "予約する",
+    "learnMore": "詳しく見る",
+    "viewProfile": "プロフィールを見る",
+    "viewService": "施術案内",
+    "viewDoctors": "医師紹介",
+    "consultationCta": "カウンセリングで正確な費用を確認 →",
+    "submitConsultation": "申し込む"
+  },
+  "nav": {
+    "about": "About Us",
+    "service": "Service",
+    "blog": "Blog",
+    "inquire": "Inquire"
+  },
+  "header": {
+    "announcement": "今すぐ無料カウンセリング予約でスキンケア1回プレゼント",
+    "announcementLink": "予約する",
+    "subtitle": "Plastic Surgery Clinic",
+    "menuOpen": "メニューを開く"
+  },
+  "hero": {
+    "eyebrow": "Advanced Aesthetic Medicine",
+    "title1": "A Destination For",
+    "title2": "Modern",
+    "title3": "Aesthetic",
+    "title4": "Care",
+    "body": "GW Beautyは医師主導の精密な美容医療を追求します。顔の比率・体型・肌再生まで、調和とバランスを守りながら、時を経ても美しい結果をお届けします。",
+    "ctaPrimary": "無料カウンセリング予約",
+    "ctaSecondary": "医師紹介",
+    "stat1Value": "20,000+",
+    "stat1Label": "累計施術",
+    "stat2Value": "300+",
+    "stat2Label": "Google 5星レビュー",
+    "stat3Value": "15年+",
+    "stat3Label": "専門医経歴",
+    "scroll": "スクロール"
+  },
+  "philosophy": {
+    "eyebrow": "私たちの理念",
+    "title1": "Aesthetic",
+    "title2": "Intelligence.",
+    "title3": "Surgical Precision.",
+    "body": "すべての顔と身体は固有の建築的バランスを持っています。GW Beautyの医療チームは解剖学的比率と長期的バランスを尊重し、トレンドよりも時を超えた洗練さを追求します。",
+    "feature1": "1:1オーダーメイド手術デザイン",
+    "feature2": "解剖学ベースの比率分析",
+    "feature3": "最小限の傷跡・自然な結果",
+    "feature4": "体系的なアフターケアシステム",
+    "statLabel": "累計施術件数",
+    "ctaPrimary": "医師紹介を見る",
+    "ctaSecondary": "施術案内"
+  },
+  "pillars": {
+    "eyebrow": "私たちのサービス",
+    "title": "コア治療",
+    "titleAccent": "ピラーズ",
+    "learnMore": "詳しく見る",
+    "face": {
+      "label": "顔面整形",
+      "title": "Facial Refinement",
+      "description": "顔の比率と構造を精密に分析し、自然な表情と個性を保ちながら、調和のとれた印象を完成させます。",
+      "t1": "目の整形（二重・眼瞼下垂矯正）",
+      "t2": "鼻整形（隆鼻・鼻尖形成）",
+      "t3": "顔面輪郭（頬骨・エラ）",
+      "t4": "リフティング・フェイスライン",
+      "t5": "額・眉毛挙上"
+    },
+    "body": {
+      "label": "ボディ整形",
+      "title": "Sculpted Silhouette",
+      "description": "体型の比率を精密に矯正し、自然でバランスのとれたシルエットを実現します。",
+      "t1": "脂肪吸引（HDリポ彫刻）",
+      "t2": "腹部形成",
+      "t3": "豊胸・リフト",
+      "t4": "二の腕リフト",
+      "t5": "太もも矯正"
+    },
+    "skin": {
+      "label": "肌再生",
+      "title": "Regenerative Aesthetics",
+      "description": "最新の非侵襲技術で肌本来の再生力を高め、健康で輝く肌を取り戻します。",
+      "t1": "レーザー肌再生",
+      "t2": "肌のトーン・テクスチャー改善",
+      "t3": "しわ・弾力管理",
+      "t4": "色素・傷跡治療",
+      "t5": "メソセラピー"
+    }
+  },
+  "scrolling": {
+    "eyebrow": "人気施術",
+    "title": "人気の",
+    "titleAccent": "施術",
+    "title2": "",
+    "t1": "目の整形",
+    "t2": "鼻整形",
+    "t3": "リフティング",
+    "t4": "唇整形",
+    "t5": "脂肪吸引",
+    "cat_face": "顔面整形",
+    "cat_body": "ボディ整形",
+    "learnMore": "詳しく見る"
+  },
+  "banner": {
+    "eyebrow": "Signature Excellence",
+    "title": "あなただけの美しさを",
+    "titleAccent": "オーダーメイド",
+    "titleEnd": "で実現",
+    "body": "GW Beautyの専門医療チームが1:1カウンセリングで最適なソリューションをご提案します。今すぐ無料カウンセリングをご予約ください。",
+    "cta": "無料カウンセリング予約"
+  },
+  "doctors": {
+    "eyebrow": "医療チーム",
+    "title": "医療委員会",
+    "titleAccent": "&",
+    "title2": "スペシャリスト",
+    "subtitle": "精密さと患者中心医療をひとつに結ぶ学際的チーム",
+    "viewProfile": "プロフィールを見る →"
+  },
+  "testimonials": {
+    "eyebrow": "患者の声",
+    "title": "GW Beauty",
+    "titleAccent": "エクスペリエンス",
+    "subtitle": "Google 5つ星レビュー300件以上",
+    "reviews": [
+      {
+        "text": "比率とバランスが本当に完璧です。カウンセリングから回復まで、すべての過程で真心のこもったケアを受けました。単なる手術ではなく、自信を取り戻す旅でした。",
+        "name": "金O賢",
+        "age": 28,
+        "treatment": "鼻整形"
+      },
+      {
+        "text": "何年も写真を避けていましたが、GW Beautyで目の手術を受けてから初めて自分の顔が綺麗だと感じました。結果も医療チームの細やかな対応も期待以上でした。",
+        "name": "朴O恩",
+        "age": 33,
+        "treatment": "目の整形"
+      },
+      {
+        "text": "変わって見えたいのではなく、疲れた顔が生き生きして見えることを願っていました。GW Beautyは私の願いを正確に理解し、自然に仕上げてくれました。",
+        "name": "李O知",
+        "age": 46,
+        "treatment": "リフティング"
+      },
+      {
+        "text": "脂肪吸引後、体のラインが完全に変わりました。手術した痕が全くなく、本当に自然です。アフターケアもきめ細かく対応してくれました。",
+        "name": "崔O雅",
+        "age": 31,
+        "treatment": "脂肪吸引"
+      }
+    ]
+  },
+  "investment": {
+    "eyebrow": "価格ガイド",
+    "title": "卓越への",
+    "titleAccent": "投資",
+    "subtitle": "透明な情報 · カスタム施術 · 卓越した結果",
+    "notice": "※ 施術費用は個人の状態・範囲により異なり、正確な金額は1:1カウンセリングにてご案内します。医療広告法により価格比較広告は行っておりません。",
+    "priceOnRequest": "カウンセリング後にご案内",
+    "consultLink": "カウンセリングで正確な費用を確認 →",
+    "facial": {
+      "title": "顔面施術",
+      "i1": "目の整形（埋没・切開）",
+      "i2": "鼻整形（隆鼻・鼻尖）",
+      "i3": "顔面輪郭（頬骨・エラ）",
+      "i4": "レーザー肌再生",
+      "i5": "リフティング施術",
+      "i6": "色素・傷跡治療"
+    },
+    "body": {
+      "title": "ボディ施術",
+      "i1": "HD脂肪吸引",
+      "i2": "腹部形成（ミニ・フル）",
+      "i3": "豊胸",
+      "i4": "胸リフト",
+      "i5": "二の腕リフト"
+    }
+  },
+  "consultation": {
+    "eyebrow": "カウンセリング",
+    "title": "あなたの",
+    "titleAccent": "変容",
+    "subtitle": "専門医療チームとのプライベートカウンセリングをご予約ください。",
+    "nameLabel": "お名前 *",
+    "namePlaceholder": "お名前",
+    "phoneLabel": "電話番号 *",
+    "phonePlaceholder": "+82-10-0000-0000",
+    "serviceLabel": "ご希望の施術",
+    "servicePlaceholder": "施術を選択",
+    "dateLabel": "ご希望の日付",
+    "timeLabel": "ご希望の時間",
+    "timePlaceholder": "時間を選択",
+    "messageLabel": "お問い合わせ内容",
+    "messagePlaceholder": "ご質問を自由にお書きください。",
+    "privacyRequired": "[必須] 個人情報の収集・利用に同意します。収集項目：氏名、連絡先、問い合わせ内容 / 保持期間：カウンセリング完了後1年",
+    "marketingOptional": "[任意] マーケティング目的の個人情報収集・利用に同意します。（イベント・新施術のご案内）",
+    "submit": "申し込む",
+    "successTitle": "カウンセリング申し込みが完了しました",
+    "successBody": "できるだけ早くご連絡いたします。",
+    "services": [
+      "目の整形（二重・眼瞼下垂矯正）",
+      "鼻整形（隆鼻・鼻尖形成）",
+      "顔面輪郭（頬骨・エラ）",
+      "リフティング・フェイスライン",
+      "脂肪吸引",
+      "豊胸",
+      "肌再生・レーザー",
+      "その他（カウンセリング時に決定）"
+    ],
+    "timeSlots": [
+      "午前10:00", "午前11:00", "午後12:00",
+      "午後2:00", "午後3:00", "午後4:00", "午後5:00", "午後6:00"
+    ]
+  },
+  "newsletter": {
+    "title1": "ニュースレター購読 &",
+    "title2": "Special Events",
+    "body": "購読すると最新の施術情報とプライベートイベントのお知らせをいち早くお届けします。購読者限定の特典もご用意しています。",
+    "placeholder": "メールアドレスを入力してください",
+    "subscribe": "購読",
+    "success": "ご購読ありがとうございます ✓",
+    "privacy": "いつでも購読を解除できます。個人情報はニュースレター配信以外の目的に使用されません。"
+  },
+  "footer": {
+    "addressLabel": "住所",
+    "contactsLabel": "連絡先",
+    "businessNumber": "事業者登録番号",
+    "medicalAd": "医療広告審査進行中",
+    "allRightsReserved": "All rights reserved."
+  }
+}

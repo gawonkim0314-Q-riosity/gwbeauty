@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+/* ── Design Tokens — Pink · Purple · White ─────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg:           #FDFBFF;   /* 메인 배경 — 라벤더 화이트 */
+  --bg-2:         #F5F0FF;   /* 섹션 배경 — 연한 보라 */
+  --bg-pink:      #FFF4F8;   /* 섹션 배경 — 연한 핑크 */
+  --bg-card:      #FFFFFF;   /* 카드 배경 */
+  --bg-card-2:    #FFF0F5;   /* 카드 배경 2 — 연한 핑크 */
+  --bg-overlay:   rgba(45, 27, 78, 0.65);
+
+  /* Gradient presets */
+  --gradient-hero:
+    linear-gradient(
+      to right,
+      rgba(255,255,255,0.96) 0%,
+      rgba(255,255,255,0.78) 48%,
+      rgba(255,255,255,0.08) 100%
+    );
+  --gradient-card:
+    linear-gradient(
+      to top,
+      rgba(45,27,78,0.82) 0%,
+      rgba(112,70,160,0.28) 58%,
+      transparent 100%
+    );
+  --gradient-accent:
+    linear-gradient(135deg, #F9D4E2 0%, #EDE5FF 100%);
+  --gradient-btn:
+    linear-gradient(135deg, #E8748A 0%, #A87AD4 100%);
+
+  /* Brand colors */
+  --pink:         #E8748A;   /* 메인 핑크 */
+  --pink-light:   #F5A5B8;   /* 연한 핑크 */
+  --pink-pale:    #FFE0EC;   /* 아주 연한 핑크 */
+  --pink-deep:    #C44D6A;   /* 진한 핑크 */
+
+  --purple:       #8B64C8;   /* 메인 보라 */
+  --purple-light: #B89AE8;   /* 연한 보라 */
+  --purple-pale:  #EDE5FF;   /* 아주 연한 보라 */
+  --purple-deep:  #6B46A8;   /* 진한 보라 */
+
+  /* Alias — CTA / Accent (컴포넌트에서 var(--rose), var(--gold) 재활용) */
+  --rose:         #D4547A;   /* 핑크 CTA */
+  --rose-light:   #E8748A;
+  --rose-dim:     #B03560;
+  --gold:         #8B64C8;   /* 보라 포인트 (기존 금색 자리) */
+  --gold-light:   #B89AE8;
+  --gold-dim:     #6B46A8;
+
+  /* Text */
+  --text:         #2D1B4E;   /* 딥 퍼플 헤딩 */
+  --text-2:       #5A4070;   /* 미디엄 퍼플 바디 */
+  --text-3:       #A895C0;   /* 뮤트 라벤더 */
+
+  /* Borders & Shadows */
+  --border:       rgba(139, 100, 200, 0.14);
+  --border-gold:  rgba(139, 100, 200, 0.30);   /* 보라 테두리 */
+  --border-rose:  rgba(212,  84, 122, 0.28);   /* 핑크 테두리 */
+  --shadow-gold:  0 8px 32px rgba(139,100,200,0.14);
+  --shadow-card:  0 4px 24px rgba(45, 27, 78,  0.07);
+  --shadow-rose:  0 8px 32px rgba(212, 84,122, 0.18);
+}
+
+@theme inline {
+  --color-bg:           var(--bg);
+  --color-bg-2:         var(--bg-2);
+  --color-bg-pink:      var(--bg-pink);
+  --color-bg-card:      var(--bg-card);
+  --color-bg-card-2:    var(--bg-card-2);
+  --color-pink:         var(--pink);
+  --color-purple:       var(--purple);
+  --color-rose:         var(--rose);
+  --color-gold:         var(--gold);
+  --color-gold-light:   var(--gold-light);
+  --color-text:         var(--text);
+  --color-text-2:       var(--text-2);
+  --color-text-3:       var(--text-3);
+  --font-display:       var(--font-display-var);
+  --font-body:          var(--font-body-var);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body-var), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--pink-pale);
+  color: var(--purple-deep);
+}
+
+/* ── Layout helpers ─────────────────────────────────────────────────────── */
+.section-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px)  { .section-container { padding-inline: 2.5rem; } }
+@media (min-width: 1280px) { .section-container { padding-inline: 4rem; } }
+
+/* ── Typography helpers ─────────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-body-var), system-ui;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pink);
+}
+
+.section-title {
+  font-family: var(--font-display-var), serif;
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.section-title .accent { color: var(--purple); }
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn-rose {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--gradient-btn);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  box-shadow: var(--shadow-rose);
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+.btn-rose:hover { opacity: 0.88; box-shadow: 0 12px 40px rgba(212,84,122,0.28); }
+
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border: 1.5px solid var(--purple-light);
+  color: var(--purple);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.btn-outline-gold:hover {
+  border-color: var(--purple);
+  background: var(--purple-pale);
+}
+
+/* ── Glassmorphism (light) ──────────────────────────────────────────────── */
+.glass-light {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+/* ── Card base ──────────────────────────────────────────────────────────── */
+.card-base {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+.animate-fade-up { animation: fadeUp 0.8s ease-out both; }
+.animate-marquee { animation: marquee 40s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--pink-pale); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--pink-light); }

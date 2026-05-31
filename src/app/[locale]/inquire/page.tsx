@@ -1,0 +1,18 @@
+import { Link } from "@/i18n/navigation";
+import { siteConfig } from "@/lib/site-config";
+
+export default function InquirePage() {
+  return (
+    <section className="section-container py-32">
+      <p className="eyebrow">Inquire</p>
+      <h1 className="section-title mt-4">상담 문의</h1>
+      <p className="mt-6 max-w-xl text-sm leading-relaxed text-[var(--text-2)]">
+        상담 예약 폼은 다음 단계에서 구성합니다. 우선 전화로 문의해 주세요.
+      </p>
+      <p className="mt-4 text-lg font-semibold text-[var(--text)]">{siteConfig.phone}</p>
+      <Link href="/" className="mt-8 inline-flex text-sm text-[var(--pink)] hover:underline">
+        메인으로 돌아가기
+      </Link>
+    </section>
+  );
+}

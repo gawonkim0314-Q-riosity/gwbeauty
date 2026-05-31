@@ -1,0 +1,231 @@
+{
+  "common": {
+    "bookConsultation": "预约免费咨询",
+    "bookConsultationShort": "立即预约",
+    "learnMore": "了解更多",
+    "viewProfile": "查看简介",
+    "viewService": "医疗服务",
+    "viewDoctors": "认识我们的医生",
+    "consultationCta": "通过咨询获取准确费用 →",
+    "submitConsultation": "提交申请"
+  },
+  "nav": {
+    "about": "关于我们",
+    "service": "服务",
+    "blog": "博客",
+    "inquire": "咨询"
+  },
+  "header": {
+    "announcement": "现在预约免费咨询，赠送1次皮肤护理",
+    "announcementLink": "立即预约",
+    "subtitle": "整形外科诊所",
+    "menuOpen": "打开菜单"
+  },
+  "hero": {
+    "eyebrow": "先进美学医学",
+    "title1": "A Destination For",
+    "title2": "Modern",
+    "title3": "Aesthetic",
+    "title4": "Care",
+    "body": "GW Beauty追求以医生为中心的精准美容医学。从面部比例、体型雕塑到皮肤再生，我们在保持和谐与比例的同时，创造经久不衰的美丽。",
+    "ctaPrimary": "预约免费咨询",
+    "ctaSecondary": "认识我们的医生",
+    "stat1Value": "20,000+",
+    "stat1Label": "累计手术",
+    "stat2Value": "300+",
+    "stat2Label": "谷歌5星评价",
+    "stat3Value": "15年+",
+    "stat3Label": "专科医生经验",
+    "scroll": "向下滚动"
+  },
+  "philosophy": {
+    "eyebrow": "我们的理念",
+    "title1": "Aesthetic",
+    "title2": "Intelligence.",
+    "title3": "Surgical Precision.",
+    "body": "每张脸和每个身体都有其独特的建筑平衡。GW Beauty的医疗团队尊重解剖比例和长期和谐，追求超越潮流的永恒精致。",
+    "feature1": "1:1定制手术设计",
+    "feature2": "基于解剖学的比例分析",
+    "feature3": "最小瘢痕·自然效果",
+    "feature4": "系统化术后管理",
+    "statLabel": "累计手术次数",
+    "ctaPrimary": "认识我们的医生",
+    "ctaSecondary": "医疗服务"
+  },
+  "pillars": {
+    "eyebrow": "我们的服务",
+    "title": "核心治疗",
+    "titleAccent": "领域",
+    "learnMore": "了解更多",
+    "face": {
+      "label": "面部整形",
+      "title": "Facial Refinement",
+      "description": "精密分析面部比例与结构，在保留自然表情与个性的同时，完成和谐的印象。",
+      "t1": "眼部手术（双眼皮·睑缘矫正）",
+      "t2": "鼻整形（隆鼻·鼻尖）",
+      "t3": "面部轮廓（颧骨·方턱）",
+      "t4": "提拉·面部线条",
+      "t5": "额头·眉毛提升"
+    },
+    "body": {
+      "label": "身体整形",
+      "title": "Sculpted Silhouette",
+      "description": "精密矫正体型比例，打造自然均衡的轮廓。",
+      "t1": "抽脂（HD雕塑抽脂）",
+      "t2": "腹部整形",
+      "t3": "隆胸·提升",
+      "t4": "臂部提升",
+      "t5": "大腿矫正"
+    },
+    "skin": {
+      "label": "皮肤再生",
+      "title": "Regenerative Aesthetics",
+      "description": "利用最新非侵入技术增强皮肤的天然再生能力，恢复健康亮泽的肌肤。",
+      "t1": "激光皮肤再生",
+      "t2": "肤色·肌理改善",
+      "t3": "皱纹·弹性管理",
+      "t4": "色素·瘢痕治疗",
+      "t5": "中胚层疗法"
+    }
+  },
+  "scrolling": {
+    "eyebrow": "热门项目",
+    "title": "我们的",
+    "titleAccent": "热门",
+    "title2": "项目",
+    "t1": "眼部手术",
+    "t2": "鼻整形",
+    "t3": "提拉",
+    "t4": "唇部整形",
+    "t5": "抽脂",
+    "cat_face": "面部整形",
+    "cat_body": "身体整形",
+    "learnMore": "了解更多"
+  },
+  "banner": {
+    "eyebrow": "卓越签名",
+    "title": "专属于您的美丽，",
+    "titleAccent": "量身",
+    "titleEnd": "打造",
+    "body": "GW Beauty的专业医疗团队通过1:1咨询为您提供最优方案。立即预约免费咨询。",
+    "cta": "预约免费咨询"
+  },
+  "doctors": {
+    "eyebrow": "医疗团队",
+    "title": "医疗委员会",
+    "titleAccent": "&",
+    "title2": "专家",
+    "subtitle": "将精准与以患者为中心的医疗融为一体的多学科团队",
+    "viewProfile": "查看简介 →"
+  },
+  "testimonials": {
+    "eyebrow": "患者评价",
+    "title": "GW Beauty",
+    "titleAccent": "体验",
+    "subtitle": "300+ 谷歌5星评价",
+    "reviews": [
+      {
+        "text": "比例与平衡真的很完美。从咨询到恢复，整个过程都感受到真诚的关怀。这不仅仅是手术，更是重拾自信的旅程。",
+        "name": "金O賢",
+        "age": 28,
+        "treatment": "鼻整形"
+      },
+      {
+        "text": "多年来我一直避免拍照，在GW Beauty做了眼部手术后，我第一次觉得自己的脸很漂亮。效果和医疗团队的细心都超出了我的期望。",
+        "name": "朴O恩",
+        "age": 33,
+        "treatment": "眼部手术"
+      },
+      {
+        "text": "我不想看起来不同，只是希望疲惫的脸看起来有生气。GW Beauty准确理解了我的愿望，自然地完成了。",
+        "name": "李O知",
+        "age": 46,
+        "treatment": "提拉"
+      },
+      {
+        "text": "抽脂后身体线条完全改变了。完全没有动过手术的痕迹，真的很自然。术后护理也非常细致。",
+        "name": "崔O雅",
+        "age": 31,
+        "treatment": "抽脂"
+      }
+    ]
+  },
+  "investment": {
+    "eyebrow": "价格指南",
+    "title": "对卓越的",
+    "titleAccent": "投资",
+    "subtitle": "透明信息 · 定制手术 · 卓越效果",
+    "notice": "※ 手术费用因个人状况和范围而异，准确金额通过1:1咨询告知。根据医疗广告法，不进行价格比较广告。",
+    "priceOnRequest": "咨询后告知",
+    "consultLink": "通过咨询获取准确费用 →",
+    "facial": {
+      "title": "面部项目",
+      "i1": "眼部手术（埋线·切开）",
+      "i2": "鼻整形（隆鼻·鼻尖）",
+      "i3": "面部轮廓（颧骨·方턱）",
+      "i4": "激光皮肤再生",
+      "i5": "提拉治疗",
+      "i6": "色素·瘢痕治疗"
+    },
+    "body": {
+      "title": "身体项目",
+      "i1": "HD抽脂",
+      "i2": "腹部整形（迷你·全部）",
+      "i3": "隆胸",
+      "i4": "提胸",
+      "i5": "臂部提升"
+    }
+  },
+  "consultation": {
+    "eyebrow": "咨询预约",
+    "title": "开启您的",
+    "titleAccent": "蜕变之旅",
+    "subtitle": "与我们的专业医疗团队预约私人咨询。",
+    "nameLabel": "姓名 *",
+    "namePlaceholder": "您的姓名",
+    "phoneLabel": "联系方式 *",
+    "phonePlaceholder": "+82-10-0000-0000",
+    "serviceLabel": "感兴趣的项目",
+    "servicePlaceholder": "选择项目",
+    "dateLabel": "希望日期",
+    "timeLabel": "希望时间",
+    "timePlaceholder": "选择时间",
+    "messageLabel": "咨询内容",
+    "messagePlaceholder": "请自由填写您的问题。",
+    "privacyRequired": "[必填] 同意收集和使用个人信息。收集项目：姓名、联系方式、咨询内容 / 保留期限：咨询完成后1年",
+    "marketingOptional": "[选填] 同意为营销目的收集和使用个人信息。（活动·新项目通知）",
+    "submit": "提交申请",
+    "successTitle": "咨询申请已完成",
+    "successBody": "我们将尽快与您联系。",
+    "services": [
+      "眼部手术（双眼皮·睑缘矫正）",
+      "鼻整形（隆鼻·鼻尖）",
+      "面部轮廓（颧骨·方턱）",
+      "提拉·面部线条",
+      "抽脂",
+      "隆胸",
+      "皮肤再生·激光",
+      "其他（咨询时决定）"
+    ],
+    "timeSlots": [
+      "上午10:00", "上午11:00", "中午12:00",
+      "下午2:00", "下午3:00", "下午4:00", "下午5:00", "下午6:00"
+    ]
+  },
+  "newsletter": {
+    "title1": "订阅 &",
+    "title2": "特别活动",
+    "body": "订阅后第一时间获取最新手术信息和私人活动消息。同时提供订阅者专属福利。",
+    "placeholder": "请输入您的电子邮件地址",
+    "subscribe": "订阅",
+    "success": "感谢您的订阅 ✓",
+    "privacy": "您可以随时取消订阅。您的个人信息不会用于新闻通讯发送以外的目的。"
+  },
+  "footer": {
+    "addressLabel": "地址",
+    "contactsLabel": "联系方式",
+    "businessNumber": "营业执照号",
+    "medicalAd": "医疗广告审查进行中",
+    "allRightsReserved": "保留所有权利。"
+  }
+}

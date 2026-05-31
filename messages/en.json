@@ -1,0 +1,231 @@
+{
+  "common": {
+    "bookConsultation": "Book Free Consultation",
+    "bookConsultationShort": "Book Now",
+    "learnMore": "Learn More",
+    "viewProfile": "View Profile",
+    "viewService": "Our Services",
+    "viewDoctors": "Meet Our Doctors",
+    "consultationCta": "Get exact pricing via consultation →",
+    "submitConsultation": "Submit Request"
+  },
+  "nav": {
+    "about": "About Us",
+    "service": "Service",
+    "blog": "Blog",
+    "inquire": "Inquire"
+  },
+  "header": {
+    "announcement": "Book a free consultation now and receive 1 complimentary skin care session",
+    "announcementLink": "Book Now",
+    "subtitle": "Plastic Surgery Clinic",
+    "menuOpen": "Open menu"
+  },
+  "hero": {
+    "eyebrow": "Advanced Aesthetic Medicine",
+    "title1": "A Destination For",
+    "title2": "Modern",
+    "title3": "Aesthetic",
+    "title4": "Care",
+    "body": "GW Beauty pursues physician-led precision aesthetic medicine. From facial proportion and body contouring to skin regeneration — we deliver results that remain beautiful over time.",
+    "ctaPrimary": "Book Free Consultation",
+    "ctaSecondary": "Meet Our Doctors",
+    "stat1Value": "20,000+",
+    "stat1Label": "Procedures",
+    "stat2Value": "300+",
+    "stat2Label": "Google 5-Star Reviews",
+    "stat3Value": "15yrs+",
+    "stat3Label": "Specialist Experience",
+    "scroll": "Scroll"
+  },
+  "philosophy": {
+    "eyebrow": "Our Philosophy",
+    "title1": "Aesthetic",
+    "title2": "Intelligence.",
+    "title3": "Surgical Precision.",
+    "body": "Every face and body has its own architectural balance. GW Beauty's medical team respects anatomical proportions and long-term harmony, pursuing timeless refinement over fleeting trends.",
+    "feature1": "Bespoke 1:1 surgical design",
+    "feature2": "Anatomy-based proportion analysis",
+    "feature3": "Minimal scarring · natural results",
+    "feature4": "Comprehensive aftercare system",
+    "statLabel": "Procedures Performed",
+    "ctaPrimary": "Meet Our Doctors",
+    "ctaSecondary": "Our Services"
+  },
+  "pillars": {
+    "eyebrow": "Our Services",
+    "title": "Core Treatment",
+    "titleAccent": "Pillars",
+    "learnMore": "Learn More",
+    "face": {
+      "label": "Facial",
+      "title": "Facial Refinement",
+      "description": "We precisely analyze facial proportions and structure to create a harmonious impression while preserving natural expression and individuality.",
+      "t1": "Eyelid Surgery (double eyelid, ptosis)",
+      "t2": "Rhinoplasty (bridge, tip)",
+      "t3": "Facial Contouring (cheekbone, jaw)",
+      "t4": "Lifting · Facelift",
+      "t5": "Forehead · Brow Lift"
+    },
+    "body": {
+      "label": "Body",
+      "title": "Sculpted Silhouette",
+      "description": "We precisely correct body proportions to create a natural and balanced silhouette.",
+      "t1": "Liposuction (HD Lipo-sculpting)",
+      "t2": "Abdominoplasty",
+      "t3": "Breast Augmentation · Lift",
+      "t4": "Arm Lift",
+      "t5": "Thigh Correction"
+    },
+    "skin": {
+      "label": "Skin",
+      "title": "Regenerative Aesthetics",
+      "description": "Using the latest non-invasive technology to enhance the skin's natural regenerative capacity, restoring healthy and radiant skin.",
+      "t1": "Laser Skin Resurfacing",
+      "t2": "Skin Tone & Texture Improvement",
+      "t3": "Wrinkle & Elasticity Treatment",
+      "t4": "Pigmentation & Scar Treatment",
+      "t5": "Mesotherapy"
+    }
+  },
+  "scrolling": {
+    "eyebrow": "Popular Treatments",
+    "title": "Our",
+    "titleAccent": "Popular",
+    "title2": "Treatments",
+    "t1": "Eyelid Surgery",
+    "t2": "Rhinoplasty",
+    "t3": "Lifting",
+    "t4": "Lip Augmentation",
+    "t5": "Liposuction",
+    "cat_face": "Facial",
+    "cat_body": "Body",
+    "learnMore": "Learn More"
+  },
+  "banner": {
+    "eyebrow": "Signature Excellence",
+    "title": "Your Beauty,",
+    "titleAccent": "Uniquely",
+    "titleEnd": "Crafted",
+    "body": "GW Beauty's expert medical team proposes the optimal solution through personalized 1:1 consultation. Book your free consultation today.",
+    "cta": "Book Free Consultation"
+  },
+  "doctors": {
+    "eyebrow": "Medical Team",
+    "title": "Medical Board",
+    "titleAccent": "&",
+    "title2": "Specialists",
+    "subtitle": "A multidisciplinary team uniting precision with patient-centered care",
+    "viewProfile": "View Profile →"
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "The GW Beauty",
+    "titleAccent": "Experience",
+    "subtitle": "300+ Google 5-Star Reviews",
+    "reviews": [
+      {
+        "text": "The proportions and balance are truly perfect. From consultation to recovery, I felt genuinely cared for at every step. It wasn't just surgery — it was a journey to regaining my confidence.",
+        "name": "Kim O.H.",
+        "age": 28,
+        "treatment": "Rhinoplasty"
+      },
+      {
+        "text": "I had avoided photos for years. After eye surgery at GW Beauty, it was the first time I felt my face was beautiful. The results and the attentiveness of the medical team exceeded all expectations.",
+        "name": "Park O.E.",
+        "age": 33,
+        "treatment": "Eyelid Surgery"
+      },
+      {
+        "text": "I didn't want to look different — I just wanted my tired face to look vibrant again. GW Beauty understood exactly what I wished for and completed it naturally.",
+        "name": "Lee O.J.",
+        "age": 46,
+        "treatment": "Lifting"
+      },
+      {
+        "text": "After liposuction, my body lines completely changed. There's no sign of surgery at all — it's so natural. The aftercare was thorough and attentive.",
+        "name": "Choi O.A.",
+        "age": 31,
+        "treatment": "Liposuction"
+      }
+    ]
+  },
+  "investment": {
+    "eyebrow": "Price Guide",
+    "title": "Investment In",
+    "titleAccent": "Excellence",
+    "subtitle": "Transparent information · Tailored procedures · Outstanding results",
+    "notice": "※ Procedure costs vary by individual condition and scope. Exact pricing is provided through a 1:1 consultation. In accordance with medical advertising regulations, price comparison advertising is not conducted.",
+    "priceOnRequest": "Upon consultation",
+    "consultLink": "Get exact pricing via consultation →",
+    "facial": {
+      "title": "Facial Procedures",
+      "i1": "Eyelid Surgery (suture / incision)",
+      "i2": "Rhinoplasty (bridge, tip)",
+      "i3": "Facial Contouring (cheekbone, jaw)",
+      "i4": "Laser Skin Resurfacing",
+      "i5": "Lifting Treatment",
+      "i6": "Pigmentation & Scar Treatment"
+    },
+    "body": {
+      "title": "Body Procedures",
+      "i1": "HD Liposuction",
+      "i2": "Abdominoplasty (mini · full)",
+      "i3": "Breast Augmentation",
+      "i4": "Breast Lift",
+      "i5": "Arm Lift"
+    }
+  },
+  "consultation": {
+    "eyebrow": "Consultation",
+    "title": "Begin Your",
+    "titleAccent": "Transformation",
+    "subtitle": "Book a private consultation with our expert medical team.",
+    "nameLabel": "Name *",
+    "namePlaceholder": "Your name",
+    "phoneLabel": "Phone *",
+    "phonePlaceholder": "+82-10-0000-0000",
+    "serviceLabel": "Service of Interest",
+    "servicePlaceholder": "Select a service",
+    "dateLabel": "Preferred Date",
+    "timeLabel": "Preferred Time",
+    "timePlaceholder": "Select a time",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Feel free to write any questions you have.",
+    "privacyRequired": "[Required] I agree to the collection and use of personal information. Items: name, contact, inquiry / Retention: 1 year after consultation",
+    "marketingOptional": "[Optional] I agree to the collection and use of personal information for marketing purposes. (Event & new treatment notifications)",
+    "submit": "Submit Request",
+    "successTitle": "Consultation request submitted",
+    "successBody": "We will contact you shortly.",
+    "services": [
+      "Eyelid Surgery (double eyelid, ptosis)",
+      "Rhinoplasty (bridge, tip)",
+      "Facial Contouring (cheekbone, jaw)",
+      "Lifting · Facelift",
+      "Liposuction",
+      "Breast Augmentation",
+      "Skin Regeneration · Laser",
+      "Other (to be determined in consultation)"
+    ],
+    "timeSlots": [
+      "10:00 AM", "11:00 AM", "12:00 PM",
+      "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"
+    ]
+  },
+  "newsletter": {
+    "title1": "Subscribe &",
+    "title2": "Special Events",
+    "body": "Subscribe to be the first to receive the latest treatment information and exclusive event news. Subscriber-only benefits are also provided.",
+    "placeholder": "Enter your email address",
+    "subscribe": "Subscribe",
+    "success": "Thank you for subscribing ✓",
+    "privacy": "You can unsubscribe at any time. Your personal information will not be used for purposes other than newsletter delivery."
+  },
+  "footer": {
+    "addressLabel": "Address",
+    "contactsLabel": "Contacts",
+    "businessNumber": "Business Reg.",
+    "medicalAd": "Medical advertising review pending",
+    "allRightsReserved": "All rights reserved."
+  }
+}
