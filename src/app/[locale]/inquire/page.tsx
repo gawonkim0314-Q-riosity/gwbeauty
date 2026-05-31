@@ -1,7 +1,14 @@
+import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/lib/site-config";
 
-export default function InquirePage() {
+export default async function InquirePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <section className="section-container py-32">
       <p className="eyebrow">Inquire</p>
