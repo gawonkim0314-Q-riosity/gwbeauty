@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { AnimateIn } from "@/components/ui/AnimateIn";
 
 export async function ConsultationBannerSection() {
   const t = await getTranslations("banner");
@@ -20,18 +21,23 @@ export async function ConsultationBannerSection() {
       />
 
       <div className="section-container relative flex flex-col items-center text-center">
-        <p className="eyebrow">{t("eyebrow")}</p>
-        <h2 className="section-title mt-5 max-w-3xl">
-          {t("title")}
-          <br />
-          <span className="accent">{t("titleAccent")}</span>{t("titleEnd")}
-        </h2>
-        <p className="mt-6 max-w-xl text-sm italic leading-relaxed text-[var(--text-2)] md:text-base">
-          {t("body")}
-        </p>
-        <Link href="/inquire" className="btn-rose mt-10">
-          {t("cta")}
-        </Link>
+        <AnimateIn>
+          <p className="eyebrow">{t("eyebrow")}</p>
+          <h2 className="section-title mt-5 max-w-3xl">
+            {t("title")}
+            <br />
+            <span className="accent">{t("titleAccent")}</span>{t("titleEnd")}
+          </h2>
+        </AnimateIn>
+
+        <AnimateIn delay={140}>
+          <p className="mt-6 max-w-xl text-sm italic leading-relaxed text-[var(--text-2)] md:text-base">
+            {t("body")}
+          </p>
+          <Link href="/inquire" className="btn-rose mt-10 inline-flex">
+            {t("cta")}
+          </Link>
+        </AnimateIn>
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+import { AnimateIn } from "@/components/ui/AnimateIn";
+
 const REVIEWS = [
   {
     stars: 5,
@@ -52,39 +54,42 @@ export function TestimonialsSection() {
   return (
     <section className="py-24 md:py-32" style={{ background: "var(--bg-pink)" }}>
       <div className="section-container">
-        <div className="text-center">
-          <p className="eyebrow">Testimonials</p>
-          <h2 className="section-title mt-4">
-            The GW Beauty <span className="accent">Experience</span>
-          </h2>
-          <p className="mt-4 text-sm italic text-[var(--text-3)]">
-            Google 5점 만점 리뷰 300건 이상
-          </p>
-        </div>
+        <AnimateIn>
+          <div className="text-center">
+            <p className="eyebrow">Testimonials</p>
+            <h2 className="section-title mt-4">
+              The GW Beauty <span className="accent">Experience</span>
+            </h2>
+            <p className="mt-4 text-sm italic text-[var(--text-3)]">
+              Google 5점 만점 리뷰 300건 이상
+            </p>
+          </div>
+        </AnimateIn>
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {REVIEWS.map((r) => (
-            <article
-              key={r.name}
-              className="flex flex-col rounded-3xl bg-white p-7 shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-rose)]"
-              style={{ border: "1px solid var(--border)" }}
-            >
-              <Stars n={r.stars} />
-              <blockquote className="mt-5 flex-1 text-sm leading-7 text-[var(--text-2)]">
-                &ldquo;{r.text}&rdquo;
-              </blockquote>
-              <footer
-                className="mt-6 border-t pt-5"
-                style={{ borderColor: "var(--border)" }}
+          {REVIEWS.map((r, i) => (
+            <AnimateIn key={r.name} delay={i * 80}>
+              <article
+                className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-rose)]"
+                style={{ border: "1px solid var(--border)" }}
               >
-                <p className="text-xs font-semibold text-[var(--text)]">
-                  {r.name}, {r.age}
-                </p>
-                <p className="mt-0.5 text-[0.62rem]" style={{ color: "var(--purple)" }}>
-                  {r.treatment}
-                </p>
-              </footer>
-            </article>
+                <Stars n={r.stars} />
+                <blockquote className="mt-5 flex-1 text-sm leading-7 text-[var(--text-2)]">
+                  &ldquo;{r.text}&rdquo;
+                </blockquote>
+                <footer
+                  className="mt-6 border-t pt-5"
+                  style={{ borderColor: "var(--border)" }}
+                >
+                  <p className="text-xs font-semibold text-[var(--text)]">
+                    {r.name}, {r.age}
+                  </p>
+                  <p className="mt-0.5 text-[0.62rem]" style={{ color: "var(--purple)" }}>
+                    {r.treatment}
+                  </p>
+                </footer>
+              </article>
+            </AnimateIn>
           ))}
         </div>
       </div>
