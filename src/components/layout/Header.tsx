@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { siteConfig } from "@/lib/site-config";
 
 const LOCALES = [
@@ -16,7 +16,6 @@ export function Header() {
   const t = useTranslations("header");
   const tNav = useTranslations("nav");
   const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,8 +35,7 @@ export function Header() {
     { labelKey: "inquire" as const, href: "/inquire" },
   ];
 
-  const switchLocale = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale, scroll: false });
+  const switchLocale = () => {
     setLangOpen(false);
   };
 
@@ -118,16 +116,17 @@ export function Header() {
                   style={{ border: "1px solid var(--border)" }}
                 >
                   {LOCALES.map((l) => (
-                    <button
+                    <Link
                       key={l.code}
-                      type="button"
-                      onClick={() => switchLocale(l.code)}
-                      className={`w-full px-4 py-2.5 text-left text-[0.65rem] tracking-[0.1em] transition-colors hover:bg-[var(--bg-pink)] ${
+                      href={pathname}
+                      locale={l.code}
+                      onClick={switchLocale}
+                      className={`block w-full px-4 py-2.5 text-left text-[0.65rem] tracking-[0.1em] transition-colors hover:bg-[var(--bg-pink)] ${
                         locale === l.code ? "font-semibold text-[var(--pink)]" : "text-[var(--text-2)]"
                       }`}
                     >
                       {l.label}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -185,16 +184,17 @@ export function Header() {
               {/* Mobile language switcher */}
               <div className="mt-4 flex gap-3">
                 {LOCALES.map((l) => (
-                  <button
+                  <Link
                     key={l.code}
-                    type="button"
-                    onClick={() => { switchLocale(l.code); setMenuOpen(false); }}
+                    href={pathname}
+                    locale={l.code}
+                    onClick={() => setMenuOpen(false)}
                     className={`text-[0.65rem] tracking-[0.1em] uppercase transition-colors ${
                       locale === l.code ? "font-semibold text-[var(--pink)]" : "text-[var(--text-3)] hover:text-[var(--purple)]"
                     }`}
                   >
                     {l.label}
-                  </button>
+                  </Link>
                 ))}
               </div>
               <Link
