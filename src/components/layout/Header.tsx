@@ -55,18 +55,18 @@ export function Header() {
       </div>
 
       <header
-        className={`sticky top-0 z-40 transition-all duration-500 ${
+        className={`sticky top-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-white/90 backdrop-blur-md shadow-[0_2px_20px_rgba(139,100,200,0.10)]"
+            ? "bg-white/95 backdrop-blur-md shadow-[0_2px_24px_rgba(139,100,200,0.12)]"
             : "bg-white/70 backdrop-blur-sm"
         }`}
         style={{ borderBottom: scrolled ? "1px solid var(--border)" : "none" }}
       >
-        <div className="section-container flex h-[72px] items-center justify-between">
+        <div className={`section-container flex items-center justify-between transition-all duration-300 ${scrolled ? "h-[52px]" : "h-[72px]"}`}>
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-none transition-opacity hover:opacity-75">
             <span
-              className="font-display text-xl tracking-[0.16em] uppercase"
+              className={`font-display tracking-[0.16em] uppercase transition-all duration-300 ${scrolled ? "text-base" : "text-xl"}`}
               style={{
                 fontFamily: "var(--font-display-var), serif",
                 background: "var(--gradient-btn)",
@@ -76,7 +76,11 @@ export function Header() {
             >
               GW Beauty
             </span>
-            <span className="mt-0.5 text-[0.5rem] tracking-[0.28em] text-[var(--text-3)] uppercase">
+            <span
+              className={`text-[0.5rem] tracking-[0.28em] text-[var(--text-3)] uppercase transition-all duration-300 ${
+                scrolled ? "max-h-0 mt-0 opacity-0 overflow-hidden" : "max-h-4 mt-0.5 opacity-100"
+              }`}
+            >
               {t("subtitle")}
             </span>
           </Link>
@@ -87,7 +91,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[0.72rem] font-medium tracking-[0.14em] text-[var(--text-2)] uppercase transition-colors hover:text-[var(--pink)]"
+                className={`font-medium tracking-[0.14em] text-[var(--text-2)] uppercase transition-colors hover:text-[var(--pink)] ${scrolled ? "text-[0.65rem]" : "text-[0.72rem]"}`}
               >
                 {tNav(item.labelKey)}
               </Link>
