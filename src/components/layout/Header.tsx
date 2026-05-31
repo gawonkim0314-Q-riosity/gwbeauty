@@ -37,7 +37,7 @@ export function Header() {
   ];
 
   const switchLocale = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
+    router.replace(pathname, { locale: newLocale, scroll: false });
     setLangOpen(false);
   };
 
