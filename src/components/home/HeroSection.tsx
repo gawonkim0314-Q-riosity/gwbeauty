@@ -8,7 +8,7 @@ export async function HeroSection() {
     <section className="relative min-h-[100svh] overflow-hidden bg-[var(--bg-pink)]">
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-dark.jpg"
+          src="/images/hero_section.png"
           alt="GW Beauty Clinic"
           fill
           priority
