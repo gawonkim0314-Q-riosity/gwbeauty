@@ -10,10 +10,31 @@
     "submitConsultation": "상담 신청하기"
   },
   "nav": {
+    "home": "Home",
     "about": "About Us",
     "service": "Service",
     "blog": "Blog",
     "inquire": "Inquire"
+  },
+  "homeMenu": {
+    "hero": "Welcome",
+    "philosophy": "클리닉 철학",
+    "treatments": "시술 안내",
+    "results": "Before & After",
+    "doctors": "의료진",
+    "pricing": "비용 안내",
+    "contact": "오시는 길"
+  },
+  "contactUs": {
+    "eyebrow": "Find Us",
+    "title": "Contact",
+    "titleAccent": "Us",
+    "representativeLabel": "대표원장",
+    "addressLabel": "주소",
+    "phoneLabel": "전화",
+    "emailLabel": "이메일",
+    "hoursLabel": "진료시간",
+    "connectLabel": "Connect With Us"
   },
   "header": {
     "announcement": "지금 무료 상담 예약 시 피부 케어 1회 증정",

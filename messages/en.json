@@ -10,10 +10,31 @@
     "submitConsultation": "Submit Request"
   },
   "nav": {
+    "home": "Home",
     "about": "About Us",
     "service": "Service",
     "blog": "Blog",
     "inquire": "Inquire"
+  },
+  "homeMenu": {
+    "hero": "Welcome",
+    "philosophy": "Our Philosophy",
+    "treatments": "Treatments",
+    "results": "Before & After",
+    "doctors": "Medical Team",
+    "pricing": "Pricing",
+    "contact": "Contact Us"
+  },
+  "contactUs": {
+    "eyebrow": "Find Us",
+    "title": "Contact",
+    "titleAccent": "Us",
+    "representativeLabel": "Director",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Hours",
+    "connectLabel": "Connect With Us"
   },
   "header": {
     "announcement": "Book a free consultation now and receive 1 complimentary skin care session",

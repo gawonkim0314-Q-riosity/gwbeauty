@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "GW Beauty",
   legalName: "주식회사 GW Beauty",
+  representative: "김O원",
   tagline: "Aesthetic Intelligence. Surgical Precision.",
   description:
     "자연스러운 아름다움과 섬세한 디테일을 추구하는 프리미엄 성형외과 클리닉 GW Beauty",
@@ -15,6 +16,8 @@ export const siteConfig = {
   instagram: "https://instagram.com/gwbeauty",
   youtube: "https://youtube.com/@gwbeauty",
   kakao: "https://pf.kakao.com/gwbeauty",
+  whatsapp: "https://wa.me/821000000000",
+  naver: "https://blog.naver.com/gwbeauty",
   nav: [
     { label: "About Us", href: "/about" },
     { label: "Service", href: "/service" },

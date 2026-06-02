@@ -10,10 +10,31 @@
     "submitConsultation": "申し込む"
   },
   "nav": {
+    "home": "ホーム",
     "about": "About Us",
     "service": "Service",
     "blog": "Blog",
     "inquire": "Inquire"
+  },
+  "homeMenu": {
+    "hero": "ようこそ",
+    "philosophy": "クリニック理念",
+    "treatments": "施術案内",
+    "results": "ビフォーアフター",
+    "doctors": "医療チーム",
+    "pricing": "料金案内",
+    "contact": "アクセス"
+  },
+  "contactUs": {
+    "eyebrow": "Find Us",
+    "title": "Contact",
+    "titleAccent": "Us",
+    "representativeLabel": "院長",
+    "addressLabel": "住所",
+    "phoneLabel": "電話",
+    "emailLabel": "メール",
+    "hoursLabel": "診療時間",
+    "connectLabel": "お問い合わせ"
   },
   "header": {
     "announcement": "今すぐ無料カウンセリング予約でスキンケア1回プレゼント",

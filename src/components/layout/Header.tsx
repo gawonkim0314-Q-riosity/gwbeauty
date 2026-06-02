@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { siteConfig } from "@/lib/site-config";
@@ -12,14 +12,31 @@ const LOCALES = [
   { code: "ja", label: "日本語" },
 ];
 
+const HOME_SECTIONS = [
+  { key: "hero" as const, id: "hero" },
+  { key: "philosophy" as const, id: "philosophy" },
+  { key: "treatments" as const, id: "treatments" },
+  { key: "results" as const, id: "results" },
+  { key: "doctors" as const, id: "doctors" },
+  { key: "pricing" as const, id: "pricing" },
+  { key: "contact" as const, id: "contact" },
+];
+
 export function Header() {
   const t = useTranslations("header");
   const tNav = useTranslations("nav");
+  const tMenu = useTranslations("homeMenu");
   const locale = useLocale();
   const pathname = usePathname();
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [homeOpen, setHomeOpen] = useState(false);
+  const [mobileHomeOpen, setMobileHomeOpen] = useState(false);
+
+  const homeDropdownRef = useRef<HTMLDivElement>(null);
+  const langDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -28,12 +45,40 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (homeDropdownRef.current && !homeDropdownRef.current.contains(e.target as Node)) {
+        setHomeOpen(false);
+      }
+      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const navItems = [
     { labelKey: "about" as const, href: "/about" },
     { labelKey: "service" as const, href: "/service" },
     { labelKey: "blog" as const, href: "/blog" },
     { labelKey: "inquire" as const, href: "/inquire" },
   ];
+
+  const isHome = pathname === "/";
+
+  const handleSectionScroll = (sectionId: string) => {
+    setHomeOpen(false);
+    setMenuOpen(false);
+    if (isHome) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.location.href = `/${locale}#${sectionId}`;
+    }
+  };
 
   const switchLocale = () => {
     setLangOpen(false);
@@ -84,7 +129,47 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-10 md:flex">
+          <nav className="hidden items-center gap-8 md:flex">
+            {/* Home dropdown */}
+            <div className="relative" ref={homeDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setHomeOpen((o) => !o)}
+                className={`flex items-center gap-1 font-medium tracking-[0.14em] text-[var(--text-2)] uppercase transition-colors hover:text-[var(--pink)] ${scrolled ? "text-[0.65rem]" : "text-[0.72rem]"} ${homeOpen ? "text-[var(--pink)]" : ""}`}
+              >
+                {tNav("home")}
+                <svg
+                  className={`h-3 w-3 transition-transform duration-200 ${homeOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                  viewBox="0 0 12 12"
+                >
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+
+              {homeOpen && (
+                <div
+                  className="absolute left-0 top-full mt-3 w-44 overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-card)]"
+                  style={{ border: "1px solid var(--border)" }}
+                >
+                  {HOME_SECTIONS.map((section) => (
+                    <button
+                      key={section.id}
+                      type="button"
+                      onClick={() => handleSectionScroll(section.id)}
+                      className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-[0.65rem] tracking-[0.1em] uppercase transition-colors hover:bg-[var(--bg-pink)] hover:text-[var(--pink)] text-[var(--text-2)]"
+                    >
+                      <span
+                        className="h-1 w-1 rounded-full flex-shrink-0"
+                        style={{ background: "var(--gradient-btn)" }}
+                      />
+                      {tMenu(section.key)}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -99,7 +184,7 @@ export function Header() {
           {/* Right: language switcher + phone + CTA */}
           <div className="hidden items-center gap-4 md:flex">
             {/* Language switcher */}
-            <div className="relative">
+            <div className="relative" ref={langDropdownRef}>
               <button
                 type="button"
                 onClick={() => setLangOpen((o) => !o)}
@@ -170,6 +255,42 @@ export function Header() {
             style={{ borderColor: "var(--border)" }}
           >
             <nav className="section-container flex flex-col py-4">
+              {/* Mobile Home accordion */}
+              <div className="border-b" style={{ borderColor: "var(--border)" }}>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between py-4 text-sm font-medium tracking-[0.12em] text-[var(--text-2)] uppercase transition-colors hover:text-[var(--pink)]"
+                  onClick={() => setMobileHomeOpen((o) => !o)}
+                >
+                  {tNav("home")}
+                  <svg
+                    className={`h-4 w-4 transition-transform duration-200 ${mobileHomeOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                {mobileHomeOpen && (
+                  <div className="mb-2 flex flex-col gap-0.5 pl-4">
+                    {HOME_SECTIONS.map((section) => (
+                      <button
+                        key={section.id}
+                        type="button"
+                        onClick={() => handleSectionScroll(section.id)}
+                        className="flex items-center gap-2 py-2 text-left text-xs tracking-[0.1em] uppercase text-[var(--text-3)] transition-colors hover:text-[var(--pink)]"
+                      >
+                        <span
+                          className="h-1 w-1 rounded-full flex-shrink-0"
+                          style={{ background: "var(--gradient-btn)" }}
+                        />
+                        {tMenu(section.key)}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -181,6 +302,7 @@ export function Header() {
                   {tNav(item.labelKey)}
                 </Link>
               ))}
+
               {/* Mobile language switcher */}
               <div className="mt-4 flex gap-3">
                 {LOCALES.map((l) => (

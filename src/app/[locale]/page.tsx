@@ -11,6 +11,7 @@ import { InvestmentSection } from "@/components/home/InvestmentSection";
 import { ConsultationFormSection } from "@/components/home/ConsultationFormSection";
 import { ProductsSection } from "@/components/home/ProductsSection";
 import { BlogPreviewSection } from "@/components/home/BlogPreviewSection";
+import { ContactUsSection } from "@/components/home/ContactUsSection";
 import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export default async function HomePage({
@@ -23,18 +24,31 @@ export default async function HomePage({
 
   return (
     <>
-      <HeroSection />
-      <PhilosophySection />
-      <TreatmentPillarsSection />
-      <ScrollingTreatments />
-      <BeforeAfterSlider />
+      <div id="hero" style={{ scrollMarginTop: "80px" }}>
+        <HeroSection />
+      </div>
+      <div id="philosophy" style={{ scrollMarginTop: "80px" }}>
+        <PhilosophySection />
+      </div>
+      <div id="treatments" style={{ scrollMarginTop: "80px" }}>
+        <TreatmentPillarsSection />
+        <ScrollingTreatments />
+      </div>
+      <div id="results" style={{ scrollMarginTop: "80px" }}>
+        <BeforeAfterSlider />
+      </div>
       <ConsultationBannerSection />
-      <DoctorsSection />
+      <div id="doctors" style={{ scrollMarginTop: "80px" }}>
+        <DoctorsSection />
+      </div>
       <TestimonialsSection />
-      <InvestmentSection />
+      <div id="pricing" style={{ scrollMarginTop: "80px" }}>
+        <InvestmentSection />
+      </div>
       <ConsultationFormSection />
       <ProductsSection />
       <BlogPreviewSection />
+      <ContactUsSection />
       <NewsletterSection />
     </>
   );

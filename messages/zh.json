@@ -10,10 +10,31 @@
     "submitConsultation": "提交申请"
   },
   "nav": {
+    "home": "首页",
     "about": "关于我们",
     "service": "服务",
     "blog": "博客",
     "inquire": "咨询"
+  },
+  "homeMenu": {
+    "hero": "欢迎",
+    "philosophy": "诊所理念",
+    "treatments": "治疗项目",
+    "results": "前后对比",
+    "doctors": "医疗团队",
+    "pricing": "费用指南",
+    "contact": "联系我们"
+  },
+  "contactUs": {
+    "eyebrow": "找到我们",
+    "title": "联系",
+    "titleAccent": "我们",
+    "representativeLabel": "院长",
+    "addressLabel": "地址",
+    "phoneLabel": "电话",
+    "emailLabel": "邮箱",
+    "hoursLabel": "营业时间",
+    "connectLabel": "联系方式"
   },
   "header": {
     "announcement": "现在预约免费咨询，赠送1次皮肤护理",
