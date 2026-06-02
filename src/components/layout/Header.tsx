@@ -130,11 +130,15 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-8 md:flex">
-            {/* Home dropdown */}
-            <div className="relative" ref={homeDropdownRef}>
+            {/* Home dropdown — hover to open */}
+            <div
+              className="relative"
+              ref={homeDropdownRef}
+              onMouseEnter={() => setHomeOpen(true)}
+              onMouseLeave={() => setHomeOpen(false)}
+            >
               <button
                 type="button"
-                onClick={() => setHomeOpen((o) => !o)}
                 className={`flex items-center gap-1 font-medium tracking-[0.14em] text-[var(--text-2)] uppercase transition-colors hover:text-[var(--pink)] ${scrolled ? "text-[0.65rem]" : "text-[0.72rem]"} ${homeOpen ? "text-[var(--pink)]" : ""}`}
               >
                 {tNav("home")}
@@ -147,9 +151,10 @@ export function Header() {
                 </svg>
               </button>
 
-              {homeOpen && (
+              {/* pt-2 bridge prevents gap-triggered close between button and panel */}
+              <div className={`absolute left-0 top-full pt-2 transition-all duration-150 ${homeOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
                 <div
-                  className="absolute left-0 top-full mt-3 w-44 overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-card)]"
+                  className="w-44 overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-card)]"
                   style={{ border: "1px solid var(--border)" }}
                 >
                   {HOME_SECTIONS.map((section) => (
@@ -167,7 +172,7 @@ export function Header() {
                     </button>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
 
             {navItems.map((item) => (
