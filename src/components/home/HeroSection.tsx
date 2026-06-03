@@ -14,8 +14,8 @@ export async function HeroSection() {
           playsInline
           className="absolute inset-0 h-full w-full object-cover object-center"
         >
-          <source src="/images/hero.webm" type="video/webm" />
-          <source src="/images/hero.mp4" type="video/mp4" />
+          <source src="/images/hero_bg.webm" type="video/webm" />
+          <source src="/images/hero_bg.mp4" type="video/mp4" />
         </video>
         {/* Gradient overlays */}
         <div aria-hidden className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
