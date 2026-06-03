@@ -34,7 +34,8 @@ export async function LeadDoctorSection() {
               src={doc.image}
               alt={doc.name}
               fill
-              className="object-cover object-top"
+              className="object-cover"
+              style={{ objectPosition: "center 10%" }}
               sizes="(max-width:1024px) 100vw, 38vw"
             />
             <div

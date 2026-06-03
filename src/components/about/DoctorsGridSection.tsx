@@ -35,7 +35,8 @@ export function DoctorsGridSection() {
                     src={doctor.image}
                     alt={doctor.name}
                     fill
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: "center 10%" }}
                     sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
                   />
                   <div

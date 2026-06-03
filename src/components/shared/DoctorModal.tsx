@@ -38,7 +38,8 @@ export function DoctorModal({ doctor, onClose }: DoctorModalProps) {
             src={doctor.image}
             alt={doctor.name}
             fill
-            className="object-cover object-top"
+            className="object-cover"
+            style={{ objectPosition: "center 10%" }}
             sizes="320px"
           />
           <div
@@ -70,8 +71,9 @@ export function DoctorModal({ doctor, onClose }: DoctorModalProps) {
               src={doctor.image}
               alt={doctor.name}
               fill
-              className="object-cover object-top"
-              sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: "center 10%" }}
+            sizes="100vw"
             />
             <div
               aria-hidden

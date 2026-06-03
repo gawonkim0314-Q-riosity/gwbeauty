@@ -41,13 +41,14 @@ export function DoctorsSection() {
               >
                 <div className="flex flex-col md:flex-row">
                   {/* Photo */}
-                  <div className="relative h-56 w-full flex-shrink-0 overflow-hidden md:h-auto md:w-56">
+                  <div className="relative h-64 w-full flex-shrink-0 overflow-hidden md:h-auto md:w-60 md:self-stretch">
                     <Image
                       src={lead.image}
                       alt={lead.name}
                       fill
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width:768px) 100vw, 224px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      style={{ objectPosition: "center 10%" }}
+                      sizes="(max-width:768px) 100vw, 240px"
                     />
                     {/* Badge */}
                     <div className="absolute left-3 top-3 rounded-full px-3 py-1 text-[0.55rem] font-bold tracking-[0.18em] uppercase text-white shadow"
@@ -112,12 +113,13 @@ export function DoctorsSection() {
                     className="group relative w-full overflow-hidden rounded-2xl text-left shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(139,100,200,0.18)]"
                     style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
                   >
-                    <div className="relative h-56 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden">
                       <Image
                         src={doc.image}
                         alt={doc.name}
                         fill
-                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        style={{ objectPosition: "center 10%" }}
                         sizes="(max-width:640px) 100vw, 50vw"
                       />
                       <div
