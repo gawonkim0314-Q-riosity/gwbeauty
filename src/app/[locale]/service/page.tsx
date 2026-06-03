@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { ServiceGrid } from "@/components/service/ServiceGrid";
+import { PromoSection } from "@/components/service/PromoSection";
 
 export default async function ServicePage({
   params,
@@ -36,6 +37,9 @@ export default async function ServicePage({
           style={{ background: "var(--pink-light)" }}
         />
       </section>
+
+      {/* Promo banners */}
+      <PromoSection locale={locale} />
 
       {/* Service grid with tabs */}
       <ServiceGrid locale={locale} />
