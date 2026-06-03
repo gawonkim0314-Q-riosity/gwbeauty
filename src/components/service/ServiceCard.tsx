@@ -92,7 +92,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
     <div
       className="group relative rounded-3xl overflow-hidden cursor-pointer"
       style={{
-        height: "420px",
+        height: "460px",
         border: "1px solid var(--border)",
         boxShadow: "0 4px 24px rgba(139,100,200,0.10)",
       }}
@@ -146,7 +146,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
 
       {/* ── Full-card hover overlay ── */}
       <div
-        className="absolute inset-0 z-20 flex flex-col justify-between p-5
+        className="absolute inset-0 z-20 flex flex-col p-5
                     opacity-0 group-hover:opacity-100
                     translate-y-3 group-hover:translate-y-0
                     transition-all duration-400 ease-out pointer-events-none group-hover:pointer-events-auto"
@@ -157,7 +157,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
         }}
       >
         {/* Top: badge + title */}
-        <div>
+        <div className="flex-shrink-0">
           <span
             className="inline-block px-3 py-0.5 rounded-full text-xs font-semibold text-white mb-3"
             style={{ background: categoryColor }}
@@ -174,8 +174,8 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
           )}
         </div>
 
-        {/* Middle: approach + recovery */}
-        <div className="space-y-3 my-3">
+        {/* Middle: approach + recovery — scrollable if overflow */}
+        <div className="space-y-2 my-2 overflow-y-auto flex-1" style={{ maxHeight: "180px" }}>
           {/* Approach */}
           {approach && (
             <div
@@ -203,7 +203,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
 
         {/* Bottom: price + CTA */}
         <div
-          className="pt-3 border-t"
+          className="flex-shrink-0 pt-3 border-t"
           style={{ borderColor: "rgba(255,255,255,0.10)" }}
         >
           <p className="text-xs text-white/50 leading-relaxed mb-3">{priceNote}</p>
