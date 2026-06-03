@@ -208,3 +208,20 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--pink-pale); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--pink-light); }
+
+/* ── Admin Input ─────────────────────────────────────────────────────────── */
+.admin-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.625rem;
+  border: 1px solid #EDE8F5;
+  background: #FAF8FF;
+  color: #2D1B4E;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.admin-input:focus {
+  border-color: #8B64C8;
+  box-shadow: 0 0 0 3px rgba(139,100,200,0.12);
+}

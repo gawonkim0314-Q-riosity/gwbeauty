@@ -1,5 +1,6 @@
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import { QueryProvider } from "@/providers/query-provider";
 
 const display = Cormorant_Garamond({
   variable: "--font-display-var",
@@ -26,7 +27,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col antialiased bg-bg text-text">
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
