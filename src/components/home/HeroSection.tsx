@@ -1,20 +1,23 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 
 export async function HeroSection() {
   const t = await getTranslations("hero");
   return (
     <section className="relative min-h-[100svh] overflow-hidden bg-[var(--bg-pink)]">
+      {/* Video background */}
       <div className="absolute inset-0">
-        <Image
-          src="/images/hero_section.png"
-          alt="GW Beauty Clinic"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        >
+          <source src="/images/hero.webm" type="video/webm" />
+          <source src="/images/hero.mp4" type="video/mp4" />
+        </video>
+        {/* Gradient overlays */}
         <div aria-hidden className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         <div
           aria-hidden
