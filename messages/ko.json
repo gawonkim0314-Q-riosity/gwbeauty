@@ -242,6 +242,26 @@
     "success": "구독해 주셔서 감사합니다 ✓",
     "privacy": "언제든지 구독을 취소할 수 있습니다. 개인정보는 뉴스레터 발송 이외의 목적에 사용되지 않습니다."
   },
+  "about": {
+    "heroEyebrow": "About Us",
+    "heroTitle": "GW Beauty",
+    "heroTitleAccent": "Medical Team",
+    "heroBody": "의학적 전문성과 예술적 감각을 겸비한 GW Beauty 의료진을 소개합니다. 환자 중심의 진료 철학으로 신뢰받는 아름다움을 만들어 갑니다.",
+    "teamEyebrow": "Medical Team",
+    "teamTitle": "의료진",
+    "teamTitleAccent": "소개",
+    "leadLabel": "대표원장",
+    "educationLabel": "학력",
+    "careerLabel": "경력",
+    "papersLabel": "논문 · 연구",
+    "liveSurgeryLabel": "라이브 서저리",
+    "certificationsLabel": "자격 · 인증",
+    "specialistsEyebrow": "Our Specialists",
+    "specialistsTitle": "소속",
+    "specialistsTitleAccent": "의료진",
+    "viewProfile": "프로필 보기",
+    "tagline": "해부학적 비율과 개인의 아름다움을 존중하는 섬세한 수술 철학"
+  },
   "footer": {
     "addressLabel": "Address",
     "contactsLabel": "Contacts",

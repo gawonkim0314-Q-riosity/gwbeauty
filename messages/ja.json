@@ -242,6 +242,26 @@
     "success": "ご購読ありがとうございます ✓",
     "privacy": "いつでも購読を解除できます。個人情報はニュースレター配信以外の目的に使用されません。"
   },
+  "about": {
+    "heroEyebrow": "About Us",
+    "heroTitle": "GW Beauty",
+    "heroTitleAccent": "医療チーム",
+    "heroBody": "医学的専門性と芸術的センスを兼ね備えたGW Beauty医療チームをご紹介します。患者中心の診療哲学で信頼される美しさをお届けします。",
+    "teamEyebrow": "Medical Team",
+    "teamTitle": "医療チーム",
+    "teamTitleAccent": "紹介",
+    "leadLabel": "院長",
+    "educationLabel": "学歴",
+    "careerLabel": "経歴",
+    "papersLabel": "論文 · 研究",
+    "liveSurgeryLabel": "ライブサージェリー",
+    "certificationsLabel": "資格 · 認証",
+    "specialistsEyebrow": "専門医",
+    "specialistsTitle": "所属",
+    "specialistsTitleAccent": "医療チーム",
+    "viewProfile": "プロフィールを見る",
+    "tagline": "解剖学的比率と個人の美しさを尊重する繊細な手術哲学"
+  },
   "footer": {
     "addressLabel": "住所",
     "contactsLabel": "連絡先",

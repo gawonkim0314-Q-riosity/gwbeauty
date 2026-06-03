@@ -242,6 +242,26 @@
     "success": "感谢您的订阅 ✓",
     "privacy": "您可以随时取消订阅。您的个人信息不会用于新闻通讯发送以外的目的。"
   },
+  "about": {
+    "heroEyebrow": "关于我们",
+    "heroTitle": "GW Beauty",
+    "heroTitleAccent": "医疗团队",
+    "heroBody": "向您介绍兼具医学专业性与艺术感的GW Beauty医疗团队。以患者为中心的诊疗理念，打造值得信赖的美丽。",
+    "teamEyebrow": "医疗团队",
+    "teamTitle": "医疗团队",
+    "teamTitleAccent": "介绍",
+    "leadLabel": "院长",
+    "educationLabel": "学历",
+    "careerLabel": "经历",
+    "papersLabel": "论文 · 研究",
+    "liveSurgeryLabel": "手术直播",
+    "certificationsLabel": "资格 · 认证",
+    "specialistsEyebrow": "我们的专家",
+    "specialistsTitle": "所属",
+    "specialistsTitleAccent": "医疗团队",
+    "viewProfile": "查看简介",
+    "tagline": "尊重解剖学比例与个人美感的精细手术理念"
+  },
   "footer": {
     "addressLabel": "地址",
     "contactsLabel": "联系方式",

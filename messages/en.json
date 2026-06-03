@@ -242,6 +242,26 @@
     "success": "Thank you for subscribing ✓",
     "privacy": "You can unsubscribe at any time. Your personal information will not be used for purposes other than newsletter delivery."
   },
+  "about": {
+    "heroEyebrow": "About Us",
+    "heroTitle": "GW Beauty",
+    "heroTitleAccent": "Medical Team",
+    "heroBody": "Meet the GW Beauty medical team, combining medical expertise with artistic sensibility. We create trusted beauty through patient-centered care.",
+    "teamEyebrow": "Medical Team",
+    "teamTitle": "Meet Our",
+    "teamTitleAccent": "Doctors",
+    "leadLabel": "Director",
+    "educationLabel": "Education",
+    "careerLabel": "Career",
+    "papersLabel": "Papers & Research",
+    "liveSurgeryLabel": "Live Surgery",
+    "certificationsLabel": "Certifications",
+    "specialistsEyebrow": "Our Specialists",
+    "specialistsTitle": "Our",
+    "specialistsTitleAccent": "Medical Team",
+    "viewProfile": "View Profile",
+    "tagline": "A refined surgical philosophy that respects anatomical proportions and individual beauty"
+  },
   "footer": {
     "addressLabel": "Address",
     "contactsLabel": "Contacts",
