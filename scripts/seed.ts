@@ -1,3 +1,24 @@
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+// Load DATABASE_URL from .env or .env.local
+function loadEnv() {
+  for (const file of [".env", ".env.local"]) {
+    try {
+      const content = readFileSync(resolve(process.cwd(), file), "utf8");
+      for (const line of content.split("\n")) {
+        const match = line.match(/^([^#=]+)=(.*)$/);
+        if (match) {
+          const key = match[1].trim();
+          const val = match[2].trim().replace(/^"|"$/g, "");
+          if (!process.env[key]) process.env[key] = val;
+        }
+      }
+    } catch {}
+  }
+}
+loadEnv();
+
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "../src/db/schema";
