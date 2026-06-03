@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { siteConfig } from "@/lib/site-config";
+import { FaTimes } from "react-icons/fa";
 
 const LOCALES = [
   { code: "ko", label: "한국어" },
@@ -34,6 +35,7 @@ export function Header() {
   const [langOpen, setLangOpen] = useState(false);
   const [homeOpen, setHomeOpen] = useState(false);
   const [mobileHomeOpen, setMobileHomeOpen] = useState(false);
+  const [announcementVisible, setAnnouncementVisible] = useState(true);
 
   const homeDropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
@@ -85,20 +87,32 @@ export function Header() {
   };
 
   return (
-    <>
+    <div className="sticky top-0 z-40">
       {/* Announcement bar */}
-      <div
-        className="relative z-50 py-2 text-center text-[0.65rem] font-semibold tracking-[0.2em] text-white uppercase"
-        style={{ background: "var(--gradient-btn)" }}
-      >
-        {t("announcement")}&ensp;·&ensp;
-        <Link href="/inquire" className="underline underline-offset-2 hover:opacity-80">
-          {t("announcementLink")}
-        </Link>
-      </div>
+      {announcementVisible && (
+        <div
+          className="relative flex items-center justify-center py-2 text-center text-[0.65rem] font-semibold tracking-[0.2em] text-white uppercase"
+          style={{ background: "var(--gradient-btn)" }}
+        >
+          <span>
+            {t("announcement")}&ensp;·&ensp;
+            <Link href="/inquire" className="underline underline-offset-2 hover:opacity-80">
+              {t("announcementLink")}
+            </Link>
+          </span>
+          <button
+            type="button"
+            aria-label="Close announcement"
+            onClick={() => setAnnouncementVisible(false)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100"
+          >
+            <FaTimes size={10} color="white" />
+          </button>
+        </div>
+      )}
 
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
+        className={`transition-all duration-300 ${
           scrolled
             ? "bg-white/95 backdrop-blur-md shadow-[0_2px_24px_rgba(139,100,200,0.12)]"
             : "bg-white/70 backdrop-blur-sm"
@@ -335,6 +349,6 @@ export function Header() {
           </div>
         )}
       </header>
-    </>
+    </div>
   );
 }
