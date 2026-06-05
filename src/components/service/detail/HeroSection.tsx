@@ -30,14 +30,14 @@ interface Props {
 export function HeroSection({ service, detail, locale }: Props) {
   const objectPosition = CATEGORY_OBJECT_POSITION[service.category] ?? "center 20%";
   const title =
-    detail?.heroTitle ??
+    detail?.heroTitle?.trim() ||
     (locale !== "ko" && service.titleEn ? service.titleEn : service.title);
   const subtitle =
-    detail?.heroSubtitle ??
+    detail?.heroSubtitle?.trim() ||
     (locale !== "ko" && service.descriptionEn
       ? service.descriptionEn
       : service.description ?? "");
-  const imageUrl = detail?.heroImageUrl ?? service.imageUrl;
+  const imageUrl = detail?.heroImageUrl?.trim() || service.imageUrl;
   const accent = CATEGORY_COLORS[service.category] ?? "#8B64C8";
   const catLabel =
     CATEGORY_LABELS[service.category]?.[locale] ??

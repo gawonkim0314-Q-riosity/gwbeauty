@@ -22,7 +22,8 @@
     "db:add-long-images-col": "node scripts/add-detail-long-images-column.mjs",
     "db:migrate-long-images": "node scripts/migrate-long-detail-images.mjs",
     "db:gen-long-slides": "node scripts/generate-long-detail-slides.mjs",
-    "download:long-slides": "node scripts/download-long-slides-zip.mjs"
+    "download:long-slides": "node scripts/download-long-slides-zip.mjs",
+    "db:seed-hero-1-4": "node scripts/seed-hero-1-4.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
