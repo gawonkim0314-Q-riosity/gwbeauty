@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { Service } from "@/db/schema";
 
 interface ServiceCardProps {
@@ -68,6 +69,7 @@ const CONSULT_LABEL: Record<string, string> = {
 };
 
 export function ServiceCard({ service, locale }: ServiceCardProps) {
+  const detailHref = `/${locale}/service/${service.id}`;
   const lang = locale as string;
   const title =
     locale !== "ko" && service.titleEn ? service.titleEn : service.title;
@@ -222,17 +224,26 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
                 ))}
               </div>
             )}
-            <button
-              className="flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold text-white transition-opacity hover:opacity-90 active:scale-95"
-              style={{ background: "var(--gradient-btn)" }}
-              onClick={() => {
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              {consultLabel}
-            </button>
+            <div className="flex gap-2 flex-shrink-0">
+              <Link
+                href={detailHref}
+                className="px-3 py-2 rounded-full text-xs font-semibold border border-white/30 text-white/80 hover:bg-white/10 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {locale === "en" ? "Details" : locale === "zh" ? "详情" : locale === "ja" ? "詳細" : "자세히"}
+              </Link>
+              <button
+                className="flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold text-white transition-opacity hover:opacity-90 active:scale-95"
+                style={{ background: "var(--gradient-btn)" }}
+                onClick={() => {
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                {consultLabel}
+              </button>
+            </div>
           </div>
         </div>
       </div>

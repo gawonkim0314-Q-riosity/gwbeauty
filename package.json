@@ -12,7 +12,17 @@
     "db:push": "drizzle-kit push",
     "db:seed": "npx tsx scripts/seed.ts",
     "db:studio": "drizzle-kit studio",
-    "db:seed-images": "node scripts/seed-service-images.mjs"
+    "db:seed-images": "node scripts/seed-service-images.mjs",
+    "db:gen-details": "node scripts/generate-service-details.mjs",
+    "db:gen-embeddings": "node scripts/generate-embeddings.mjs",
+    "db:gen-gw-banners": "node scripts/generate-gw-detail-banners.mjs",
+    "db:gen-card-images": "node scripts/generate-card-images.mjs",
+    "db:gen-ba-images": "node scripts/generate-before-after-images.mjs",
+    "db:seed-detail-pages": "node scripts/seed-service-detail-pages.mjs",
+    "db:add-long-images-col": "node scripts/add-detail-long-images-column.mjs",
+    "db:migrate-long-images": "node scripts/migrate-long-detail-images.mjs",
+    "db:gen-long-slides": "node scripts/generate-long-detail-slides.mjs",
+    "download:long-slides": "node scripts/download-long-slides-zip.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

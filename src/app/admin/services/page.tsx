@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   useAllServices,
   useCreateService,
@@ -11,7 +12,7 @@ import { useUpload } from "@/hooks/use-upload";
 import { AdminTable } from "@/components/admin/AdminTable";
 import { AdminModal } from "@/components/admin/AdminModal";
 import type { Service } from "@/db/schema";
-import { MdAdd, MdCloudUpload, MdClose, MdImage } from "react-icons/md";
+import { MdAdd, MdCloudUpload, MdClose, MdImage, MdEdit } from "react-icons/md";
 
 const CATEGORIES = [
   { value: "eye", label: "눈 성형" },
@@ -61,6 +62,7 @@ const defaultForm: ServiceForm = {
 };
 
 export default function AdminServicesPage() {
+  const router = useRouter();
   const { data: services = [], isLoading } = useAllServices();
   const createService = useCreateService();
   const updateService = useUpdateService();
@@ -196,6 +198,20 @@ export default function AdminServicesPage() {
         >
           {s.isActive ? "활성" : "비활성"}
         </span>
+      ),
+    },
+    {
+      key: "detail",
+      header: "상세편집",
+      width: "80px",
+      render: (s: Service) => (
+        <button
+          onClick={() => router.push(`/admin/services/${s.id}`)}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium text-[#8B64C8] border hover:bg-[#F0EBF8] transition-colors"
+          style={{ borderColor: "#8B64C8" }}
+        >
+          <MdEdit size={12} /> 편집
+        </button>
       ),
     },
   ];
