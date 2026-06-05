@@ -135,7 +135,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
         {categoryLabel}
       </span>
 
-      {/* ── Default title + price strip (fades out on hover) ── */}
+      {/* ── Default title + price + CTA (항상 표시 — 모바일/배포에서 호버 없음) ── */}
       <div
         className="absolute bottom-0 left-0 right-0 p-5 z-10
                     transition-all duration-300 group-hover:opacity-0 group-hover:pointer-events-none"
@@ -143,7 +143,27 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
         <h3 className="font-display text-lg font-semibold text-white leading-snug mb-1">
           {title}
         </h3>
-        <p className="text-xs text-white/50">{service.price}</p>
+        <p className="text-xs text-white/50 mb-3">{service.price}</p>
+        <div className="flex gap-2">
+          <Link
+            href={detailHref}
+            className="px-4 py-2 rounded-full text-xs font-semibold border border-white/40 text-white hover:bg-white/15 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {locale === "en" ? "Learn More" : locale === "zh" ? "了解更多" : locale === "ja" ? "詳しく見る" : "자세히 보기"}
+          </Link>
+          <button
+            type="button"
+            className="px-4 py-2 rounded-full text-xs font-bold text-white transition-opacity hover:opacity-90"
+            style={{ background: "var(--gradient-btn)" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            {consultLabel}
+          </button>
+        </div>
       </div>
 
       {/* ── Full-card hover overlay ── */}
@@ -230,7 +250,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
                 className="px-3 py-2 rounded-full text-xs font-semibold border border-white/30 text-white/80 hover:bg-white/10 transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
-                {locale === "en" ? "Details" : locale === "zh" ? "详情" : locale === "ja" ? "詳細" : "자세히"}
+                {locale === "en" ? "Learn More" : locale === "zh" ? "了解更多" : locale === "ja" ? "詳しく見る" : "자세히 보기"}
               </Link>
               <button
                 className="flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold text-white transition-opacity hover:opacity-90 active:scale-95"
