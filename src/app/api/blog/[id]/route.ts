@@ -1,17 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
-import { blogPosts } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import {
+  deleteBlogPost,
+  getBlogPostById,
+  updateBlogPost,
+} from "@/db/queries";
 
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const [post] = await db
-    .select()
-    .from(blogPosts)
-    .where(eq(blogPosts.id, Number(id)));
+  const post = await getBlogPostById(Number(id));
   if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(post);
 }
@@ -23,11 +22,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const [updated] = await db
-      .update(blogPosts)
-      .set({ ...body, updatedAt: new Date() })
-      .where(eq(blogPosts.id, Number(id)))
-      .returning();
+    const updated = await updateBlogPost(Number(id), body);
     if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(updated);
   } catch (error) {
@@ -42,7 +37,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    await db.delete(blogPosts).where(eq(blogPosts.id, Number(id)));
+    await deleteBlogPost(Number(id));
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[DELETE /api/blog/[id]]", error);

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
-import { inquiries } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { deleteInquiry, updateInquiry } from "@/db/queries";
 
 export async function PUT(
   request: NextRequest,
@@ -10,11 +8,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const [updated] = await db
-      .update(inquiries)
-      .set({ ...body, updatedAt: new Date() })
-      .where(eq(inquiries.id, Number(id)))
-      .returning();
+    const updated = await updateInquiry(Number(id), body);
     if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(updated);
   } catch (error) {
@@ -29,7 +23,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    await db.delete(inquiries).where(eq(inquiries.id, Number(id)));
+    await deleteInquiry(Number(id));
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[DELETE /api/inquiries/[id]]", error);

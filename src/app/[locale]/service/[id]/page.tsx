@@ -1,8 +1,10 @@
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { db } from "@/db";
-import { services, serviceDetailPages } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
+import {
+  getActiveServiceById,
+  getPublishedDetailPage,
+  getServiceTitleMeta,
+} from "@/db/queries";
 import { HeroSection } from "@/components/service/detail/HeroSection";
 import { SurgeryInfoBar } from "@/components/service/detail/SurgeryInfoBar";
 import { RecommendedForSection } from "@/components/service/detail/RecommendedForSection";
@@ -21,45 +23,9 @@ type Props = {
   params: Promise<{ locale: string; id: string }>;
 };
 
-async function getPublishedDetail(serviceId: number, locale: string) {
-  const [localeDetail] = await db
-    .select()
-    .from(serviceDetailPages)
-    .where(
-      and(
-        eq(serviceDetailPages.serviceId, serviceId),
-        eq(serviceDetailPages.locale, locale)
-      )
-    )
-    .limit(1);
-
-  if (localeDetail?.status === "published") return localeDetail;
-
-  if (locale !== "ko") {
-    const [koDetail] = await db
-      .select()
-      .from(serviceDetailPages)
-      .where(
-        and(
-          eq(serviceDetailPages.serviceId, serviceId),
-          eq(serviceDetailPages.locale, "ko"),
-          eq(serviceDetailPages.status, "published")
-        )
-      )
-      .limit(1);
-    return koDetail ?? null;
-  }
-
-  return null;
-}
-
 export async function generateMetadata({ params }: Props) {
   const { locale, id } = await params;
-  const [service] = await db
-    .select({ title: services.title, titleEn: services.titleEn, description: services.description })
-    .from(services)
-    .where(eq(services.id, Number(id)))
-    .limit(1);
+  const service = await getServiceTitleMeta(Number(id));
 
   if (!service) return {};
   const title = locale !== "ko" && service.titleEn ? service.titleEn : service.title;
@@ -76,15 +42,10 @@ export default async function ServiceDetailPage({ params }: Props) {
   const serviceId = Number(id);
   if (isNaN(serviceId)) notFound();
 
-  const [service] = await db
-    .select()
-    .from(services)
-    .where(and(eq(services.id, serviceId), eq(services.isActive, true)))
-    .limit(1);
-
+  const service = await getActiveServiceById(serviceId);
   if (!service) notFound();
 
-  const publishedDetail = await getPublishedDetail(serviceId, locale);
+  const publishedDetail = await getPublishedDetailPage(serviceId, locale);
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">

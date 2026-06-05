@@ -12,8 +12,12 @@ import { useUpload } from "@/hooks/use-upload";
 import type { Service, ServiceDetailPage } from "@/db/schema";
 import {
   MdArrowBack, MdSave, MdPublish, MdCloudUpload, MdAdd, MdDelete,
-  MdVisibility, MdVisibilityOff,
+  MdVisibility, MdVisibilityOff, MdTranslate,
 } from "react-icons/md";
+import {
+  extractTranslatableContent,
+  applyTranslationToForm,
+} from "@/lib/detail-translate";
 
 type Locale = "ko" | "en" | "zh" | "ja";
 const LOCALES: { value: Locale; label: string }[] = [
@@ -151,6 +155,8 @@ export default function AdminServiceDetailPage({
   const [saveStatus, setSaveStatus] = useState<Record<Locale, string>>({
     ko: "", en: "", zh: "", ja: "",
   });
+  const [translating, setTranslating] = useState(false);
+  const [translateError, setTranslateError] = useState("");
 
   const { data: service } = useQuery<Service>({
     queryKey: ["service", serviceId],
@@ -161,6 +167,7 @@ export default function AdminServiceDetailPage({
   });
 
   const { data: detailData } = useServiceDetail(serviceId, locale);
+  const { data: koDetailData } = useServiceDetail(serviceId, "ko");
 
   useEffect(() => {
     if (detailData) {
@@ -205,6 +212,57 @@ export default function AdminServiceDetailPage({
     if (!file) return;
     const url = await upload.uploadFile(file, "services/hero");
     if (url) setForm({ heroImageUrl: url });
+  };
+
+  const getKoSourceForm = (): DetailForm => {
+    const fromState = forms.ko;
+    const hasKoText =
+      fromState.heroTitle.trim() ||
+      fromState.heroSubtitle.trim() ||
+      fromState.detailCards.some((c) => c.title.trim() || c.description.trim());
+    if (hasKoText) return fromState;
+    if (koDetailData) return detailToForm(koDetailData);
+    return fromState;
+  };
+
+  const handleTranslateFromKo = async () => {
+    if (locale === "ko") return;
+    setTranslating(true);
+    setTranslateError("");
+    try {
+      const koForm = getKoSourceForm();
+      const content = extractTranslatableContent(koForm);
+      const hasSource =
+        content.heroTitle ||
+        content.heroSubtitle ||
+        content.detailCards.some((c) => c.title || c.description);
+      if (!hasSource) {
+        throw new Error("한국어 탭에 먼저 내용을 입력하거나 저장해 주세요.");
+      }
+
+      const res = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetLocale: locale, content }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "번역에 실패했습니다.");
+
+      const merged = applyTranslationToForm(koForm, data) as DetailForm;
+      setForms((prev) => ({ ...prev, [locale]: merged }));
+      setSaveStatus((prev) => ({
+        ...prev,
+        [locale]: "AI 번역 완료 — 확인 후 발행하세요",
+      }));
+      setTimeout(
+        () => setSaveStatus((prev) => ({ ...prev, [locale]: "" })),
+        5000
+      );
+    } catch (e) {
+      setTranslateError(e instanceof Error ? e.message : "번역에 실패했습니다.");
+    } finally {
+      setTranslating(false);
+    }
   };
 
   const handleCardImageUpload = async (idx: number, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -284,6 +342,33 @@ export default function AdminServiceDetailPage({
           </button>
         ))}
       </div>
+
+      {locale !== "ko" && (
+        <div
+          className="mb-6 p-4 rounded-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+          style={{ background: "#F9F7FD", border: "1px solid #EDE8F5" }}
+        >
+          <div>
+            <p className="text-sm font-semibold text-[#2D1B4E]">AI 번역</p>
+            <p className="text-xs text-[#A895C0] mt-1">
+              한국어 탭의 텍스트를 기준으로 {LOCALES.find((l) => l.value === locale)?.label} 초안을 채웁니다. 이미지·URL은 한국어와 동일하게 유지됩니다.
+            </p>
+            {translateError && (
+              <p className="text-xs text-red-500 mt-2">{translateError}</p>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={handleTranslateFromKo}
+            disabled={translating}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-50 shrink-0"
+            style={{ background: "linear-gradient(135deg, #8B64C8 0%, #E8748A 100%)" }}
+          >
+            <MdTranslate size={18} />
+            {translating ? "번역 중..." : "한국어에서 번역"}
+          </button>
+        </div>
+      )}
 
       <div className="space-y-6">
         {/* Hero Section */}
