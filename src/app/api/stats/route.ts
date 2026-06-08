@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getDashboardStats } from "@/db/queries";
+import { requireStaff } from "@/lib/auth/server-auth";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const stats = await getDashboardStats();
     return NextResponse.json(stats);

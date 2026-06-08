@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, listBlogPosts } from "@/db/queries";
+import { requireStaff } from "@/lib/auth/server-auth";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const all = searchParams.get("all") === "true";
+    if (all) {
+      const { error } = await requireStaff(request);
+      if (error) return error;
+    }
     const data = await listBlogPosts(!all);
     return NextResponse.json(data);
   } catch (error) {
@@ -14,6 +19,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const body = await request.json();
     const slug =

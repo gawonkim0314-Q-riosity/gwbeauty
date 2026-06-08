@@ -68,7 +68,8 @@ scripts/*.mjs                 # 일회성 마이그레이션·시드
 ```text
 Firebase 로그인 → ID Token → POST /api/auth/sync → UPSERT public.users  ✅
 role: member | editor | admin
-/admin/* → role in (editor, admin) 필요  (미구현 — 다음 단계)
+/admin/* → editor|admin (UI + API)  ✅
+/admin/users → admin only  ✅
 ```
 
 `schema.md`·`auth.md`의 sync 섹션은 Implemented 상태.
@@ -111,7 +112,7 @@ role: member | editor | admin
 |------|------|
 | `DATABASE_URL` | Neon (서버만, Vercel) |
 | `NEXT_PUBLIC_FIREBASE_*` ×6 | 클라이언트 + 서버 JWT 검증 (`verify-id-token.ts`, `jose`) |
-| `FIREBASE_SERVICE_ACCOUNT_*` | (선택) Admin SDK — 현재 REST lookup 사용 |
+| `ADMIN_BOOTSTRAP_EMAILS` | (선택) 최초 admin 자동 부여 (쉼표 구분) |
 
 로컬: `.env.local`에 `DATABASE_URL` + Firebase 6개.
 

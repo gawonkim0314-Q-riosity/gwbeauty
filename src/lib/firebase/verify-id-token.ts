@@ -13,6 +13,14 @@ const FIREBASE_JWKS = createRemoteJWKSet(
   )
 );
 
+function getFirebaseIdentityEmail(payload: Record<string, unknown>): string | null {
+  const firebase = payload.firebase;
+  if (!firebase || typeof firebase !== "object") return null;
+  const identities = (firebase as { identities?: Record<string, string[]> }).identities;
+  const fromIdentities = identities?.email?.[0];
+  return typeof fromIdentities === "string" ? fromIdentities : null;
+}
+
 /**
  * Firebase ID Token JWT 검증 (서버/Vercel에서 동작, API key 제한과 무관)
  */
@@ -35,9 +43,7 @@ export async function verifyFirebaseIdToken(
     const email =
       typeof payload.email === "string"
         ? payload.email
-        : typeof payload.firebase?.identities?.email?.[0] === "string"
-          ? payload.firebase.identities.email[0]
-          : null;
+        : getFirebaseIdentityEmail(payload);
 
     if (!firebaseUid || !email) {
       console.error("[verifyFirebaseIdToken] token missing sub or email");

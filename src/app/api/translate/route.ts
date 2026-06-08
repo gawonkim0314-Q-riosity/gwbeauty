@@ -4,6 +4,7 @@ import {
   type TranslatableDetailContent,
   LOCALE_NAMES,
 } from "@/lib/detail-translate";
+import { requireStaff } from "@/lib/auth/server-auth";
 
 const TARGET_LOCALES = ["en", "zh", "ja"] as const;
 
@@ -20,6 +21,9 @@ Rules:
 - Return ONLY valid JSON matching the input schema.`;
 
 export async function POST(request: NextRequest) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const apiKey = process.env.OPEN_API_SECRET_KEY;
     if (!apiKey) {

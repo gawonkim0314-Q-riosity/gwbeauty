@@ -83,10 +83,10 @@ export default function AdminDashboard() {
         <h2 className="text-base font-semibold text-[#2D1B4E] mb-4">빠른 작업</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { href: "/admin/services", label: "시술 추가", color: "#8B64C8" },
+            { href: "/admin/services", label: "시술 관리", color: "#8B64C8" },
             { href: "/admin/blog", label: "포스트 작성", color: "#E8748A" },
             { href: "/admin/inquiries", label: "문의 확인", color: "#A87AD4" },
-            { href: "/admin/maintenance", label: "유지관리", color: "#D4547A" },
+            { href: "/admin/users", label: "사용자 관리", color: "#D4547A" },
           ].map(({ href, label, color }) => (
             <a
               key={href}
@@ -98,17 +98,6 @@ export default function AdminDashboard() {
             </a>
           ))}
         </div>
-      </div>
-
-      {/* Info Notice */}
-      <div
-        className="mt-6 rounded-2xl p-5"
-        style={{ background: "#FFF8F0", border: "1px solid #FFD9A0" }}
-      >
-        <p className="text-sm text-[#6B4C1A] font-medium mb-1">⚠️ 인증 미적용 상태</p>
-        <p className="text-xs text-[#8B6030]">
-          현재 관리자 페이지는 로그인 없이 접근 가능합니다. 추후 RBAC 기반 인증이 적용될 예정입니다.
-        </p>
       </div>
     </div>
   );

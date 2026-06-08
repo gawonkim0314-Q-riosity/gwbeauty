@@ -4,6 +4,7 @@ import {
   getDetailPage,
   upsertDetailPage,
 } from "@/db/queries";
+import { requireStaff } from "@/lib/auth/server-auth";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -24,6 +25,9 @@ export async function GET(request: NextRequest, { params }: Params) {
 }
 
 export async function POST(request: NextRequest, { params }: Params) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -36,6 +40,9 @@ export async function POST(request: NextRequest, { params }: Params) {
 }
 
 export async function PUT(request: NextRequest, { params }: Params) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const { id } = await params;
     const body = await request.json();

@@ -4,6 +4,7 @@ import {
   getServiceById,
   updateService,
 } from "@/db/queries";
+import { requireStaff } from "@/lib/auth/server-auth";
 
 export async function GET(
   _req: NextRequest,
@@ -19,6 +20,9 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -35,6 +39,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -48,9 +55,12 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  _req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   try {
     const { id } = await params;
     await deleteService(Number(id));

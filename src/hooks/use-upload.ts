@@ -2,6 +2,7 @@
 
 import { upload } from "@vercel/blob/client";
 import { useState, useCallback } from "react";
+import { getAdminAuthHeaders } from "@/lib/auth/admin-fetch";
 
 export type UploadState = "idle" | "uploading" | "done" | "error";
 
@@ -37,9 +38,12 @@ export function useUpload(): UseUploadResult {
       try {
         const pathname = `${folder}/${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
 
+        const authHeaders = await getAdminAuthHeaders();
+
         const blob = await upload(pathname, file, {
           access: "public",
           handleUploadUrl: "/api/upload",
+          headers: authHeaders,
           onUploadProgress: ({ percentage }) => {
             setProgress(Math.round(percentage));
           },

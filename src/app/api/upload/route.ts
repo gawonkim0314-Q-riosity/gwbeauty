@@ -11,6 +11,7 @@
 
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextRequest, NextResponse } from "next/server";
+import { requireStaff } from "@/lib/auth/server-auth";
 
 const ALLOWED_CONTENT_TYPES = [
   "image/jpeg",
@@ -23,6 +24,9 @@ const ALLOWED_CONTENT_TYPES = [
 ];
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  const { error } = await requireStaff(request);
+  if (error) return error;
+
   const body = (await request.json()) as HandleUploadBody;
 
   try {

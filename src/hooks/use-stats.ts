@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { adminFetch } from "@/lib/auth/admin-fetch";
 
 interface Stats {
   services: number;
@@ -11,7 +12,7 @@ export function useStats() {
   return useQuery<Stats>({
     queryKey: ["stats"],
     queryFn: async () => {
-      const res = await fetch("/api/stats");
+      const res = await adminFetch("/api/stats");
       if (!res.ok) throw new Error("Failed to fetch stats");
       return res.json();
     },

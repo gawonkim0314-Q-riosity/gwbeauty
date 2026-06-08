@@ -18,6 +18,7 @@ import {
   extractTranslatableContent,
   applyTranslationToForm,
 } from "@/lib/detail-translate";
+import { adminFetch } from "@/lib/auth/admin-fetch";
 
 type Locale = "ko" | "en" | "zh" | "ja";
 const LOCALES: { value: Locale; label: string }[] = [
@@ -240,7 +241,7 @@ export default function AdminServiceDetailPage({
         throw new Error("한국어 탭에 먼저 내용을 입력하거나 저장해 주세요.");
       }
 
-      const res = await fetch("/api/translate", {
+      const res = await adminFetch("/api/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ targetLocale: locale, content }),

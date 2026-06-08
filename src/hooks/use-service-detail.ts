@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { ServiceDetailPage } from "@/db/schema";
+import { adminFetch } from "@/lib/auth/admin-fetch";
 
 type DetailPayload = Partial<Omit<ServiceDetailPage, "id" | "createdAt" | "updatedAt">>;
 
@@ -42,7 +43,7 @@ async function upsertDetail(
   serviceId: number,
   data: DetailPayload
 ): Promise<ServiceDetailPage> {
-  const res = await fetch(`/api/services/${serviceId}/detail`, {
+  const res = await adminFetch(`/api/services/${serviceId}/detail`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -68,7 +69,7 @@ export function useToggleServiceActive(serviceId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (isActive: boolean) => {
-      const res = await fetch(`/api/services/${serviceId}`, {
+      const res = await adminFetch(`/api/services/${serviceId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isActive }),

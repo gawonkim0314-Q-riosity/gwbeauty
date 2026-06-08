@@ -82,11 +82,24 @@ app/layout.tsx
 
 ## Admin / RBAC
 
-| Area | Current | Planned |
-|------|---------|---------|
-| `/admin/*` | **인증 없음** (공개) | Firebase token + `users.role` |
-| Roles | Neon `users.role` | member, editor, admin |
-| Sync API | **`POST /api/auth/sync`** ✅ | — |
+| Area | Status |
+|------|--------|
+| `/admin/*` | Firebase 로그인 + Neon `users.role` (editor \| admin) |
+| `member` | 관리자 패널 접근 불가 |
+| `editor` | 시술·블로그·문의 관리 |
+| `admin` | editor + `/admin/users`, `/admin/system/*` |
+| Sync API | `POST /api/auth/sync` ✅ |
+| Session API | `GET /api/auth/me` ✅ |
+| User mgmt API | `GET/PATCH /api/admin/users` (admin only) ✅ |
+
+**페이지 구조**
+
+- `/admin` — 대시보드
+- `/admin/services`, `/admin/blog`, `/admin/inquiries` — 콘텐츠 (editor+)
+- `/admin/users` — 사용자 권한 (admin)
+- `/admin/system/database`, `/admin/system/environment` — 시스템 (admin)
+
+**API 보안:** POST/PUT/PATCH/DELETE 및 admin GET은 `requireStaff` / `requireAdmin` 적용.
 
 ---
 

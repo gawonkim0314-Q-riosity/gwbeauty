@@ -1,16 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Inquiry } from "@/db/schema";
+import { adminFetch } from "@/lib/auth/admin-fetch";
 
 const INQUIRIES_KEY = ["inquiries"] as const;
 
 async function fetchInquiries(): Promise<Inquiry[]> {
-  const res = await fetch("/api/inquiries");
+  const res = await adminFetch("/api/inquiries");
   if (!res.ok) throw new Error("Failed to fetch inquiries");
   return res.json();
 }
 
 async function updateInquiry(id: number, data: Partial<Inquiry>): Promise<Inquiry> {
-  const res = await fetch(`/api/inquiries/${id}`, {
+  const res = await adminFetch(`/api/inquiries/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -20,7 +21,7 @@ async function updateInquiry(id: number, data: Partial<Inquiry>): Promise<Inquir
 }
 
 async function deleteInquiry(id: number): Promise<void> {
-  const res = await fetch(`/api/inquiries/${id}`, { method: "DELETE" });
+  const res = await adminFetch(`/api/inquiries/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete inquiry");
 }
 

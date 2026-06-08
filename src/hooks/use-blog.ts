@@ -1,16 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { BlogPost, NewBlogPost } from "@/db/schema";
+import { adminFetch } from "@/lib/auth/admin-fetch";
 
 const BLOG_KEY = ["blog"] as const;
 
 async function fetchPosts(all = false): Promise<BlogPost[]> {
-  const res = await fetch(all ? "/api/blog?all=true" : "/api/blog");
+  const res = all
+    ? await adminFetch("/api/blog?all=true")
+    : await fetch("/api/blog");
   if (!res.ok) throw new Error("Failed to fetch posts");
   return res.json();
 }
 
 async function createPost(data: Omit<NewBlogPost, "id">): Promise<BlogPost> {
-  const res = await fetch("/api/blog", {
+  const res = await adminFetch("/api/blog", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -20,7 +23,7 @@ async function createPost(data: Omit<NewBlogPost, "id">): Promise<BlogPost> {
 }
 
 async function updatePost(id: number, data: Partial<BlogPost>): Promise<BlogPost> {
-  const res = await fetch(`/api/blog/${id}`, {
+  const res = await adminFetch(`/api/blog/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -30,7 +33,7 @@ async function updatePost(id: number, data: Partial<BlogPost>): Promise<BlogPost
 }
 
 async function deletePost(id: number): Promise<void> {
-  const res = await fetch(`/api/blog/${id}`, { method: "DELETE" });
+  const res = await adminFetch(`/api/blog/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete post");
 }
 
