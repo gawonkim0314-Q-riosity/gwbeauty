@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { FaTimes } from "react-icons/fa";
+import { AuthControls } from "@/components/auth/AuthControls";
 
 const LOCALES = [
   { code: "ko", label: "한국어" },
@@ -200,8 +201,10 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Right: language switcher + phone + CTA */}
+          {/* Right: auth + language switcher + phone + CTA */}
           <div className="hidden items-center gap-4 md:flex">
+            <AuthControls />
+
             {/* Language switcher */}
             <div className="relative" ref={langDropdownRef}>
               <button
@@ -247,8 +250,10 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile burger */}
-          <button
+          {/* Mobile: auth + burger */}
+          <div className="flex items-center gap-2 md:hidden">
+            <AuthControls compact />
+            <button
             type="button"
             aria-label={t("menuOpen")}
             className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
@@ -265,6 +270,7 @@ export function Header() {
               />
             ))}
           </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -321,6 +327,10 @@ export function Header() {
                   {tNav(item.labelKey)}
                 </Link>
               ))}
+
+              <div className="mt-4">
+                <AuthControls fullWidth />
+              </div>
 
               {/* Mobile language switcher */}
               <div className="mt-4 flex gap-3">
