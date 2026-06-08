@@ -158,6 +158,12 @@ export const inquiries = pgTable("inquiries", {
   message: text("message"),
   locale: text("locale").default("ko"),
   status: text("status").default("pending"), // pending | contacted | completed | cancelled
+  /** 관리자 이메일 답변 내용 */
+  adminReply: text("admin_reply"),
+  /** 관리자 내부 메모 (고객에게 전송되지 않음) */
+  adminNotes: text("admin_notes"),
+  /** 이메일 답변 발송 시각 */
+  repliedAt: timestamp("replied_at"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

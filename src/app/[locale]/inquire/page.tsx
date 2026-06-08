@@ -1,5 +1,5 @@
-import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { InquiryForm } from "@/components/inquire/InquiryForm";
 import { siteConfig } from "@/lib/site-config";
 
 export default async function InquirePage({
@@ -9,17 +9,29 @@ export default async function InquirePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("consultation");
+
   return (
-    <section className="section-container py-32">
-      <p className="eyebrow">Inquire</p>
-      <h1 className="section-title mt-4">상담 문의</h1>
-      <p className="mt-6 max-w-xl text-sm leading-relaxed text-[var(--text-2)]">
-        상담 예약 폼은 다음 단계에서 구성합니다. 우선 전화로 문의해 주세요.
-      </p>
-      <p className="mt-4 text-lg font-semibold text-[var(--text)]">{siteConfig.phone}</p>
-      <Link href="/" className="mt-8 inline-flex text-sm text-[var(--pink)] hover:underline">
-        메인으로 돌아가기
-      </Link>
+    <section className="section-container py-24 md:py-32">
+      <div className="max-w-3xl mx-auto">
+        <p className="eyebrow">{t("eyebrow")}</p>
+        <h1 className="section-title mt-4">
+          {t("title")} <span className="accent">{t("titleAccent")}</span>
+        </h1>
+        <p className="mt-4 text-sm leading-relaxed text-[var(--text-2)]">
+          {t("subtitle")}
+        </p>
+        <p className="mt-2 text-sm text-[var(--text-3)]">
+          {t("phoneFallback")}{" "}
+          <a href={`tel:${siteConfig.phone}`} className="text-[var(--purple)] font-medium">
+            {siteConfig.phone}
+          </a>
+        </p>
+
+        <div className="mt-10">
+          <InquiryForm locale={locale} />
+        </div>
+      </div>
     </section>
   );
 }
