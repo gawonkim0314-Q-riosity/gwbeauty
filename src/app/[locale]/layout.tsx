@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { PublicBottomSections } from "@/components/layout/PublicBottomSections";
 import { FloatingButtons } from "@/components/layout/FloatingButtons";
 import { LoginModalProvider } from "@/providers/login-modal-provider";
 
@@ -42,10 +42,12 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <LoginModalProvider>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <FloatingButtons />
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <PublicBottomSections />
+          <FloatingButtons />
+        </div>
       </LoginModalProvider>
     </NextIntlClientProvider>
   );

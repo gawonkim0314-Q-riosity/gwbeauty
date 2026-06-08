@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { listBlogPosts } from "@/db/queries";
 import { formatBlogDate } from "@/lib/blog-blocks";
 
 export async function BlogPreviewSection() {
+  const t = await getTranslations("blog");
   const posts = await listBlogPosts(true, 3);
 
   if (posts.length === 0) return null;
@@ -13,9 +15,9 @@ export async function BlogPreviewSection() {
       <div className="section-container">
         <div className="flex items-end justify-between">
           <div>
-            <p className="eyebrow">Our Blog</p>
+            <p className="eyebrow">{t("eyebrow")}</p>
             <h2 className="section-title mt-4">
-              Insights In <span className="accent">Aesthetic Medicine</span>
+              {t("title")} <span className="accent">{t("titleAccent")}</span>
             </h2>
           </div>
           <Link
@@ -23,7 +25,7 @@ export async function BlogPreviewSection() {
             className="hidden text-[0.68rem] tracking-[0.16em] uppercase underline underline-offset-2 transition-colors hover:opacity-70 md:block"
             style={{ color: "var(--purple)" }}
           >
-            전체 보기 →
+            {t("viewAll")}
           </Link>
         </div>
 
@@ -81,7 +83,7 @@ export async function BlogPreviewSection() {
                     className="mt-4 text-[0.62rem] tracking-[0.16em] uppercase underline underline-offset-2"
                     style={{ color: "var(--purple)" }}
                   >
-                    Read More
+                    {t("readMore")}
                   </p>
                 </div>
               </Link>

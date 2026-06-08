@@ -71,7 +71,10 @@
     "feature4": "体系的なアフターケアシステム",
     "statLabel": "累計施術件数",
     "ctaPrimary": "医師紹介を見る",
-    "ctaSecondary": "施術案内"
+    "ctaSecondary": "施術案内",
+    "galleryCta": "ビフォーアフターギャラリーを見る",
+    "before": "Before",
+    "after": "After"
   },
   "pillars": {
     "eyebrow": "私たちのサービス",
@@ -269,6 +272,40 @@
     "viewProfile": "プロフィールを見る",
     "tagline": "解剖学的比率と個人の美しさを尊重する繊細な手術哲学"
   },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Insights In",
+    "titleAccent": "Aesthetic Medicine",
+    "subtitle": "GW Beauty専門医による施術情報、スキンケアのヒント、相談ガイド。",
+    "readMore": "Read More",
+    "viewAll": "すべて見る →",
+    "empty": "まだ投稿がありません。"
+  },
+  "products": {
+    "eyebrow": "Our Shop",
+    "title": "Professional",
+    "titleAccent": "Skin & Recovery Care",
+    "subtitle": "医師が厳選した施術後ケア製品で、結果を長く保ちましょう。",
+    "sale": "SALE",
+    "comingSoon": "オンラインストア準備中",
+    "p1name": "GW Renewal Serum",
+    "p1desc": "肌再生 · 弾力強化",
+    "p2name": "Retinol Night Cream",
+    "p2desc": "レチノール · 夜間細胞再生",
+    "p3name": "Lotus Water Essence",
+    "p3desc": "集中保湿 · 鎮静ケア",
+    "p4name": "Eye Revive Complex",
+    "p4desc": "目元弾力 · クマケア"
+  },
+  "servicePage": {
+    "eyebrow": "Our Services",
+    "title": "施術",
+    "titleAccent": "案内",
+    "subtitle": "専門医が個別診断のうえ、最適な施術をご案内します。"
+  },
+  "relatedServices": {
+    "eyebrow": "Related"
+  },
   "auth": {
     "eyebrow": "Member",
     "signInTitle": "ログイン",
@@ -314,6 +351,7 @@
   "footer": {
     "addressLabel": "住所",
     "contactsLabel": "連絡先",
+    "clinicSubtitle": "Plastic Surgery Clinic",
     "businessNumber": "事業者登録番号",
     "medicalAd": "医療広告審査進行中",
     "allRightsReserved": "All rights reserved."

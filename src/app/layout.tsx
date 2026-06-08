@@ -27,7 +27,7 @@ export default function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col antialiased bg-bg text-text">
+      <body className="min-h-screen flex flex-col antialiased bg-bg text-text">
         <QueryProvider>
           <AuthProvider>{children}</AuthProvider>
         </QueryProvider>

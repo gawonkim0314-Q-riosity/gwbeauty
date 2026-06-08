@@ -71,7 +71,10 @@
     "feature4": "系统化术后管理",
     "statLabel": "累计手术次数",
     "ctaPrimary": "认识我们的医生",
-    "ctaSecondary": "医疗服务"
+    "ctaSecondary": "医疗服务",
+    "galleryCta": "查看前后对比图库",
+    "before": "Before",
+    "after": "After"
   },
   "pillars": {
     "eyebrow": "我们的服务",
@@ -269,6 +272,40 @@
     "viewProfile": "查看简介",
     "tagline": "尊重解剖学比例与个人美感的精细手术理念"
   },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Insights In",
+    "titleAccent": "Aesthetic Medicine",
+    "subtitle": "GW Beauty 专家分享的手术信息、护肤技巧与咨询指南。",
+    "readMore": "Read More",
+    "viewAll": "查看全部 →",
+    "empty": "暂无已发布文章。"
+  },
+  "products": {
+    "eyebrow": "Our Shop",
+    "title": "Professional",
+    "titleAccent": "Skin & Recovery Care",
+    "subtitle": "由医生精选的术后护理产品，延续您的治疗效果。",
+    "sale": "SALE",
+    "comingSoon": "在线商店筹备中",
+    "p1name": "GW Renewal Serum",
+    "p1desc": "肌肤再生 · 弹力提升",
+    "p2name": "Retinol Night Cream",
+    "p2desc": "视黄醇 · 夜间细胞再生",
+    "p3name": "Lotus Water Essence",
+    "p3desc": "集中补水 · 舒缓护理",
+    "p4name": "Eye Revive Complex",
+    "p4desc": "眼周弹力 · 黑眼圈"
+  },
+  "servicePage": {
+    "eyebrow": "Our Services",
+    "title": "项目",
+    "titleAccent": "介绍",
+    "subtitle": "专业医生将为您进行个性化诊断，并推荐最适合的方案。"
+  },
+  "relatedServices": {
+    "eyebrow": "Related"
+  },
   "auth": {
     "eyebrow": "Member",
     "signInTitle": "登录",
@@ -314,6 +351,7 @@
   "footer": {
     "addressLabel": "地址",
     "contactsLabel": "联系方式",
+    "clinicSubtitle": "Plastic Surgery Clinic",
     "businessNumber": "营业执照号",
     "medicalAd": "医疗广告审查进行中",
     "allRightsReserved": "保留所有权利。"

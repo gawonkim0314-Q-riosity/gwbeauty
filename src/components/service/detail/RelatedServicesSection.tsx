@@ -10,6 +10,13 @@ const SECTION_TITLE: Record<string, string> = {
   ja: "合わせて検討する",
 };
 
+const EYEBROW: Record<string, string> = {
+  ko: "연관 시술",
+  en: "Related",
+  zh: "相关项目",
+  ja: "関連施術",
+};
+
 const CATEGORY_COLORS: Record<string, string> = {
   eye: "#8B64C8", nose: "#E8748A", lifting: "#A87AD4", petit: "#D4547A",
 };
@@ -33,7 +40,7 @@ export function RelatedServicesSection({ serviceId, locale }: Props) {
 
   return (
     <section className="section-container py-16">
-      <p className="eyebrow text-center mb-3">Related</p>
+      <p className="eyebrow text-center mb-3">{EYEBROW[locale] ?? EYEBROW.ko}</p>
       <h2 className="section-title text-center mb-10">
         {SECTION_TITLE[locale] ?? SECTION_TITLE["ko"]}
       </h2>

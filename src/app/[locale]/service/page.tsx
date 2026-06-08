@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { ServiceGrid } from "@/components/service/ServiceGrid";
 
 export default async function ServicePage({
@@ -8,6 +8,7 @@ export default async function ServicePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("servicePage");
 
   return (
     <div className="min-h-screen">
@@ -17,12 +18,12 @@ export default async function ServicePage({
         style={{ background: "linear-gradient(135deg, var(--bg-2) 0%, var(--bg-pink) 100%)" }}
       >
         <div className="section-container">
-          <p className="eyebrow">Our Services</p>
+          <p className="eyebrow">{t("eyebrow")}</p>
           <h1 className="section-title mt-4">
-            시술 <span className="accent">안내</span>
+            {t("title")} <span className="accent">{t("titleAccent")}</span>
           </h1>
           <p className="mt-6 max-w-xl mx-auto text-sm leading-relaxed text-[var(--text-2)]">
-            GW Beauty의 전문 의료진이 개인별 맞춤 진단 후 최적의 시술을 안내해 드립니다.
+            {t("subtitle")}
           </p>
         </div>
 

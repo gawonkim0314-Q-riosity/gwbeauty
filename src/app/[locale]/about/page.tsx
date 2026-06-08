@@ -2,8 +2,6 @@ import { setRequestLocale } from "next-intl/server";
 import { AboutHero } from "@/components/about/AboutHero";
 import { LeadDoctorSection } from "@/components/about/LeadDoctorSection";
 import { DoctorsGridSection } from "@/components/about/DoctorsGridSection";
-import { ContactUsSection } from "@/components/home/ContactUsSection";
-import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export default async function AboutPage({
   params,
@@ -18,8 +16,6 @@ export default async function AboutPage({
       <AboutHero />
       <LeadDoctorSection />
       <DoctorsGridSection />
-      <ContactUsSection />
-      <NewsletterSection />
     </>
   );
 }

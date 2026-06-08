@@ -14,8 +14,6 @@ import { DetailImagesSection } from "@/components/service/detail/DetailImagesSec
 import { YouTubeSection } from "@/components/service/detail/YouTubeSection";
 import { RelatedServicesSection } from "@/components/service/detail/RelatedServicesSection";
 import { CTASection } from "@/components/service/detail/CTASection";
-import { ContactUsSection } from "@/components/home/ContactUsSection";
-import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export const dynamic = "force-dynamic";
 
@@ -79,12 +77,6 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* 8. CTA / 후킹 */}
       <CTASection detail={publishedDetail} locale={locale} />
-
-      {/* 9–10. Contact + 구독 */}
-      <div id="contact">
-        <ContactUsSection />
-      </div>
-      <NewsletterSection />
     </div>
   );
 }

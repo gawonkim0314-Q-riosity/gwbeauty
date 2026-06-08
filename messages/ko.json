@@ -10,60 +10,60 @@
     "submitConsultation": "상담 신청하기"
   },
   "nav": {
-    "home": "Home",
-    "about": "About Us",
-    "service": "Service",
-    "blog": "Blog",
-    "inquire": "Inquire"
+    "home": "홈",
+    "about": "클리닉 소개",
+    "service": "시술 안내",
+    "blog": "블로그",
+    "inquire": "상담 문의"
   },
   "homeMenu": {
-    "hero": "Welcome",
+    "hero": "메인",
     "philosophy": "클리닉 철학",
     "treatments": "시술 안내",
-    "results": "Before & After",
+    "results": "시술 결과",
     "doctors": "의료진",
     "pricing": "비용 안내",
     "contact": "오시는 길"
   },
   "contactUs": {
-    "eyebrow": "Find Us",
-    "title": "Contact",
-    "titleAccent": "Us",
+    "eyebrow": "찾아오시는 길",
+    "title": "연락",
+    "titleAccent": "안내",
     "representativeLabel": "대표원장",
     "addressLabel": "주소",
     "phoneLabel": "전화",
     "emailLabel": "이메일",
     "hoursLabel": "진료시간",
-    "connectLabel": "Connect With Us"
+    "connectLabel": "공식 채널"
   },
   "header": {
     "announcement": "지금 무료 상담 예약 시 피부 케어 1회 증정",
     "announcementLink": "예약하기",
-    "subtitle": "Plastic Surgery Clinic",
+    "subtitle": "성형외과 · 피부 클리닉",
     "menuOpen": "메뉴 열기"
   },
   "hero": {
-    "eyebrow": "Advanced Aesthetic Medicine",
-    "title1": "A Destination For",
-    "title2": "Modern",
-    "title3": "Aesthetic",
-    "title4": "Care",
+    "eyebrow": "프리미엄 미용 의학",
+    "title1": "조화로운 비율,",
+    "title2": "세련된",
+    "title3": "아름다움을",
+    "title4": "완성합니다",
     "body": "GW Beauty는 의사 중심의 정밀한 미용 의학을 추구합니다. 얼굴 비율·체형·피부 재생까지, 조화와 비례를 지키며 시간이 지나도 아름다운 결과를 만들어 드립니다.",
     "ctaPrimary": "무료 상담 예약",
     "ctaSecondary": "의료진 소개",
     "stat1Value": "20,000+",
     "stat1Label": "누적 시술",
     "stat2Value": "300+",
-    "stat2Label": "Google 5점 리뷰",
+    "stat2Label": "구글 5점 리뷰",
     "stat3Value": "15년+",
     "stat3Label": "전문의 경력",
-    "scroll": "Scroll"
+    "scroll": "스크롤"
   },
   "philosophy": {
-    "eyebrow": "Our Philosophy",
-    "title1": "Aesthetic",
-    "title2": "Intelligence.",
-    "title3": "Surgical Precision.",
+    "eyebrow": "클리닉 철학",
+    "title1": "미적 감각과",
+    "title2": "의학적 정밀함,",
+    "title3": "그 조화",
     "body": "모든 얼굴과 신체는 고유한 건축적 균형을 가지고 있습니다. GW Beauty의 의료진은 해부학적 비율과 장기적 균형을 존중하며, 트렌드보다 시간이 지나도 변하지 않는 세련미를 추구합니다.",
     "feature1": "1:1 맞춤 수술 디자인",
     "feature2": "해부학 기반 비율 분석",
@@ -71,16 +71,19 @@
     "feature4": "체계적인 사후 관리 시스템",
     "statLabel": "누적 시술 건수",
     "ctaPrimary": "의료진 소개 보기",
-    "ctaSecondary": "시술 안내"
+    "ctaSecondary": "시술 안내",
+    "galleryCta": "시술 전후 갤러리 보기",
+    "before": "시술 전",
+    "after": "시술 후"
   },
   "pillars": {
-    "eyebrow": "Our Services",
-    "title": "Core Treatment",
-    "titleAccent": "Pillars",
+    "eyebrow": "시술 분야",
+    "title": "핵심",
+    "titleAccent": "시술",
     "learnMore": "자세히 보기",
     "face": {
       "label": "안면 성형",
-      "title": "Facial Refinement",
+      "title": "안면 정밀 성형",
       "description": "얼굴 비율과 구조를 정밀하게 분석하여, 자연스러운 표정과 개성을 보존하면서 조화로운 인상을 완성합니다.",
       "t1": "눈 성형 (쌍꺼풀·눈매교정)",
       "t2": "코 성형 (융비술·코끝성형)",
@@ -90,7 +93,7 @@
     },
     "body": {
       "label": "바디 성형",
-      "title": "Sculpted Silhouette",
+      "title": "바디 라인 조각",
       "description": "체형의 비율을 정밀하게 교정하여, 자연스럽고 균형 잡힌 실루엣을 만들어 드립니다.",
       "t1": "지방흡입 (HD 리포조각)",
       "t2": "복부성형",
@@ -100,7 +103,7 @@
     },
     "skin": {
       "label": "피부 재생",
-      "title": "Regenerative Aesthetics",
+      "title": "피부 재생 클리닉",
       "description": "비침습적 최신 기술로 피부 본연의 재생력을 높이고, 건강하고 빛나는 피부로 되돌립니다.",
       "t1": "레이저 피부 재생",
       "t2": "피부 톤·결 개선",
@@ -110,10 +113,10 @@
     }
   },
   "scrolling": {
-    "eyebrow": "Popular Treatments",
-    "title": "Our",
-    "titleAccent": "Popular",
-    "title2": "Treatments",
+    "eyebrow": "인기 시술",
+    "title": "대표",
+    "titleAccent": "시술",
+    "title2": "안내",
     "t1": "눈 성형",
     "t2": "코 성형",
     "t3": "리프팅",
@@ -124,7 +127,7 @@
     "learnMore": "자세히 보기"
   },
   "banner": {
-    "eyebrow": "Signature Excellence",
+    "eyebrow": "GW 시그니처",
     "title": "당신만의 아름다움을",
     "titleAccent": "맞춤 설계",
     "titleEnd": "합니다",
@@ -132,18 +135,18 @@
     "cta": "무료 상담 예약하기"
   },
   "doctors": {
-    "eyebrow": "Medical Team",
-    "title": "Medical Board",
-    "titleAccent": "&",
-    "title2": "Specialists",
+    "eyebrow": "의료진",
+    "title": "전문",
+    "titleAccent": "의료",
+    "title2": "팀",
     "subtitle": "정밀함과 환자 중심 의료를 하나로 잇는 멀티디시플리너리 팀",
     "viewProfile": "프로필 보기 →"
   },
   "testimonials": {
-    "eyebrow": "Testimonials",
-    "title": "The GW Beauty",
-    "titleAccent": "Experience",
-    "subtitle": "Google 5점 만점 리뷰 300건 이상",
+    "eyebrow": "환자 후기",
+    "title": "GW Beauty",
+    "titleAccent": "경험담",
+    "subtitle": "구글 5점 만점 리뷰 300건 이상",
     "reviews": [
       {
         "text": "비율과 균형이 정말 완벽해요. 상담부터 회복까지 모든 과정에서 진심으로 배려 받는 느낌이었어요. 단순한 수술이 아니라, 자신감 회복의 여정이었습니다.",
@@ -172,15 +175,15 @@
     ]
   },
   "investment": {
-    "eyebrow": "Price Guide",
-    "title": "Investment In",
-    "titleAccent": "Excellence",
+    "eyebrow": "비용 안내",
+    "title": "아름다움에 대한",
+    "titleAccent": "투자",
     "subtitle": "투명한 정보 · 맞춤 시술 · 탁월한 결과",
     "notice": "※ 시술 비용은 개인별 상태·범위에 따라 다르며, 정확한 금액은 1:1 상담을 통해 안내해 드립니다. 의료광고법에 따라 가격 비교 광고는 시행하지 않습니다.",
     "priceOnRequest": "상담 후 안내",
     "consultLink": "상담으로 정확한 비용 확인 →",
     "facial": {
-      "title": "Facial Procedures",
+      "title": "안면 시술",
       "i1": "눈 성형 (쌍꺼풀·매몰·절개)",
       "i2": "코 성형 (융비술·코끝)",
       "i3": "안면윤곽 (광대·사각턱)",
@@ -189,7 +192,7 @@
       "i6": "색소·흉터 치료"
     },
     "body": {
-      "title": "Body Procedures",
+      "title": "바디 시술",
       "i1": "HD 지방흡입",
       "i2": "복부성형 (미니·풀)",
       "i3": "가슴 성형",
@@ -198,9 +201,9 @@
     }
   },
   "consultation": {
-    "eyebrow": "Consultation",
-    "title": "Begin Your",
-    "titleAccent": "Transformation",
+    "eyebrow": "상담 예약",
+    "title": "나만의",
+    "titleAccent": "변화의 시작",
     "subtitle": "전문 의료팀과의 프라이빗 상담을 예약하세요.",
     "nameLabel": "이름 *",
     "namePlaceholder": "홍길동",
@@ -242,7 +245,7 @@
   },
   "newsletter": {
     "title1": "뉴스레터 구독 &",
-    "title2": "Special Events",
+    "title2": "스페셜 이벤트",
     "body": "구독 시 최신 시술 정보와 프라이빗 이벤트 소식을 가장 먼저 받아보세요. 구독자 전용 혜택도 함께 제공됩니다.",
     "placeholder": "이메일 주소를 입력해 주세요",
     "subscribe": "구독",
@@ -250,11 +253,11 @@
     "privacy": "언제든지 구독을 취소할 수 있습니다. 개인정보는 뉴스레터 발송 이외의 목적에 사용되지 않습니다."
   },
   "about": {
-    "heroEyebrow": "About Us",
+    "heroEyebrow": "클리닉 소개",
     "heroTitle": "GW Beauty",
-    "heroTitleAccent": "Medical Team",
+    "heroTitleAccent": "의료진",
     "heroBody": "의학적 전문성과 예술적 감각을 겸비한 GW Beauty 의료진을 소개합니다. 환자 중심의 진료 철학으로 신뢰받는 아름다움을 만들어 갑니다.",
-    "teamEyebrow": "Medical Team",
+    "teamEyebrow": "의료진",
     "teamTitle": "의료진",
     "teamTitleAccent": "소개",
     "leadLabel": "대표원장",
@@ -263,14 +266,48 @@
     "papersLabel": "논문 · 연구",
     "liveSurgeryLabel": "라이브 서저리",
     "certificationsLabel": "자격 · 인증",
-    "specialistsEyebrow": "Our Specialists",
-    "specialistsTitle": "소속",
+    "specialistsEyebrow": "소속 의료진",
+    "specialistsTitle": "전문",
     "specialistsTitleAccent": "의료진",
     "viewProfile": "프로필 보기",
     "tagline": "해부학적 비율과 개인의 아름다움을 존중하는 섬세한 수술 철학"
   },
+  "blog": {
+    "eyebrow": "블로그",
+    "title": "미용 의학",
+    "titleAccent": "인사이트",
+    "subtitle": "GW Beauty 전문의가 전하는 시술 정보, 피부 관리 팁, 상담 가이드입니다.",
+    "readMore": "자세히 보기",
+    "viewAll": "전체 보기 →",
+    "empty": "아직 발행된 글이 없습니다."
+  },
+  "products": {
+    "eyebrow": "공식 스토어",
+    "title": "전문",
+    "titleAccent": "피부 · 회복 케어",
+    "subtitle": "의사가 직접 큐레이션한 시술 후 관리 제품으로 결과를 지속하세요.",
+    "sale": "할인",
+    "comingSoon": "온라인 스토어 준비 중",
+    "p1name": "GW 리뉴얼 세럼",
+    "p1desc": "피부 재생 · 탄력 강화",
+    "p2name": "레티놀 나이트 크림",
+    "p2desc": "레티놀 · 야간 세포 재생",
+    "p3name": "로터스 워터 에센스",
+    "p3desc": "수분 집중 · 진정 케어",
+    "p4name": "아이 리바이브 컴플렉스",
+    "p4desc": "눈가 탄력 · 다크서클"
+  },
+  "servicePage": {
+    "eyebrow": "시술 안내",
+    "title": "시술",
+    "titleAccent": "안내",
+    "subtitle": "GW Beauty의 전문 의료진이 개인별 맞춤 진단 후 최적의 시술을 안내해 드립니다."
+  },
+  "relatedServices": {
+    "eyebrow": "연관 시술"
+  },
   "auth": {
-    "eyebrow": "Member",
+    "eyebrow": "회원",
     "signInTitle": "로그인",
     "signUpTitle": "회원가입",
     "signInTab": "로그인",
@@ -312,10 +349,11 @@
     }
   },
   "footer": {
-    "addressLabel": "Address",
-    "contactsLabel": "Contacts",
+    "addressLabel": "주소",
+    "contactsLabel": "연락처",
+    "clinicSubtitle": "성형외과 · 피부 클리닉",
     "businessNumber": "사업자등록번호",
     "medicalAd": "의료광고 심의 진행 예정",
-    "allRightsReserved": "All rights reserved."
+    "allRightsReserved": "무단 복제 및 배포를 금합니다."
   }
 }

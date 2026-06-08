@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { listBlogPosts } from "@/db/queries";
@@ -13,17 +13,18 @@ export default async function BlogPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("blog");
 
   const posts = await listBlogPosts(true);
 
   return (
     <section className="section-container py-24 md:py-32">
-      <p className="eyebrow">Blog</p>
+      <p className="eyebrow">{t("eyebrow")}</p>
       <h1 className="section-title mt-4">
-        Insights In <span className="accent">Aesthetic Medicine</span>
+        {t("title")} <span className="accent">{t("titleAccent")}</span>
       </h1>
       <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--text-2)]">
-        GW Beauty 전문의가 전하는 시술 정보, 피부 관리 팁, 상담 가이드입니다.
+        {t("subtitle")}
       </p>
 
       {posts.length === 0 ? (
@@ -96,7 +97,7 @@ export default async function BlogPage({
                     className="mt-4 text-[0.62rem] tracking-[0.16em] uppercase underline underline-offset-2"
                     style={{ color: "var(--purple)" }}
                   >
-                    Read More
+                    {t("readMore")}
                   </p>
                 </div>
               </Link>

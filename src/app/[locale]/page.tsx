@@ -11,8 +11,6 @@ import { InvestmentSection } from "@/components/home/InvestmentSection";
 import { ConsultationFormSection } from "@/components/home/ConsultationFormSection";
 import { ProductsSection } from "@/components/home/ProductsSection";
 import { BlogPreviewSection } from "@/components/home/BlogPreviewSection";
-import { ContactUsSection } from "@/components/home/ContactUsSection";
-import { NewsletterSection } from "@/components/home/NewsletterSection";
 
 export default async function HomePage({
   params,
@@ -48,8 +46,6 @@ export default async function HomePage({
       <ConsultationFormSection />
       <ProductsSection />
       <BlogPreviewSection />
-      <ContactUsSection />
-      <NewsletterSection />
     </>
   );
 }

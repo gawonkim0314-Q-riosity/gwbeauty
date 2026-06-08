@@ -1,71 +1,64 @@
 import Image from "next/image";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 const PRODUCTS = [
-  { name: "GW Renewal Serum", description: "피부 재생 · 탄력 강화", price: "₩95,000", badge: null, image: "/images/product-01.jpg" },
-  { name: "Retinol Night Cream", description: "레티놀 · 야간 세포 재생", price: "₩75,000", badge: "SALE", image: "/images/product-02.jpg" },
-  { name: "Lotus Water Essence", description: "수분 집중 · 진정 케어", price: "₩68,000", badge: null, image: "/images/product-03.jpg" },
-  { name: "Eye Revive Complex", description: "눈가 탄력 · 다크서클", price: "₩88,000", badge: "SALE", image: "/images/product-04.jpg" },
+  { nameKey: "p1name" as const, descKey: "p1desc" as const, price: "₩95,000", badge: null, image: "/images/product-01.jpg" },
+  { nameKey: "p2name" as const, descKey: "p2desc" as const, price: "₩75,000", badge: "sale" as const, image: "/images/product-02.jpg" },
+  { nameKey: "p3name" as const, descKey: "p3desc" as const, price: "₩68,000", badge: null, image: "/images/product-03.jpg" },
+  { nameKey: "p4name" as const, descKey: "p4desc" as const, price: "₩88,000", badge: "sale" as const, image: "/images/product-04.jpg" },
 ];
 
-export function ProductsSection() {
+export async function ProductsSection() {
+  const t = await getTranslations("products");
+
   return (
     <section className="py-24 md:py-32" style={{ background: "var(--bg)" }}>
       <div className="section-container">
         <div className="text-center">
-          <p className="eyebrow">Our Shop</p>
+          <p className="eyebrow">{t("eyebrow")}</p>
           <h2 className="section-title mt-4">
-            Professional{" "}
-            <span className="accent">Skin &amp; Recovery</span> Care
+            {t("title")}{" "}
+            <span className="accent">{t("titleAccent")}</span>
           </h2>
           <p className="mt-4 text-sm text-[var(--text-3)]">
-            의사가 직접 큐레이션한 시술 후 관리 제품으로 결과를 지속하세요.
+            {t("subtitle")}
           </p>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PRODUCTS.map((p) => (
-            <article key={p.name} className="group">
+            <article key={p.nameKey} className="group">
               <div
                 className="relative aspect-square overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-card)]"
                 style={{ border: "1px solid var(--border)" }}
               >
-                {p.badge && (
-                  <span
-                    className="absolute left-3 top-3 z-10 rounded-full px-2.5 py-0.5 text-[0.55rem] font-bold tracking-[0.12em] text-white uppercase"
-                    style={{ background: "var(--gradient-btn)" }}
-                  >
-                    {p.badge}
-                  </span>
-                )}
                 <Image
                   src={p.image}
-                  alt={p.name}
+                  alt={t(p.nameKey)}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 50vw, 25vw"
                 />
-              </div>
-              <div className="mt-4 px-1">
-                <p className="text-xs tracking-[0.1em] text-[var(--text-3)] uppercase">
-                  {p.description}
-                </p>
-                <p className="mt-1 text-sm font-semibold text-[var(--text)]">{p.name}</p>
-                <div className="mt-2 flex items-center justify-between">
-                  <span className="text-sm font-bold" style={{ color: "var(--pink)" }}>
-                    {p.price}
-                  </span>
-                  <Link
-                    href="/service#shop"
-                    className="text-[0.62rem] tracking-[0.12em] uppercase underline underline-offset-2 transition-colors hover:opacity-70"
-                    style={{ color: "var(--purple)" }}
+                {p.badge && (
+                  <span
+                    className="absolute left-3 top-3 rounded-full px-2.5 py-0.5 text-[0.58rem] font-semibold tracking-wider text-white"
+                    style={{ background: "var(--pink)" }}
                   >
-                    자세히
-                  </Link>
-                </div>
+                    {t("sale")}
+                  </span>
+                )}
+              </div>
+              <div className="mt-4">
+                <h3 className="text-sm font-semibold text-[var(--text)]">{t(p.nameKey)}</h3>
+                <p className="mt-1 text-xs text-[var(--text-3)]">{t(p.descKey)}</p>
+                <p className="mt-2 text-sm font-medium text-[var(--purple)]">{p.price}</p>
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <span className="text-xs text-[var(--text-3)]">{t("comingSoon")}</span>
         </div>
       </div>
     </section>

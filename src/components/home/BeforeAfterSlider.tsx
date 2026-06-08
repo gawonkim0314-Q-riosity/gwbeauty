@@ -3,8 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 function Slider() {
+  const t = useTranslations("philosophy");
   const [pos, setPos] = useState(50); // percentage
   const containerRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
@@ -64,10 +66,10 @@ function Slider() {
 
       {/* Labels */}
       <div className="pointer-events-none absolute left-4 top-4 rounded bg-[var(--bg-overlay)] px-2.5 py-1 text-[0.6rem] font-semibold tracking-[0.18em] text-white uppercase">
-        Before
+        {t("before")}
       </div>
       <div className="pointer-events-none absolute right-4 top-4 rounded bg-[var(--rose)] px-2.5 py-1 text-[0.6rem] font-semibold tracking-[0.18em] text-white uppercase">
-        After
+        {t("after")}
       </div>
 
       {/* Divider line */}
@@ -96,26 +98,26 @@ function Slider() {
 }
 
 export function BeforeAfterSlider() {
+  const t = useTranslations("philosophy");
+
   return (
     <section className="bg-[var(--bg)] py-24 md:py-32">
       <div className="section-container grid gap-16 lg:grid-cols-2 lg:items-center">
         {/* Text */}
         <div>
-          <p className="eyebrow">Our Philosophy</p>
+          <p className="eyebrow">{t("eyebrow")}</p>
           <h2 className="section-title mt-5">
-            Aesthetic
+            {t("title1")}
             <br />
-            <span className="accent">Intelligence.</span>
+            <span className="accent">{t("title2")}</span>
             <br />
-            Surgical <span className="accent">Precision.</span>
+            {t("title3")}
           </h2>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-[var(--text-2)] md:text-base">
-            모든 얼굴과 신체는 고유한 건축적 균형을 가지고 있습니다.
-            GW Beauty는 해부학적 비율과 장기적 균형을 존중하며, 트렌드보다
-            오래도록 세련된 아름다움을 추구합니다.
+            {t("body")}
           </p>
           <Link href="/service#gallery" className="btn-rose mt-10 inline-flex">
-            Before &amp; After 갤러리 보기
+            {t("galleryCta")}
           </Link>
         </div>
 

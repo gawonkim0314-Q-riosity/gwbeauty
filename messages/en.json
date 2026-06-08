@@ -71,7 +71,10 @@
     "feature4": "Comprehensive aftercare system",
     "statLabel": "Procedures Performed",
     "ctaPrimary": "Meet Our Doctors",
-    "ctaSecondary": "Our Services"
+    "ctaSecondary": "Our Services",
+    "galleryCta": "View Before & After Gallery",
+    "before": "Before",
+    "after": "After"
   },
   "pillars": {
     "eyebrow": "Our Services",
@@ -269,6 +272,40 @@
     "viewProfile": "View Profile",
     "tagline": "A refined surgical philosophy that respects anatomical proportions and individual beauty"
   },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Insights In",
+    "titleAccent": "Aesthetic Medicine",
+    "subtitle": "Treatment information, skincare tips, and consultation guides from GW Beauty specialists.",
+    "readMore": "Read More",
+    "viewAll": "View All →",
+    "empty": "No published posts yet."
+  },
+  "products": {
+    "eyebrow": "Our Shop",
+    "title": "Professional",
+    "titleAccent": "Skin & Recovery Care",
+    "subtitle": "Maintain your results with physician-curated post-treatment products.",
+    "sale": "SALE",
+    "comingSoon": "Online store coming soon",
+    "p1name": "GW Renewal Serum",
+    "p1desc": "Skin renewal · elasticity boost",
+    "p2name": "Retinol Night Cream",
+    "p2desc": "Retinol · overnight cell renewal",
+    "p3name": "Lotus Water Essence",
+    "p3desc": "Deep hydration · soothing care",
+    "p4name": "Eye Revive Complex",
+    "p4desc": "Eye area firmness · dark circles"
+  },
+  "servicePage": {
+    "eyebrow": "Our Services",
+    "title": "Treatment",
+    "titleAccent": "Guide",
+    "subtitle": "Our specialists provide personalized diagnosis and recommend the optimal treatment for you."
+  },
+  "relatedServices": {
+    "eyebrow": "Related"
+  },
   "auth": {
     "eyebrow": "Member",
     "signInTitle": "Sign In",
@@ -314,6 +351,7 @@
   "footer": {
     "addressLabel": "Address",
     "contactsLabel": "Contacts",
+    "clinicSubtitle": "Plastic Surgery Clinic",
     "businessNumber": "Business Reg.",
     "medicalAd": "Medical advertising review pending",
     "allRightsReserved": "All rights reserved."
