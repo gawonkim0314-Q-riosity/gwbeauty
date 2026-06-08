@@ -124,6 +124,22 @@ export const blogPosts = pgTable("blog_posts", {
   content: text("content"),
   excerpt: text("excerpt"),
   thumbnailUrl: text("thumbnail_url"),
+  category: text("category").default("클리닉 소식"),
+  /** 블록 기반 본문 — heading | paragraph | image | quote | divider | list */
+  blocks: jsonb("blocks")
+    .$type<
+      Array<{
+        id: string;
+        type: string;
+        text?: string;
+        level?: number;
+        url?: string;
+        alt?: string;
+        caption?: string;
+        items?: string[];
+      }>
+    >()
+    .default([]),
   author: text("author").default("GW Beauty"),
   isPublished: boolean("is_published").default(false),
   publishedAt: timestamp("published_at"),

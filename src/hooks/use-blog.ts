@@ -4,11 +4,21 @@ import { adminFetch } from "@/lib/auth/admin-fetch";
 
 const BLOG_KEY = ["blog"] as const;
 
+async function parseError(res: Response, fallback: string): Promise<never> {
+  try {
+    const data = await res.json();
+    throw new Error(data.error ?? fallback);
+  } catch (e) {
+    if (e instanceof Error && e.message !== fallback) throw e;
+    throw new Error(fallback);
+  }
+}
+
 async function fetchPosts(all = false): Promise<BlogPost[]> {
   const res = all
     ? await adminFetch("/api/blog?all=true")
     : await fetch("/api/blog");
-  if (!res.ok) throw new Error("Failed to fetch posts");
+  if (!res.ok) await parseError(res, "포스트 목록을 불러올 수 없습니다.");
   return res.json();
 }
 
@@ -18,7 +28,7 @@ async function createPost(data: Omit<NewBlogPost, "id">): Promise<BlogPost> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Failed to create post");
+  if (!res.ok) await parseError(res, "포스트 생성에 실패했습니다.");
   return res.json();
 }
 
@@ -28,13 +38,13 @@ async function updatePost(id: number, data: Partial<BlogPost>): Promise<BlogPost
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Failed to update post");
+  if (!res.ok) await parseError(res, "포스트 수정에 실패했습니다.");
   return res.json();
 }
 
 async function deletePost(id: number): Promise<void> {
   const res = await adminFetch(`/api/blog/${id}`, { method: "DELETE" });
-  if (!res.ok) throw new Error("Failed to delete post");
+  if (!res.ok) await parseError(res, "포스트 삭제에 실패했습니다.");
 }
 
 export function useBlogPosts(all = false) {
@@ -57,7 +67,10 @@ export function useUpdatePost() {
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: Partial<BlogPost> }) =>
       updatePost(id, data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: BLOG_KEY }),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: BLOG_KEY });
+      queryClient.invalidateQueries({ queryKey: ["blog", "post", id] });
+    },
   });
 }
 

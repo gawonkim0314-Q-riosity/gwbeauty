@@ -7,12 +7,18 @@ import {
 import { requireStaff } from "@/lib/auth/server-auth";
 
 export async function GET(
-  _req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   const post = await getBlogPostById(Number(id));
   if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  if (!post.isPublished) {
+    const { error } = await requireStaff(request);
+    if (error) return error;
+  }
+
   return NextResponse.json(post);
 }
 

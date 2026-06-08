@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, listBlogPosts } from "@/db/queries";
 import { requireStaff } from "@/lib/auth/server-auth";
+import { slugifyTitle } from "@/lib/blog-blocks";
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,13 +25,12 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const slug =
-      body.slug ||
-      body.title
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w-]/g, "");
-    const created = await createBlogPost({ ...body, slug });
+    const slug = body.slug?.trim() || slugifyTitle(body.title ?? "");
+    const created = await createBlogPost({
+      ...body,
+      slug,
+      updatedAt: new Date(),
+    });
     return NextResponse.json(created, { status: 201 });
   } catch (error) {
     console.error("[POST /api/blog]", error);
