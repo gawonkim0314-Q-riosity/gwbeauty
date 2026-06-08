@@ -1,3 +1,5 @@
+import { createRemoteJWKSet, jwtVerify } from "jose";
+
 export type VerifiedFirebaseUser = {
   firebaseUid: string;
   email: string;
@@ -5,48 +7,51 @@ export type VerifiedFirebaseUser = {
   photoUrl: string | null;
 };
 
-type LookupResponse = {
-  users?: Array<{
-    localId: string;
-    email?: string;
-    displayName?: string;
-    photoUrl?: string;
-  }>;
-};
+const FIREBASE_JWKS = createRemoteJWKSet(
+  new URL(
+    "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
+  )
+);
 
-/** Firebase Identity Toolkit REST API로 ID Token 검증 (Admin SDK 불필요) */
+/**
+ * Firebase ID Token JWT 검증 (서버/Vercel에서 동작, API key 제한과 무관)
+ */
 export async function verifyFirebaseIdToken(
   idToken: string
 ): Promise<VerifiedFirebaseUser | null> {
-  const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-  if (!apiKey) {
-    console.error("[verifyFirebaseIdToken] NEXT_PUBLIC_FIREBASE_API_KEY missing");
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+  if (!projectId) {
+    console.error("[verifyFirebaseIdToken] NEXT_PUBLIC_FIREBASE_PROJECT_ID missing");
     return null;
   }
 
-  const res = await fetch(
-    `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idToken }),
-      cache: "no-store",
+  try {
+    const { payload } = await jwtVerify(idToken, FIREBASE_JWKS, {
+      issuer: `https://securetoken.google.com/${projectId}`,
+      audience: projectId,
+    });
+
+    const firebaseUid = payload.sub;
+    const email =
+      typeof payload.email === "string"
+        ? payload.email
+        : typeof payload.firebase?.identities?.email?.[0] === "string"
+          ? payload.firebase.identities.email[0]
+          : null;
+
+    if (!firebaseUid || !email) {
+      console.error("[verifyFirebaseIdToken] token missing sub or email");
+      return null;
     }
-  );
 
-  if (!res.ok) {
-    console.error("[verifyFirebaseIdToken] lookup failed", res.status);
+    return {
+      firebaseUid,
+      email,
+      displayName: typeof payload.name === "string" ? payload.name : null,
+      photoUrl: typeof payload.picture === "string" ? payload.picture : null,
+    };
+  } catch (error) {
+    console.error("[verifyFirebaseIdToken] jwt verify failed:", error);
     return null;
   }
-
-  const data = (await res.json()) as LookupResponse;
-  const user = data.users?.[0];
-  if (!user?.localId || !user.email) return null;
-
-  return {
-    firebaseUid: user.localId,
-    email: user.email,
-    displayName: user.displayName ?? null,
-    photoUrl: user.photoUrl ?? null,
-  };
 }

@@ -110,7 +110,7 @@ role: member | editor | admin
 | 변수 | 용도 |
 |------|------|
 | `DATABASE_URL` | Neon (서버만, Vercel) |
-| `NEXT_PUBLIC_FIREBASE_*` ×6 | 클라이언트 + 서버 토큰 검증 (`verify-id-token.ts`) |
+| `NEXT_PUBLIC_FIREBASE_*` ×6 | 클라이언트 + 서버 JWT 검증 (`verify-id-token.ts`, `jose`) |
 | `FIREBASE_SERVICE_ACCOUNT_*` | (선택) Admin SDK — 현재 REST lookup 사용 |
 
 로컬: `.env.local`에 `DATABASE_URL` + Firebase 6개.

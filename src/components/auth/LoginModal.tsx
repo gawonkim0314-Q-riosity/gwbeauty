@@ -210,12 +210,24 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
             </label>
 
             {errorKey && (
-              <p
+              <div
                 className="rounded-xl px-3 py-2 text-xs text-[var(--pink-deep)]"
                 style={{ background: "var(--bg-pink)" }}
               >
-                {t(`errors.${errorKey}` as "errors.unknown")}
-              </p>
+                <p>{t(`errors.${errorKey}` as "errors.unknown")}</p>
+                {errorKey === "auth/email-already-in-use" && mode === "signUp" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMode("signIn");
+                      setErrorKey(null);
+                    }}
+                    className="mt-2 font-semibold underline underline-offset-2 hover:opacity-80"
+                  >
+                    {t("switchToSignIn")}
+                  </button>
+                )}
+              </div>
             )}
 
             <button

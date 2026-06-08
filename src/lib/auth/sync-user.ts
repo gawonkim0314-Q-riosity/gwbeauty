@@ -21,7 +21,8 @@ export async function syncUserToDatabase(
   });
 
   if (!res.ok) {
-    console.warn("[syncUserToDatabase] failed", res.status);
+    const body = await res.text().catch(() => "");
+    console.warn("[syncUserToDatabase] failed", res.status, body);
     return null;
   }
 

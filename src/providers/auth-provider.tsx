@@ -30,9 +30,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       if (nextUser !== undefined) {
         setUser(nextUser);
+        if (nextUser) {
+          void syncUserToDatabase(nextUser).catch((err) => {
+            console.warn("[Auth] Neon sync failed:", err);
+          });
+        }
       } else {
         const auth = getFirebaseAuth();
-        setUser(auth.currentUser);
+        const current = auth.currentUser;
+        setUser(current);
+        if (current) {
+          void syncUserToDatabase(current).catch((err) => {
+            console.warn("[Auth] Neon sync failed:", err);
+          });
+        }
       }
     } catch {
       setUser(null);
@@ -54,9 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setLoading(false);
         if (nextUser) {
           void syncUserToDatabase(nextUser).catch((err) => {
-            if (process.env.NODE_ENV === "development") {
-              console.warn("[Auth] Neon sync failed:", err);
-            }
+            console.warn("[Auth] Neon sync failed:", err);
           });
         }
       });
@@ -67,9 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setUser(credential.user);
           setLoading(false);
           void syncUserToDatabase(credential.user).catch((err) => {
-            if (process.env.NODE_ENV === "development") {
-              console.warn("[Auth] Neon sync failed:", err);
-            }
+            console.warn("[Auth] Neon sync failed:", err);
           });
         })
         .catch((err) => {
