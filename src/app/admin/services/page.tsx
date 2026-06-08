@@ -13,6 +13,7 @@ import { AdminTable } from "@/components/admin/AdminTable";
 import { AdminModal } from "@/components/admin/AdminModal";
 import type { Service } from "@/db/schema";
 import { MdAdd, MdCloudUpload, MdClose, MdImage, MdEdit } from "react-icons/md";
+import { useAdminToast } from "@/components/admin/AdminToast";
 
 const CATEGORIES = [
   { value: "eye", label: "눈 성형" },
@@ -69,6 +70,7 @@ export default function AdminServicesPage() {
   const deleteService = useDeleteService();
   const upload = useUpload();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { showToast } = useAdminToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
@@ -101,7 +103,15 @@ export default function AdminServicesPage() {
 
   const handleDelete = async (service: Service) => {
     if (!confirm(`"${service.title}"을 삭제하시겠습니까?`)) return;
-    await deleteService.mutateAsync(service.id);
+    try {
+      await deleteService.mutateAsync(service.id);
+      showToast("시술이 삭제되었습니다.");
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "삭제에 실패했습니다.",
+        "error"
+      );
+    }
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,12 +140,21 @@ export default function AdminServicesPage() {
       isActive: form.isActive,
     };
 
-    if (editingService) {
-      await updateService.mutateAsync({ id: editingService.id, data });
-    } else {
-      await createService.mutateAsync(data);
+    try {
+      if (editingService) {
+        await updateService.mutateAsync({ id: editingService.id, data });
+        showToast("시술 정보가 저장되었습니다.");
+      } else {
+        await createService.mutateAsync(data);
+        showToast("새 시술이 등록되었습니다.");
+      }
+      setIsModalOpen(false);
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "저장에 실패했습니다.",
+        "error"
+      );
     }
-    setIsModalOpen(false);
   };
 
   const columns = [

@@ -6,6 +6,7 @@ import { AdminTable } from "@/components/admin/AdminTable";
 import { AdminModal } from "@/components/admin/AdminModal";
 import type { BlogPost } from "@/db/schema";
 import { MdAdd } from "react-icons/md";
+import { useAdminToast } from "@/components/admin/AdminToast";
 
 interface PostForm {
   title: string;
@@ -28,6 +29,7 @@ export default function AdminBlogPage() {
   const createPost = useCreatePost();
   const updatePost = useUpdatePost();
   const deletePost = useDeletePost();
+  const { showToast } = useAdminToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
@@ -53,7 +55,15 @@ export default function AdminBlogPage() {
 
   const handleDelete = async (post: BlogPost) => {
     if (!confirm(`"${post.title}"을 삭제하시겠습니까?`)) return;
-    await deletePost.mutateAsync(post.id);
+    try {
+      await deletePost.mutateAsync(post.id);
+      showToast("게시글이 삭제되었습니다.");
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "삭제에 실패했습니다.",
+        "error"
+      );
+    }
   };
 
   const handleSubmit = async () => {
@@ -61,12 +71,21 @@ export default function AdminBlogPage() {
       ...form,
       publishedAt: form.isPublished ? new Date() : null,
     };
-    if (editingPost) {
-      await updatePost.mutateAsync({ id: editingPost.id, data });
-    } else {
-      await createPost.mutateAsync(data);
+    try {
+      if (editingPost) {
+        await updatePost.mutateAsync({ id: editingPost.id, data });
+        showToast("게시글이 저장되었습니다.");
+      } else {
+        await createPost.mutateAsync(data);
+        showToast("새 게시글이 등록되었습니다.");
+      }
+      setIsModalOpen(false);
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "저장에 실패했습니다.",
+        "error"
+      );
     }
-    setIsModalOpen(false);
   };
 
   const isSaving = createPost.isPending || updatePost.isPending;

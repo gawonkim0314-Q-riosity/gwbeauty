@@ -6,18 +6,23 @@ import { AdminTable } from "@/components/admin/AdminTable";
 import type { UserRole } from "@/db/schema";
 import { ROLE_LABELS, USER_ROLES } from "@/lib/auth/rbac";
 import type { AdminUserRow } from "@/hooks/use-admin-users";
+import { useAdminToast } from "@/components/admin/AdminToast";
 
 export default function AdminUsersPage() {
   const { data: users, isLoading } = useAdminUsers();
   const updateUser = useUpdateAdminUser();
   const [error, setError] = useState<string | null>(null);
+  const { showToast } = useAdminToast();
 
   const handleRoleChange = async (id: string, role: UserRole) => {
     setError(null);
     try {
       await updateUser.mutateAsync({ id, data: { role } });
+      showToast(`역할이 "${ROLE_LABELS[role]}"(으)로 변경되었습니다.`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "권한 변경 실패");
+      const message = err instanceof Error ? err.message : "권한 변경 실패";
+      setError(message);
+      showToast(message, "error");
     }
   };
 
@@ -25,8 +30,11 @@ export default function AdminUsersPage() {
     setError(null);
     try {
       await updateUser.mutateAsync({ id, data: { isActive } });
+      showToast(isActive ? "사용자를 활성화했습니다." : "사용자를 비활성화했습니다.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "상태 변경 실패");
+      const message = err instanceof Error ? err.message : "상태 변경 실패";
+      setError(message);
+      showToast(message, "error");
     }
   };
 

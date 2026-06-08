@@ -5,6 +5,7 @@ import { useInquiries, useUpdateInquiry, useDeleteInquiry } from "@/hooks/use-in
 import { AdminTable } from "@/components/admin/AdminTable";
 import type { Inquiry } from "@/db/schema";
 import { AdminModal } from "@/components/admin/AdminModal";
+import { useAdminToast } from "@/components/admin/AdminToast";
 
 const STATUS_OPTIONS = [
   { value: "pending", label: "대기 중", color: "bg-yellow-100 text-yellow-700" },
@@ -17,16 +18,35 @@ export default function AdminInquiriesPage() {
   const { data: inquiries = [], isLoading } = useInquiries();
   const updateInquiry = useUpdateInquiry();
   const deleteInquiry = useDeleteInquiry();
+  const { showToast } = useAdminToast();
 
   const [viewingInquiry, setViewingInquiry] = useState<Inquiry | null>(null);
 
   const handleStatusChange = async (id: number, status: string) => {
-    await updateInquiry.mutateAsync({ id, data: { status } });
+    try {
+      await updateInquiry.mutateAsync({ id, data: { status } });
+      const label =
+        STATUS_OPTIONS.find((s) => s.value === status)?.label ?? status;
+      showToast(`문의 상태가 "${label}"(으)로 변경되었습니다.`);
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "상태 변경에 실패했습니다.",
+        "error"
+      );
+    }
   };
 
   const handleDelete = async (inquiry: Inquiry) => {
     if (!confirm(`${inquiry.name}님의 문의를 삭제하시겠습니까?`)) return;
-    await deleteInquiry.mutateAsync(inquiry.id);
+    try {
+      await deleteInquiry.mutateAsync(inquiry.id);
+      showToast("문의가 삭제되었습니다.");
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "삭제에 실패했습니다.",
+        "error"
+      );
+    }
   };
 
   const getStatusStyle = (status: string | null) => {

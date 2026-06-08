@@ -19,6 +19,7 @@ import {
   applyTranslationToForm,
 } from "@/lib/detail-translate";
 import { adminFetch } from "@/lib/auth/admin-fetch";
+import { useAdminToast } from "@/components/admin/AdminToast";
 
 type Locale = "ko" | "en" | "zh" | "ja";
 const LOCALES: { value: Locale; label: string }[] = [
@@ -180,6 +181,7 @@ export default function AdminServiceDetailPage({
   const toggleActive = useToggleServiceActive(serviceId);
   const upload = useUpload();
   const heroFileRef = useRef<HTMLInputElement>(null);
+  const { showToast } = useAdminToast();
 
   const form = forms[locale];
   const setForm = (patch: Partial<DetailForm>) =>
@@ -200,12 +202,25 @@ export default function AdminServiceDetailPage({
       detailLongImageUrls: form.detailLongImageUrls.filter(Boolean),
       youtubeVideoIds: form.youtubeVideoIds.filter(Boolean),
     };
-    await upsert.mutateAsync(data);
-    setSaveStatus((prev) => ({
-      ...prev,
-      [locale]: status === "draft" ? "임시저장 완료" : "발행 완료",
-    }));
-    setTimeout(() => setSaveStatus((prev) => ({ ...prev, [locale]: "" })), 3000);
+    try {
+      await upsert.mutateAsync(data);
+      const label = LOCALES.find((l) => l.value === locale)?.label ?? locale;
+      const message =
+        status === "draft"
+          ? `${label} 임시저장이 완료되었습니다.`
+          : `${label} 발행이 완료되었습니다.`;
+      showToast(message);
+      setSaveStatus((prev) => ({
+        ...prev,
+        [locale]: status === "draft" ? "임시저장 완료" : "발행 완료",
+      }));
+      setTimeout(() => setSaveStatus((prev) => ({ ...prev, [locale]: "" })), 3000);
+    } catch (e) {
+      showToast(
+        e instanceof Error ? e.message : "저장에 실패했습니다. 다시 시도해 주세요.",
+        "error"
+      );
+    }
   };
 
   const handleHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -251,6 +266,7 @@ export default function AdminServiceDetailPage({
 
       const merged = applyTranslationToForm(koForm, data) as DetailForm;
       setForms((prev) => ({ ...prev, [locale]: merged }));
+      showToast("AI 번역이 완료되었습니다. 확인 후 발행해 주세요.");
       setSaveStatus((prev) => ({
         ...prev,
         [locale]: "AI 번역 완료 — 확인 후 발행하세요",
@@ -275,6 +291,23 @@ export default function AdminServiceDetailPage({
       updated[idx] = { ...updated[idx], imageUrl: url };
       setForm({ detailCards: updated });
     }
+    e.target.value = "";
+  };
+
+  const handleBeforeAfterImageUpload = async (
+    itemIndex: number,
+    field: "beforeUrl" | "afterUrl",
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = await upload.uploadFile(file, "services/before-after");
+    if (url) {
+      const updated = [...form.beforeAfterItems];
+      updated[itemIndex] = { ...updated[itemIndex], [field]: url };
+      setForm({ beforeAfterItems: updated });
+    }
+    e.target.value = "";
   };
 
   return (
@@ -299,7 +332,21 @@ export default function AdminServiceDetailPage({
         <div className="flex items-center gap-3">
           {service && (
             <button
-              onClick={() => toggleActive.mutateAsync(!service.isActive)}
+              onClick={async () => {
+                try {
+                  await toggleActive.mutateAsync(!service.isActive);
+                  showToast(
+                    service.isActive
+                      ? "시술을 비공개로 전환했습니다."
+                      : "시술을 공개했습니다."
+                  );
+                } catch (e) {
+                  showToast(
+                    e instanceof Error ? e.message : "상태 변경에 실패했습니다.",
+                    "error"
+                  );
+                }
+              }}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors"
               style={{
                 borderColor: service.isActive ? "#8B64C8" : "#ccc",
@@ -515,29 +562,102 @@ export default function AdminServiceDetailPage({
 
         {/* Before & After */}
         <FormCard title="Before & After">
+          <p className="text-xs text-[#A895C0] mb-4">
+            Before·After 이미지를 각각 업로드하거나 URL을 직접 입력하세요.
+          </p>
           <div className="space-y-4">
             {form.beforeAfterItems.map((item, i) => (
-              <div key={i} className="p-3 rounded-xl space-y-2" style={{ background: "#F9F7FD", border: "1px solid #EDE8F5" }}>
+              <div key={i} className="p-4 rounded-xl space-y-3" style={{ background: "#F9F7FD", border: "1px solid #EDE8F5" }}>
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-[#5A4070]">케이스 {i + 1}</span>
-                  <button onClick={() => { const u = form.beforeAfterItems.filter((_, j) => j !== i); setForm({ beforeAfterItems: u }); }} className="p-1 text-red-400">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const u = form.beforeAfterItems.filter((_, j) => j !== i);
+                      setForm({ beforeAfterItems: u.length ? u : [{ beforeUrl: "", afterUrl: "", label: "" }] });
+                    }}
+                    className="p-1 text-red-400"
+                  >
                     <MdDelete size={14} />
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <FormField label="Before URL">
-                    <input type="url" value={item.beforeUrl} onChange={(e) => { const u = [...form.beforeAfterItems]; u[i] = { ...u[i], beforeUrl: e.target.value }; setForm({ beforeAfterItems: u }); }} className="admin-input text-xs" placeholder="Before 이미지 URL" />
-                  </FormField>
-                  <FormField label="After URL">
-                    <input type="url" value={item.afterUrl} onChange={(e) => { const u = [...form.beforeAfterItems]; u[i] = { ...u[i], afterUrl: e.target.value }; setForm({ beforeAfterItems: u }); }} className="admin-input text-xs" placeholder="After 이미지 URL" />
-                  </FormField>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {(["beforeUrl", "afterUrl"] as const).map((field) => {
+                    const label = field === "beforeUrl" ? "Before" : "After";
+                    const url = item[field];
+                    return (
+                      <div key={field} className="space-y-2">
+                        <span className="text-[0.65rem] font-semibold tracking-wide text-[#8B64C8] uppercase">
+                          {label}
+                        </span>
+                        <div className="flex gap-3 items-start">
+                          <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-[#F0EBF8] flex-shrink-0">
+                            {url ? (
+                              /* eslint-disable-next-line @next/next/no-img-element */
+                              <img src={url} alt={label} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-[#C0AED6] text-xs">
+                                {label}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 space-y-2 min-w-0">
+                            <label className="block">
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => handleBeforeAfterImageUpload(i, field, e)}
+                              />
+                              <span className="flex items-center gap-1 text-xs text-[#8B64C8] cursor-pointer hover:underline">
+                                <MdCloudUpload size={12} />
+                                {upload.state === "uploading" ? `${upload.progress}%` : "이미지 업로드"}
+                              </span>
+                            </label>
+                            <input
+                              type="url"
+                              value={url}
+                              onChange={(e) => {
+                                const u = [...form.beforeAfterItems];
+                                u[i] = { ...u[i], [field]: e.target.value };
+                                setForm({ beforeAfterItems: u });
+                              }}
+                              className="admin-input text-xs"
+                              placeholder={`${label} 이미지 URL`}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
                 <FormField label="라벨">
-                  <input type="text" value={item.label} onChange={(e) => { const u = [...form.beforeAfterItems]; u[i] = { ...u[i], label: e.target.value }; setForm({ beforeAfterItems: u }); }} className="admin-input text-xs" placeholder="예: 쌍꺼풀 수술 4주 후" />
+                  <input
+                    type="text"
+                    value={item.label}
+                    onChange={(e) => {
+                      const u = [...form.beforeAfterItems];
+                      u[i] = { ...u[i], label: e.target.value };
+                      setForm({ beforeAfterItems: u });
+                    }}
+                    className="admin-input text-xs"
+                    placeholder="예: 쌍꺼풀 수술 4주 후"
+                  />
                 </FormField>
               </div>
             ))}
-            <button onClick={() => setForm({ beforeAfterItems: [...form.beforeAfterItems, { beforeUrl: "", afterUrl: "", label: "" }] })} className="flex items-center gap-1 text-xs text-[#8B64C8] hover:underline">
+            <button
+              type="button"
+              onClick={() =>
+                setForm({
+                  beforeAfterItems: [
+                    ...form.beforeAfterItems,
+                    { beforeUrl: "", afterUrl: "", label: "" },
+                  ],
+                })
+              }
+              className="flex items-center gap-1 text-xs text-[#8B64C8] hover:underline"
+            >
               <MdAdd size={14} /> 케이스 추가
             </button>
           </div>
