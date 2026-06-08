@@ -27,11 +27,16 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const sanitized = sanitizeBlogPayload(body);
+    const title = String(sanitized.title ?? "").trim();
+    if (!title) {
+      return NextResponse.json({ error: "제목은 필수입니다." }, { status: 400 });
+    }
     const slug =
       (typeof sanitized.slug === "string" && sanitized.slug.trim()) ||
-      slugifyTitle(String(sanitized.title ?? ""));
+      slugifyTitle(title);
     const created = await createBlogPost({
       ...sanitized,
+      title,
       slug,
       updatedAt: new Date(),
     });

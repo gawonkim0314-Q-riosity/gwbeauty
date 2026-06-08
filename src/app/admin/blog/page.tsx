@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useBlogPosts, useDeletePost } from "@/hooks/use-blog";
 import type { BlogPost } from "@/db/schema";
 import {
@@ -188,12 +187,11 @@ function PostCard({
         style={{ background: "#F0EBF8" }}
       >
         {post.thumbnailUrl ? (
-          <Image
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
             src={post.thumbnailUrl}
             alt={post.title}
-            fill
-            className="object-cover"
-            sizes="112px"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

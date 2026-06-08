@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import {
   MdArrowBack,
   MdSave,
@@ -78,6 +77,7 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
   const [form, setForm] = useState<BlogEditorState>(initial ?? emptyEditorState());
   const [showPreview, setShowPreview] = useState(true);
   const [slugEdited, setSlugEdited] = useState(!!initial?.slug);
+  const [thumbLocalPreview, setThumbLocalPreview] = useState<string | null>(null);
 
   const isSaving = createPost.isPending || updatePost.isPending;
 
@@ -91,9 +91,23 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
   };
 
   const handleThumbnailUpload = async (file: File) => {
+    const preview = URL.createObjectURL(file);
+    setThumbLocalPreview(preview);
     const url = await upload.uploadFile(file, "blog/thumbnails");
-    if (url) patch({ thumbnailUrl: url });
+    if (url) {
+      patch({ thumbnailUrl: url });
+      URL.revokeObjectURL(preview);
+      setThumbLocalPreview(null);
+    } else {
+      showToast("이미지 업로드에 실패했습니다.", "error");
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      if (thumbLocalPreview) URL.revokeObjectURL(thumbLocalPreview);
+    };
+  }, [thumbLocalPreview]);
 
   const buildPayload = (publish: boolean) => {
     const blocks = form.blocks.filter((b) => {
@@ -218,14 +232,13 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
           <div className="max-w-2xl mx-auto space-y-6">
             {/* Thumbnail */}
             <div>
-              {form.thumbnailUrl ? (
-                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden group">
-                  <Image
-                    src={form.thumbnailUrl}
+              {(form.thumbnailUrl || thumbLocalPreview) ? (
+                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden group bg-[#F0EBF8]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={form.thumbnailUrl || thumbLocalPreview || ""}
                     alt="썸네일"
-                    fill
-                    className="object-cover"
-                    sizes="640px"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                     <button
@@ -237,7 +250,10 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
                     </button>
                     <button
                       type="button"
-                      onClick={() => patch({ thumbnailUrl: "" })}
+                      onClick={() => {
+                        patch({ thumbnailUrl: "" });
+                        setThumbLocalPreview(null);
+                      }}
                       className="p-1.5 rounded-lg text-white bg-white/20 backdrop-blur"
                     >
                       <MdClose size={16} />
@@ -352,7 +368,12 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
             {/* Block editor */}
             <BlogBlockEditor
               blocks={form.blocks}
-              onChange={(blocks) => patch({ blocks })}
+              onChange={(updater) =>
+                setForm((prev) => ({
+                  ...prev,
+                  blocks: updater(prev.blocks),
+                }))
+              }
             />
           </div>
         </div>

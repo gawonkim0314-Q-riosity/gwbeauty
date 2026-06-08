@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { BlogBlockRenderer } from "@/components/blog/BlogBlockRenderer";
 import type { BlogBlock } from "@/lib/blog-blocks";
 import { formatBlogDate } from "@/lib/blog-blocks";
@@ -39,13 +38,12 @@ export function BlogPostPreview({
 
       <div className="p-6 max-h-[calc(100vh-12rem)] overflow-y-auto">
         {thumbnailUrl && (
-          <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-6">
-            <Image
+          <div className="aspect-[16/9] rounded-xl overflow-hidden mb-6 bg-[#F0EBF8]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={thumbnailUrl}
               alt={title}
-              fill
-              className="object-cover"
-              sizes="400px"
+              className="w-full h-full object-cover"
             />
           </div>
         )}

@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
 import {
   MdTitle,
   MdTextFields,
@@ -33,46 +32,50 @@ const BLOCK_TOOLS: { type: BlogBlockType; label: string; icon: React.ReactNode }
 
 interface Props {
   blocks: BlogBlock[];
-  onChange: (blocks: BlogBlock[]) => void;
+  onChange: (updater: (prev: BlogBlock[]) => BlogBlock[]) => void;
 }
 
 export function BlogBlockEditor({ blocks, onChange }: Props) {
   const upload = useUpload();
 
   const updateBlock = (id: string, patch: Partial<BlogBlock>) => {
-    onChange(blocks.map((b) => (b.id === id ? { ...b, ...patch } : b)));
+    onChange((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, ...patch } : b))
+    );
   };
 
   const removeBlock = (id: string) => {
-    if (blocks.length <= 1) {
-      onChange([createBlock("paragraph")]);
-      return;
-    }
-    onChange(blocks.filter((b) => b.id !== id));
+    onChange((prev) => {
+      if (prev.length <= 1) return [createBlock("paragraph")];
+      return prev.filter((b) => b.id !== id);
+    });
   };
 
   const moveBlock = (index: number, dir: -1 | 1) => {
-    const next = index + dir;
-    if (next < 0 || next >= blocks.length) return;
-    const copy = [...blocks];
-    [copy[index], copy[next]] = [copy[next], copy[index]];
-    onChange(copy);
+    onChange((prev) => {
+      const next = index + dir;
+      if (next < 0 || next >= prev.length) return prev;
+      const copy = [...prev];
+      [copy[index], copy[next]] = [copy[next], copy[index]];
+      return copy;
+    });
   };
 
   const addBlock = (type: BlogBlockType, afterIndex?: number) => {
     const block = createBlock(type);
-    if (afterIndex === undefined) {
-      onChange([...blocks, block]);
-    } else {
-      const copy = [...blocks];
+    onChange((prev) => {
+      if (afterIndex === undefined) return [...prev, block];
+      const copy = [...prev];
       copy.splice(afterIndex + 1, 0, block);
-      onChange(copy);
-    }
+      return copy;
+    });
   };
 
   const handleImageUpload = async (id: string, file: File) => {
     const url = await upload.uploadFile(file, "blog");
-    if (url) updateBlock(id, { url });
+    if (url) {
+      updateBlock(id, { url });
+    }
   };
 
   return (
@@ -110,6 +113,7 @@ export function BlogBlockEditor({ blocks, onChange }: Props) {
           onMoveUp={() => moveBlock(index, -1)}
           onMoveDown={() => moveBlock(index, 1)}
           onImageUpload={(file) => handleImageUpload(block.id, file)}
+          uploadError={upload.error}
           onAddAfter={(type) => addBlock(type, index)}
         />
       ))}
@@ -127,6 +131,7 @@ function BlockRow({
   onMoveUp,
   onMoveDown,
   onImageUpload,
+  uploadError,
   onAddAfter,
 }: {
   block: BlogBlock;
@@ -138,9 +143,18 @@ function BlockRow({
   onMoveUp: () => void;
   onMoveDown: () => void;
   onImageUpload: (file: File) => void;
+  uploadError: string | null;
   onAddAfter: (type: BlogBlockType) => void;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const [localPreview, setLocalPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (block.url && localPreview) {
+      URL.revokeObjectURL(localPreview);
+      setLocalPreview(null);
+    }
+  }, [block.url, localPreview]);
   const typeLabel =
     BLOCK_TOOLS.find((t) => t.type === block.type)?.label ?? block.type;
 
@@ -237,14 +251,13 @@ function BlockRow({
 
         {block.type === "image" && (
           <div>
-            {block.url ? (
-              <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-3">
-                <Image
-                  src={block.url}
+            {(block.url || localPreview) ? (
+              <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-[#F0EBF8]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={block.url || localPreview || ""}
                   alt={block.alt ?? ""}
-                  fill
-                  className="object-cover"
-                  sizes="600px"
+                  className="w-full h-full object-cover"
                 />
               </div>
             ) : (
@@ -261,6 +274,9 @@ function BlockRow({
                 </span>
               </button>
             )}
+            {uploadError && !block.url && (
+              <p className="text-xs text-red-500 mb-2">{uploadError}</p>
+            )}
             <input
               ref={fileRef}
               type="file"
@@ -268,7 +284,10 @@ function BlockRow({
               className="hidden"
               onChange={(e) => {
                 const file = e.target.files?.[0];
-                if (file) onImageUpload(file);
+                if (file) {
+                  setLocalPreview(URL.createObjectURL(file));
+                  onImageUpload(file);
+                }
                 e.target.value = "";
               }}
             />
@@ -283,7 +302,10 @@ function BlockRow({
                 </button>
                 <button
                   type="button"
-                  onClick={() => onUpdate({ url: "" })}
+                  onClick={() => {
+                    setLocalPreview(null);
+                    onUpdate({ url: "" });
+                  }}
                   className="text-xs text-red-400 hover:underline"
                 >
                   제거
