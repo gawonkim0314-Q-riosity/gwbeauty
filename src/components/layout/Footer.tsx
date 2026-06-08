@@ -67,7 +67,7 @@ export async function Footer() {
               GW Beauty
             </p>
             <p className="mt-1.5 text-[0.6rem] tracking-[0.28em] text-[var(--text-3)] uppercase">
-              Plastic Surgery Clinic
+              {t("clinicSubtitle")}
             </p>
 
             <div className="mt-6 flex items-center gap-3">

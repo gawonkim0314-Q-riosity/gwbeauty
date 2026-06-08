@@ -2,15 +2,18 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function ConsultationFormSection() {
   const t = useTranslations("consultation");
+  const locale = useLocale();
   const [form, setForm] = useState({
-    name: "", phone: "", service: "", date: "", time: "", message: "",
+    name: "", phone: "", email: "", service: "", date: "", time: "", message: "",
     privacy: false, marketing: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -27,6 +30,54 @@ export function ConsultationFormSection() {
 
   const services = t.raw("services") as string[];
   const timeSlots = t.raw("timeSlots") as string[];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!form.privacy) {
+      setError(t("privacyError"));
+      return;
+    }
+
+    const message =
+      form.message.trim() ||
+      [
+        form.service && `${t("serviceLabel")}: ${form.service}`,
+        form.date && `${t("dateLabel")}: ${form.date}`,
+        form.time && `${t("timeLabel")}: ${form.time}`,
+      ]
+        .filter(Boolean)
+        .join("\n") ||
+      t("eyebrow");
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          service: form.service,
+          preferredDate: form.date,
+          preferredTime: form.time,
+          message,
+          locale,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.error ?? t("submitError"));
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t("submitError"));
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section style={{ background: "var(--bg-2)" }}>
@@ -66,7 +117,7 @@ export function ConsultationFormSection() {
               <p className="mt-2 text-sm text-[var(--text-3)]">{t("successBody")}</p>
             </div>
           ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="mt-10 space-y-6">
+            <form onSubmit={handleSubmit} className="mt-10 space-y-6">
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <label className="eyebrow text-[0.6rem] text-[var(--text-3)]" htmlFor="cs-name">{t("nameLabel")}</label>
@@ -82,7 +133,7 @@ export function ConsultationFormSection() {
                 <div>
                   <label className="eyebrow text-[0.6rem] text-[var(--text-3)]" htmlFor="cs-phone">{t("phoneLabel")}</label>
                   <input
-                    id="cs-phone" name="phone" required value={form.phone}
+                    id="cs-phone" name="phone" type="tel" required value={form.phone}
                     onChange={handleChange} placeholder={t("phonePlaceholder")}
                     className={inputClass}
                     style={{ borderColor: "var(--border)" }}
@@ -90,6 +141,18 @@ export function ConsultationFormSection() {
                     onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="eyebrow text-[0.6rem] text-[var(--text-3)]" htmlFor="cs-email">{t("emailLabel")}</label>
+                <input
+                  id="cs-email" name="email" type="email" required value={form.email}
+                  onChange={handleChange} placeholder={t("emailPlaceholder")}
+                  className={inputClass}
+                  style={{ borderColor: "var(--border)" }}
+                  onFocus={(e) => (e.target.style.borderColor = "var(--pink)")}
+                  onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
+                />
               </div>
 
               <div>
@@ -163,8 +226,18 @@ export function ConsultationFormSection() {
                 ))}
               </div>
 
-              <button type="submit" className="btn-rose w-full justify-center">
-                {t("submit")}
+              {error && (
+                <p className="text-sm text-[var(--pink-deep)]" role="alert">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="btn-rose w-full justify-center disabled:opacity-60"
+              >
+                {submitting ? t("submitting") : t("submit")}
               </button>
             </form>
           )}
