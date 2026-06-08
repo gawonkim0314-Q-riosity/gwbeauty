@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useBlogPosts, useDeletePost } from "@/hooks/use-blog";
+import { useBlogPosts, useDeletePost } from "@/admin/blog/_hooks/use-blog";
 import type { BlogPost } from "@/db/schema";
 import {
   MdAdd,
@@ -13,7 +13,7 @@ import {
   MdPublic,
   MdDrafts,
 } from "react-icons/md";
-import { useAdminToast } from "@/components/admin/AdminToast";
+import { useAdminToast } from "@/admin/_shared/components/AdminToast";
 import { formatBlogDate } from "@/lib/blog-blocks";
 
 type Filter = "all" | "published" | "draft";

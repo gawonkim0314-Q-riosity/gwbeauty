@@ -1,10 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type { ServiceDetailPage } from "@/db/schema";
-import { adminFetch } from "@/lib/auth/admin-fetch";
 
-type DetailPayload = Partial<Omit<ServiceDetailPage, "id" | "createdAt" | "updatedAt">>;
-
-// ── Fetch detail (public + admin) ─────────────────────────────────────────────
 async function fetchDetail(
   serviceId: number,
   locale: string
@@ -17,6 +13,7 @@ async function fetchDetail(
   return res.json();
 }
 
+/** 공개·관리자 공용 — 시술 상세 페이지 데이터 */
 export function useServiceDetail(serviceId: number, locale: string) {
   return useQuery({
     queryKey: ["service-detail", serviceId, locale],
@@ -25,7 +22,6 @@ export function useServiceDetail(serviceId: number, locale: string) {
   });
 }
 
-// ── Related services ─────────────────────────────────────────────────────────
 export function useRelatedServices(serviceId: number) {
   return useQuery({
     queryKey: ["service-related", serviceId],
@@ -35,50 +31,5 @@ export function useRelatedServices(serviceId: number) {
       return res.json();
     },
     staleTime: 1000 * 60 * 10,
-  });
-}
-
-// ── Upsert detail (admin) ──────────────────────────────────────────────────────
-async function upsertDetail(
-  serviceId: number,
-  data: DetailPayload
-): Promise<ServiceDetailPage> {
-  const res = await adminFetch(`/api/services/${serviceId}/detail`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error("Failed to save detail");
-  return res.json();
-}
-
-export function useUpsertDetail(serviceId: number) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (data: DetailPayload) => upsertDetail(serviceId, data),
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({
-        queryKey: ["service-detail", serviceId, result.locale],
-      });
-    },
-  });
-}
-
-// ── Toggle isActive (admin) ───────────────────────────────────────────────────
-export function useToggleServiceActive(serviceId: number) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (isActive: boolean) => {
-      const res = await adminFetch(`/api/services/${serviceId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isActive }),
-      });
-      if (!res.ok) throw new Error("Failed to toggle");
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["services"] });
-    },
   });
 }

@@ -10,11 +10,11 @@ import {
   MdVisibility,
   MdClose,
 } from "react-icons/md";
-import { BlogBlockEditor } from "@/components/admin/blog/BlogBlockEditor";
-import { BlogPostPreview } from "@/components/admin/blog/BlogPostPreview";
-import { useCreatePost, useUpdatePost } from "@/hooks/use-blog";
-import { useUpload } from "@/hooks/use-upload";
-import { useAdminToast } from "@/components/admin/AdminToast";
+import { BlogBlockEditor } from "@/admin/blog/_components/BlogBlockEditor";
+import { BlogPostPreview } from "@/admin/blog/_components/BlogPostPreview";
+import { useCreatePost, useUpdatePost } from "@/admin/blog/_hooks/use-blog";
+import { useUpload } from "@/admin/_shared/hooks/use-upload";
+import { useAdminToast } from "@/admin/_shared/components/AdminToast";
 import {
   type BlogBlock,
   BLOG_CATEGORIES,
@@ -227,6 +227,8 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
               </span>
             )}
             <button
+            type="button"
+            onClick={() => handleSave(false)}
             disabled={isSaving || isUploading}
             className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium text-[#5A4070] border hover:bg-gray-50 disabled:opacity-50"
             style={{ borderColor: "#EDE8F5" }}
@@ -296,7 +298,7 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
                   <span className="text-sm font-medium">
                     {upload.state === "uploading" ? "업로드 중..." : "대표 이미지 (글 상단 히어로)"}
                   </span>
-                  <span className="text-xs">목록·글 맨 위에 표시됩니다. 본문 중간 이미지는 아래 블록에서 추가하세요.</span>
+                  <span className="text-xs">목록·글 맨 위에 표시됩니다</span>
                 </button>
               )}
               <input
@@ -391,10 +393,7 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
 
             {/* Block editor */}
             <div>
-              <h2 className="text-sm font-semibold text-[#2D1B4E] mb-1">본문 콘텐츠</h2>
-              <p className="text-xs text-[#A895C0] mb-4">
-                문단과 이미지를 원하는 순서로 배치하세요.
-              </p>
+              <h2 className="text-sm font-semibold text-[#2D1B4E] mb-4">본문</h2>
               <BlogBlockEditor
               blocks={form.blocks}
               onChange={(updater) =>

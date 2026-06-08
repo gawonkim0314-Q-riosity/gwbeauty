@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminShell } from "@/admin/_shared/components/AdminShell";
 
 export const dynamic = "force-dynamic";
 

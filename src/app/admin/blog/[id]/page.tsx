@@ -6,7 +6,7 @@ import { adminFetch } from "@/lib/auth/admin-fetch";
 import {
   BlogEditorWorkspace,
   postToEditorState,
-} from "@/components/admin/blog/BlogEditorWorkspace";
+} from "@/admin/blog/_components/BlogEditorWorkspace";
 import type { BlogPost } from "@/db/schema";
 
 export default function AdminBlogEditPage({

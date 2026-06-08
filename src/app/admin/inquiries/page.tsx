@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useInquiries, useUpdateInquiry, useDeleteInquiry } from "@/hooks/use-inquiries";
-import { AdminTable } from "@/components/admin/AdminTable";
+import { useInquiries, useUpdateInquiry, useDeleteInquiry } from "@/admin/inquiries/_hooks/use-inquiries";
+import { AdminTable } from "@/admin/_shared/components/AdminTable";
 import type { Inquiry } from "@/db/schema";
-import { AdminModal } from "@/components/admin/AdminModal";
-import { useAdminToast } from "@/components/admin/AdminToast";
+import { AdminModal } from "@/admin/_shared/components/AdminModal";
+import { useAdminToast } from "@/admin/_shared/components/AdminToast";
 
 const STATUS_OPTIONS = [
   { value: "pending", label: "대기 중", color: "bg-yellow-100 text-yellow-700" },

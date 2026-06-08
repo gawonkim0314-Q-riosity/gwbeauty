@@ -1,6 +1,6 @@
 "use client";
 
-import { useStats } from "@/hooks/use-stats";
+import { useStats } from "@/admin/_hooks/use-stats";
 import { MdSpa, MdArticle, MdMail, MdPendingActions } from "react-icons/md";
 
 const STAT_CARDS = [

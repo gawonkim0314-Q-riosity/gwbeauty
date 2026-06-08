@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useAdminUsers, useUpdateAdminUser } from "@/hooks/use-admin-users";
-import { AdminTable } from "@/components/admin/AdminTable";
+import { useAdminUsers, useUpdateAdminUser } from "@/admin/users/_hooks/use-admin-users";
+import { AdminTable } from "@/admin/_shared/components/AdminTable";
 import type { UserRole } from "@/db/schema";
 import { ROLE_LABELS, USER_ROLES } from "@/lib/auth/rbac";
-import type { AdminUserRow } from "@/hooks/use-admin-users";
-import { useAdminToast } from "@/components/admin/AdminToast";
+import type { AdminUserRow } from "@/admin/users/_hooks/use-admin-users";
+import { useAdminToast } from "@/admin/_shared/components/AdminToast";
 
 export default function AdminUsersPage() {
   const { data: users, isLoading } = useAdminUsers();
