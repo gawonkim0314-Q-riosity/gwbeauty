@@ -277,6 +277,7 @@
     "signInButton": "ログイン",
     "signUpButton": "登録する",
     "googleButton": "Googleで続行",
+    "googleRedirecting": "Googleログインへ移動中…",
     "or": "または",
     "loginButton": "ログイン",
     "signOut": "ログアウト",
@@ -292,6 +293,10 @@
       "auth/email-already-in-use": "このメールは既に登録されています。",
       "auth/weak-password": "パスワードは6文字以上必要です。",
       "auth/popup-closed-by-user": "ログインウィンドウが閉じられました。",
+      "auth/popup-blocked": "ポップアップがブロックされました。ブラウザ設定を確認してください。",
+      "auth/unauthorized-domain": "このドメインは Firebase に登録されていません。管理者にお問い合わせください。",
+      "auth/operation-not-supported-in-this-environment": "この環境では Google ログインに対応していません。",
+      "auth/cancelled-popup-request": "ログイン要求がキャンセルされました。",
       "auth/too-many-requests": "リクエストが多すぎます。しばらくしてからお試しください。",
       "auth/network-request-failed": "ネットワークエラーが発生しました。",
       "unknown": "ログインに失敗しました。もう一度お試しください。"

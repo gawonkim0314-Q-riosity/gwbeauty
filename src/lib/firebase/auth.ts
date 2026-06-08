@@ -1,15 +1,18 @@
 import {
   createUserWithEmailAndPassword,
+  getRedirectResult,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithRedirect,
   signOut as firebaseSignOut,
   updateProfile,
   type User,
+  type UserCredential,
 } from "firebase/auth";
 import { getFirebaseAuth } from "./client";
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export async function signInWithEmail(email: string, password: string) {
   const auth = getFirebaseAuth();
@@ -33,9 +36,16 @@ export async function signUpWithEmail(
   return credential;
 }
 
-export async function signInWithGoogle() {
+/** Google OAuth — redirect 방식 (Vercel·모바일·팝업 차단 환경에서 안정적) */
+export async function signInWithGoogle(): Promise<UserCredential | null> {
   const auth = getFirebaseAuth();
-  return signInWithPopup(auth, googleProvider);
+  await signInWithRedirect(auth, googleProvider);
+  return null;
+}
+
+export async function resolveGoogleRedirectResult() {
+  const auth = getFirebaseAuth();
+  return getRedirectResult(auth);
 }
 
 export async function signOut() {
@@ -64,6 +74,10 @@ export type AuthErrorCode =
   | "auth/email-already-in-use"
   | "auth/weak-password"
   | "auth/popup-closed-by-user"
+  | "auth/popup-blocked"
+  | "auth/unauthorized-domain"
+  | "auth/operation-not-supported-in-this-environment"
+  | "auth/cancelled-popup-request"
   | "auth/too-many-requests"
   | "auth/network-request-failed"
   | "unknown";
@@ -84,6 +98,10 @@ export function getAuthErrorCode(error: unknown): AuthErrorCode {
       "auth/email-already-in-use",
       "auth/weak-password",
       "auth/popup-closed-by-user",
+      "auth/popup-blocked",
+      "auth/unauthorized-domain",
+      "auth/operation-not-supported-in-this-environment",
+      "auth/cancelled-popup-request",
       "auth/too-many-requests",
       "auth/network-request-failed",
     ];

@@ -26,6 +26,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [googleRedirecting, setGoogleRedirecting] = useState(false);
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
 
@@ -51,8 +52,23 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
     if (open) {
       setErrorKey(null);
       setSubmitting(false);
+      setGoogleRedirecting(false);
     }
   }, [open, mode]);
+
+  const handleGoogle = async () => {
+    setGoogleRedirecting(true);
+    setErrorKey(null);
+    try {
+      const result = await signInWithGoogle();
+      if (result) {
+        onClose();
+      }
+    } catch (err) {
+      setErrorKey(getAuthErrorCode(err));
+      setGoogleRedirecting(false);
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -68,19 +84,6 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
       setEmail("");
       setPassword("");
       setDisplayName("");
-    } catch (err) {
-      setErrorKey(getAuthErrorCode(err));
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleGoogle = async () => {
-    setSubmitting(true);
-    setErrorKey(null);
-    try {
-      await signInWithGoogle();
-      onClose();
     } catch (err) {
       setErrorKey(getAuthErrorCode(err));
     } finally {
@@ -231,12 +234,12 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
           <button
             type="button"
             onClick={handleGoogle}
-            disabled={submitting}
+            disabled={submitting || googleRedirecting}
             className="flex w-full items-center justify-center gap-3 rounded-full border px-4 py-3 text-[0.72rem] font-semibold tracking-[0.08em] text-[var(--text-2)] transition-colors hover:bg-[var(--bg-2)] disabled:opacity-60"
             style={{ borderColor: "var(--border)" }}
           >
             <FcGoogle size={20} />
-            {t("googleButton")}
+            {googleRedirecting ? t("googleRedirecting") : t("googleButton")}
           </button>
         </div>
       </div>
