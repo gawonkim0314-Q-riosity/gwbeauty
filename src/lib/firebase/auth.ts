@@ -114,6 +114,7 @@ export type AuthErrorCode =
   | "auth/cancelled-popup-request"
   | "auth/too-many-requests"
   | "auth/network-request-failed"
+  | "auth/operation-not-allowed"
   | "unknown";
 
 export function getAuthErrorCode(error: unknown): AuthErrorCode {
@@ -138,6 +139,7 @@ export function getAuthErrorCode(error: unknown): AuthErrorCode {
       "auth/cancelled-popup-request",
       "auth/too-many-requests",
       "auth/network-request-failed",
+      "auth/operation-not-allowed",
     ];
     if (known.includes(code as AuthErrorCode)) {
       return code as AuthErrorCode;

@@ -299,6 +299,7 @@
       "auth/cancelled-popup-request": "登录请求已取消。",
       "auth/too-many-requests": "尝试次数过多，请稍后再试。",
       "auth/network-request-failed": "网络错误，请重试。",
+      "auth/operation-not-allowed": "尚未启用邮箱注册。请使用 Google 登录或联系管理员。",
       "unknown": "登录失败，请重试。"
     }
   },

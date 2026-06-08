@@ -89,7 +89,11 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
       setPassword("");
       setDisplayName("");
     } catch (err) {
-      setErrorKey(getAuthErrorCode(err));
+      const code = getAuthErrorCode(err);
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[Auth] email auth failed:", code, err);
+      }
+      setErrorKey(code);
     } finally {
       setSubmitting(false);
     }

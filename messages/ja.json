@@ -299,6 +299,7 @@
       "auth/cancelled-popup-request": "ログイン要求がキャンセルされました。",
       "auth/too-many-requests": "リクエストが多すぎます。しばらくしてからお試しください。",
       "auth/network-request-failed": "ネットワークエラーが発生しました。",
+      "auth/operation-not-allowed": "メール登録が有効になっていません。Googleログインをご利用ください。",
       "unknown": "ログインに失敗しました。もう一度お試しください。"
     }
   },

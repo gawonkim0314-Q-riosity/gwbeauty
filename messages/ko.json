@@ -299,6 +299,7 @@
       "auth/cancelled-popup-request": "로그인 요청이 취소되었습니다.",
       "auth/too-many-requests": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.",
       "auth/network-request-failed": "네트워크 오류가 발생했습니다.",
+      "auth/operation-not-allowed": "이메일 회원가입이 아직 활성화되지 않았습니다. Google 로그인을 이용하거나 관리자에게 문의해 주세요.",
       "unknown": "로그인에 실패했습니다. 다시 시도해 주세요."
     }
   },

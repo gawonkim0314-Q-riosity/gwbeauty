@@ -96,7 +96,16 @@ app/layout.tsx
 
 - `www.gwbeauty.xyz`, `gwbeauty.xyz`, `gwbeauty.vercel.app`, `localhost`
 
-**Sign-in methods:** Email/Password, Google 활성화
+**Sign-in methods** (둘 다 Enable 필수):
+
+| Provider | 용도 |
+|----------|------|
+| **Email/Password** | 이메일 가입·로그인 (`accounts:signUp`) |
+| **Google** | Google로 계속하기 |
+
+Console: [Authentication → Sign-in method](https://console.firebase.google.com/project/gwbeauty-8ec0c/authentication/providers)
+
+- `auth/operation-not-allowed` → Email/Password 미활성 (Console에서 Enable)
 
 ---
 

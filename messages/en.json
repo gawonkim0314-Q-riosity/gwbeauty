@@ -299,6 +299,7 @@
       "auth/cancelled-popup-request": "Sign-in request was cancelled.",
       "auth/too-many-requests": "Too many attempts. Please try again later.",
       "auth/network-request-failed": "Network error. Please try again.",
+      "auth/operation-not-allowed": "Email sign-up is not enabled. Use Google sign-in or contact the administrator.",
       "unknown": "Sign-in failed. Please try again."
     }
   },
