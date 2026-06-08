@@ -3,6 +3,7 @@ import {
   getRedirectResult,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signInWithRedirect,
   signOut as firebaseSignOut,
   updateProfile,
@@ -36,16 +37,49 @@ export async function signUpWithEmail(
   return credential;
 }
 
-/** Google OAuth — redirect 방식 (Vercel·모바일·팝업 차단 환경에서 안정적) */
+function prefersGooglePopup(): boolean {
+  if (typeof window === "undefined") return false;
+  const touchPrimary = window.matchMedia("(pointer: coarse)").matches;
+  const narrow = window.matchMedia("(max-width: 767px)").matches;
+  return !touchPrimary && !narrow;
+}
+
+/**
+ * PC(Chrome 등): popup — 로그인 직후 UI 갱신이 확실함
+ * 모바일·팝업 차단: redirect fallback
+ */
 export async function signInWithGoogle(): Promise<UserCredential | null> {
   const auth = getFirebaseAuth();
+
+  if (prefersGooglePopup()) {
+    try {
+      return await signInWithPopup(auth, googleProvider);
+    } catch (err) {
+      const code = getAuthErrorCode(err);
+      if (code === "auth/popup-blocked") {
+        await signInWithRedirect(auth, googleProvider);
+        return null;
+      }
+      throw err;
+    }
+  }
+
   await signInWithRedirect(auth, googleProvider);
   return null;
 }
 
+let redirectResultPromise: ReturnType<typeof getRedirectResult> | null = null;
+
+/** getRedirectResult는 페이지당 1회만 호출해야 한다 (React Strict Mode·재마운트 대비) */
 export async function resolveGoogleRedirectResult() {
-  const auth = getFirebaseAuth();
-  return getRedirectResult(auth);
+  if (typeof window === "undefined") return null;
+  if (!redirectResultPromise) {
+    const auth = getFirebaseAuth();
+    redirectResultPromise = getRedirectResult(auth).finally(() => {
+      // redirect 소비 후에도 auth 상태는 onAuthStateChanged로 유지된다
+    });
+  }
+  return redirectResultPromise;
 }
 
 export async function signOut() {

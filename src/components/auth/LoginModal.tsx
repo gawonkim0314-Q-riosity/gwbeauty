@@ -11,6 +11,7 @@ import {
   signInWithGoogle,
   signUpWithEmail,
 } from "@/lib/firebase/auth";
+import { useAuth } from "@/providers/auth-provider";
 
 type Mode = "signIn" | "signUp";
 
@@ -21,6 +22,7 @@ interface LoginModalProps {
 
 export function LoginModal({ open, onClose }: LoginModalProps) {
   const t = useTranslations("auth");
+  const { refreshAuth } = useAuth();
   const [mode, setMode] = useState<Mode>("signIn");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,11 +63,13 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
     setErrorKey(null);
     try {
       const result = await signInWithGoogle();
-      if (result) {
+      if (result?.user) {
+        refreshAuth(result.user);
         onClose();
       }
     } catch (err) {
       setErrorKey(getAuthErrorCode(err));
+    } finally {
       setGoogleRedirecting(false);
     }
   };
@@ -75,11 +79,11 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
     setSubmitting(true);
     setErrorKey(null);
     try {
-      if (mode === "signIn") {
-        await signInWithEmail(email, password);
-      } else {
-        await signUpWithEmail(email, password, displayName);
-      }
+      const credential =
+        mode === "signIn"
+          ? await signInWithEmail(email, password)
+          : await signUpWithEmail(email, password, displayName);
+      refreshAuth(credential.user);
       onClose();
       setEmail("");
       setPassword("");

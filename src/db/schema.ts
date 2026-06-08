@@ -7,6 +7,7 @@ import {
   timestamp,
   jsonb,
   uniqueIndex,
+  uuid,
   customType,
 } from "drizzle-orm/pg-core";
 
@@ -145,6 +146,20 @@ export const inquiries = pgTable("inquiries", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+/** Firebase Auth ↔ Neon 프로필·RBAC (member | editor | admin) */
+export const users = pgTable("users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  firebaseUid: text("firebase_uid").notNull().unique(),
+  email: text("email").notNull().unique(),
+  displayName: text("display_name"),
+  photoUrl: text("photo_url"),
+  role: text("role").notNull().default("member"),
+  isActive: boolean("is_active").default(true),
+  lastLoginAt: timestamp("last_login_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export type Service = typeof services.$inferSelect;
 export type NewService = typeof services.$inferInsert;
 export type ServiceDetailPage = typeof serviceDetailPages.$inferSelect;
@@ -153,3 +168,6 @@ export type BlogPost = typeof blogPosts.$inferSelect;
 export type NewBlogPost = typeof blogPosts.$inferInsert;
 export type Inquiry = typeof inquiries.$inferSelect;
 export type NewInquiry = typeof inquiries.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type UserRole = "member" | "editor" | "admin";
