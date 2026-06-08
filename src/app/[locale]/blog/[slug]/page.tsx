@@ -1,6 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getBlogPostBySlug, listBlogPosts } from "@/db/queries";
 import { BlogBlockRenderer } from "@/components/blog/BlogBlockRenderer";
@@ -29,7 +28,7 @@ export default async function BlogDetailPage({ params }: Props) {
   const post = await getBlogPostBySlug(slug, true);
   if (!post) notFound();
 
-  const blocks = parseBlocks(post.blocks ?? post.content);
+  const blocks = parseBlocks(post.blocks, post.content);
   const related = (await listBlogPosts(true, 4)).filter((p) => p.id !== post.id).slice(0, 3);
 
   return (
@@ -37,14 +36,12 @@ export default async function BlogDetailPage({ params }: Props) {
       {/* Hero */}
       <header className="relative">
         {post.thumbnailUrl && (
-          <div className="relative h-[40vh] min-h-[280px] max-h-[480px]">
-            <Image
+          <div className="relative h-[40vh] min-h-[280px] max-h-[480px] overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={post.thumbnailUrl}
               alt={post.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="100vw"
+              className="w-full h-full object-cover"
             />
             <div
               className="absolute inset-0"
@@ -131,13 +128,13 @@ export default async function BlogDetailPage({ params }: Props) {
                   style={{ background: "white", border: "1px solid var(--border)" }}
                 >
                   {r.thumbnailUrl && (
-                    <div className="relative aspect-[16/10]">
-                      <Image
+                    <div className="aspect-[16/10] overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
                         src={r.thumbnailUrl}
                         alt={r.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="300px"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
                       />
                     </div>
                   )}

@@ -51,13 +51,24 @@ export function createBlock(type: BlogBlockType): BlogBlock {
   }
 }
 
-export function parseBlocks(raw: unknown): BlogBlock[] {
-  if (!raw) return [createBlock("paragraph")];
-  if (Array.isArray(raw)) return raw as BlogBlock[];
+export function parseBlocks(raw: unknown, fallbackContent?: string | null): BlogBlock[] {
+  if (Array.isArray(raw)) {
+    if (raw.length > 0) return raw as BlogBlock[];
+    if (fallbackContent?.trim()) {
+      return [{ id: newBlockId(), type: "paragraph", text: fallbackContent }];
+    }
+    return [createBlock("paragraph")];
+  }
+  if (!raw) {
+    if (fallbackContent?.trim()) {
+      return [{ id: newBlockId(), type: "paragraph", text: fallbackContent }];
+    }
+    return [createBlock("paragraph")];
+  }
   if (typeof raw === "string") {
     try {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed as BlogBlock[];
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed as BlogBlock[];
     } catch {
       /* legacy plain text */
     }
@@ -115,4 +126,16 @@ export function formatBlogDate(date: Date | string | null | undefined): string {
     month: "2-digit",
     day: "2-digit",
   });
+}
+
+export function getFirstImageUrl(blocks: BlogBlock[]): string | null {
+  for (const b of blocks) {
+    if (b.type === "image" && b.url) return b.url;
+  }
+  return null;
+}
+
+/** 저장 전 — URL 없는 이미지 블록이 있는지 */
+export function hasEmptyImageBlocks(blocks: BlogBlock[]): boolean {
+  return blocks.some((b) => b.type === "image" && !b.url);
 }

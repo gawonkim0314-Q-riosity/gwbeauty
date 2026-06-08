@@ -23,6 +23,8 @@ import {
   blocksToPlainText,
   excerptFromBlocks,
   slugifyTitle,
+  getFirstImageUrl,
+  hasEmptyImageBlocks,
 } from "@/lib/blog-blocks";
 import type { BlogPost } from "@/db/schema";
 
@@ -46,7 +48,7 @@ export function postToEditorState(post: BlogPost): BlogEditorState {
     category: post.category ?? "클리닉 소식",
     author: post.author ?? "GW Beauty",
     isPublished: post.isPublished ?? false,
-    blocks: parseBlocks(post.blocks ?? post.content),
+    blocks: parseBlocks(post.blocks, post.content),
   };
 }
 
@@ -78,7 +80,10 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
   const [showPreview, setShowPreview] = useState(true);
   const [slugEdited, setSlugEdited] = useState(!!initial?.slug);
   const [thumbLocalPreview, setThumbLocalPreview] = useState<string | null>(null);
+  const [blockUploading, setBlockUploading] = useState(false);
 
+  const isUploading =
+    upload.state === "uploading" || blockUploading || (!!thumbLocalPreview && !form.thumbnailUrl);
   const isSaving = createPost.isPending || updatePost.isPending;
 
   const patch = (p: Partial<BlogEditorState>) => setForm((prev) => ({ ...prev, ...p }));
@@ -121,7 +126,7 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
       title: form.title.trim(),
       slug: form.slug.trim() || slugifyTitle(form.title),
       excerpt: form.excerpt.trim() || excerptFromBlocks(blocks),
-      thumbnailUrl: form.thumbnailUrl || null,
+      thumbnailUrl: form.thumbnailUrl || getFirstImageUrl(blocks) || null,
       category: form.category,
       author: form.author,
       blocks,
@@ -134,6 +139,19 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
   const handleSave = async (publish: boolean) => {
     if (!form.title.trim()) {
       showToast("제목을 입력해 주세요.", "error");
+      return;
+    }
+
+    if (isUploading) {
+      showToast("이미지 업로드가 완료될 때까지 기다려 주세요.", "error");
+      return;
+    }
+
+    if (hasEmptyImageBlocks(form.blocks)) {
+      showToast(
+        "업로드되지 않은 이미지 블록이 있습니다. 업로드 완료 후 저장하거나 해당 블록을 삭제해 주세요.",
+        "error"
+      );
       return;
     }
 
@@ -203,10 +221,13 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
               사이트에서 보기 →
             </a>
           )}
-          <button
-            type="button"
-            onClick={() => handleSave(false)}
-            disabled={isSaving}
+            {isUploading && (
+              <span className="text-xs text-[#8B64C8] font-medium">
+                이미지 업로드 중…
+              </span>
+            )}
+            <button
+            disabled={isSaving || isUploading}
             className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium text-[#5A4070] border hover:bg-gray-50 disabled:opacity-50"
             style={{ borderColor: "#EDE8F5" }}
           >
@@ -216,7 +237,7 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
           <button
             type="button"
             onClick={() => handleSave(true)}
-            disabled={isSaving}
+            disabled={isSaving || isUploading}
             className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold text-white disabled:opacity-50"
             style={{ background: "linear-gradient(135deg, #E8748A 0%, #8B64C8 100%)" }}
           >
@@ -374,6 +395,14 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
                   blocks: updater(prev.blocks),
                 }))
               }
+              onUploadingChange={setBlockUploading}
+              onImageUploaded={(url) => {
+                setForm((prev) => ({
+                  ...prev,
+                  thumbnailUrl: prev.thumbnailUrl || url,
+                }));
+              }}
+              onUploadError={(msg) => showToast(msg, "error")}
             />
           </div>
         </div>

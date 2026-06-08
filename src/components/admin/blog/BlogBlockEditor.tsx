@@ -33,10 +33,24 @@ const BLOCK_TOOLS: { type: BlogBlockType; label: string; icon: React.ReactNode }
 interface Props {
   blocks: BlogBlock[];
   onChange: (updater: (prev: BlogBlock[]) => BlogBlock[]) => void;
+  onUploadingChange?: (uploading: boolean) => void;
+  onImageUploaded?: (url: string) => void;
+  onUploadError?: (message: string) => void;
 }
 
-export function BlogBlockEditor({ blocks, onChange }: Props) {
+export function BlogBlockEditor({
+  blocks,
+  onChange,
+  onUploadingChange,
+  onImageUploaded,
+  onUploadError,
+}: Props) {
   const upload = useUpload();
+  const [pendingIds, setPendingIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    onUploadingChange?.(upload.state === "uploading" || pendingIds.size > 0);
+  }, [upload.state, pendingIds, onUploadingChange]);
 
   const updateBlock = (id: string, patch: Partial<BlogBlock>) => {
     onChange((prev) =>
@@ -72,9 +86,18 @@ export function BlogBlockEditor({ blocks, onChange }: Props) {
   };
 
   const handleImageUpload = async (id: string, file: File) => {
+    setPendingIds((prev) => new Set(prev).add(id));
     const url = await upload.uploadFile(file, "blog");
+    setPendingIds((prev) => {
+      const next = new Set(prev);
+      next.delete(id);
+      return next;
+    });
     if (url) {
       updateBlock(id, { url });
+      onImageUploaded?.(url);
+    } else {
+      onUploadError?.("본문 이미지 업로드에 실패했습니다.");
     }
   };
 
@@ -107,7 +130,7 @@ export function BlogBlockEditor({ blocks, onChange }: Props) {
           block={block}
           index={index}
           total={blocks.length}
-          isUploading={upload.state === "uploading"}
+          isUploading={upload.state === "uploading" || pendingIds.has(block.id)}
           onUpdate={(patch) => updateBlock(block.id, patch)}
           onRemove={() => removeBlock(block.id)}
           onMoveUp={() => moveBlock(index, -1)}

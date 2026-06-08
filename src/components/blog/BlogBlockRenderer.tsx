@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { BlogBlock } from "@/lib/blog-blocks";
 
 interface Props {
@@ -54,15 +53,15 @@ function Block({ block }: { block: BlogBlock }) {
       return (
         <figure className="my-8">
           <div
-            className="relative aspect-[16/10] overflow-hidden rounded-2xl"
+            className="aspect-[16/10] overflow-hidden rounded-2xl bg-[var(--bg-2)]"
             style={{ border: "1px solid var(--border)" }}
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={block.url}
               alt={block.alt || ""}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 720px"
+              className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
           {block.caption && (
