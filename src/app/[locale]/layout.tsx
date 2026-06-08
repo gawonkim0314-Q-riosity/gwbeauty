@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingButtons } from "@/components/layout/FloatingButtons";
+import { LoginModalProvider } from "@/providers/login-modal-provider";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -40,10 +41,12 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-      <FloatingButtons />
+      <LoginModalProvider>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <FloatingButtons />
+      </LoginModalProvider>
     </NextIntlClientProvider>
   );
 }

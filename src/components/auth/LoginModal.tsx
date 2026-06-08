@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { FaTimes } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -26,6 +27,11 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
   const [displayName, setDisplayName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -33,10 +39,11 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = prev;
     };
   }, [open, onClose]);
 
@@ -46,8 +53,6 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
       setSubmitting(false);
     }
   }, [open, mode]);
-
-  if (!open) return null;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -83,22 +88,26 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      <div
-        className="absolute inset-0 bg-black/45 backdrop-blur-sm"
-        onClick={onClose}
-        aria-hidden
-      />
+  if (!open || !portalTarget) return null;
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" aria-hidden />
+
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="login-modal-title"
-        className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-[var(--shadow-card)]"
+        className="relative z-10 flex w-full max-w-md max-h-[90dvh] flex-col overflow-hidden rounded-3xl bg-white shadow-[var(--shadow-card)]"
         style={{ border: "1px solid var(--border)" }}
+        onClick={(e) => e.stopPropagation()}
       >
         <div
-          className="flex items-center justify-between px-6 py-5"
+          className="flex shrink-0 items-center justify-between px-6 py-5"
           style={{ borderBottom: "1px solid var(--border)" }}
         >
           <div>
@@ -117,7 +126,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
           </button>
         </div>
 
-        <div className="px-6 pt-4">
+        <div className="overflow-y-auto px-6 pt-4 pb-6">
           <div
             className="mb-6 flex rounded-full p-1"
             style={{ background: "var(--bg-2)" }}
@@ -190,7 +199,10 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
             </label>
 
             {errorKey && (
-              <p className="rounded-xl px-3 py-2 text-xs text-[var(--pink-deep)]" style={{ background: "var(--bg-pink)" }}>
+              <p
+                className="rounded-xl px-3 py-2 text-xs text-[var(--pink-deep)]"
+                style={{ background: "var(--bg-pink)" }}
+              >
                 {t(`errors.${errorKey}` as "errors.unknown")}
               </p>
             )}
@@ -220,7 +232,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
             type="button"
             onClick={handleGoogle}
             disabled={submitting}
-            className="mb-6 flex w-full items-center justify-center gap-3 rounded-full border px-4 py-3 text-[0.72rem] font-semibold tracking-[0.08em] text-[var(--text-2)] transition-colors hover:bg-[var(--bg-2)] disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-3 rounded-full border px-4 py-3 text-[0.72rem] font-semibold tracking-[0.08em] text-[var(--text-2)] transition-colors hover:bg-[var(--bg-2)] disabled:opacity-60"
             style={{ borderColor: "var(--border)" }}
           >
             <FcGoogle size={20} />
@@ -228,6 +240,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    portalTarget
   );
 }
