@@ -201,10 +201,8 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Right: auth + language switcher + phone + CTA */}
+          {/* Right: language + phone + login */}
           <div className="hidden items-center gap-4 md:flex">
-            <AuthControls />
-
             {/* Language switcher */}
             <div className="relative" ref={langDropdownRef}>
               <button
@@ -245,9 +243,7 @@ export function Header() {
             >
               {siteConfig.phone}
             </a>
-            <Link href="/inquire" className="btn-rose text-[0.65rem]">
-              {t("announcementLink")}
-            </Link>
+            <AuthControls variant="cta" />
           </div>
 
           {/* Mobile: auth + burger */}
@@ -328,10 +324,6 @@ export function Header() {
                 </Link>
               ))}
 
-              <div className="mt-4">
-                <AuthControls fullWidth />
-              </div>
-
               {/* Mobile language switcher */}
               <div className="mt-4 flex gap-3">
                 {LOCALES.map((l) => (
@@ -348,13 +340,6 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-              <Link
-                href="/inquire"
-                className="btn-rose mt-5 justify-center"
-                onClick={() => setMenuOpen(false)}
-              >
-                {t("announcementLink")}
-              </Link>
             </nav>
           </div>
         )}
