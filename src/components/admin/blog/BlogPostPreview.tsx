@@ -38,12 +38,15 @@ export function BlogPostPreview({
 
       <div className="p-6 max-h-[calc(100vh-12rem)] overflow-y-auto">
         {thumbnailUrl && (
-          <div className="aspect-[16/9] rounded-xl overflow-hidden mb-6 bg-[#F0EBF8]">
+          <div
+            className="rounded-xl overflow-hidden mb-6 flex items-center justify-center"
+            style={{ background: "var(--bg-2)", border: "1px solid var(--border)" }}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={thumbnailUrl}
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full h-auto max-h-[200px] object-contain"
             />
           </div>
         )}
@@ -67,12 +70,14 @@ export function BlogPostPreview({
         </h1>
 
         {excerpt && (
-          <p className="text-sm text-[var(--text-3)] mb-6 leading-relaxed">
+          <p className="text-sm text-[var(--text-3)] mb-4 leading-relaxed">
             {excerpt}
           </p>
         )}
 
-        <p className="text-xs text-[var(--text-3)] mb-8">by {author}</p>
+        <p className="text-xs text-[var(--text-3)] mb-10 pb-4 border-b" style={{ borderColor: "#EDE8F5" }}>
+          by {author}
+        </p>
 
         <BlogBlockRenderer blocks={blocks.filter((b) => hasContent(b))} />
       </div>

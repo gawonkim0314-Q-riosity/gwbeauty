@@ -254,12 +254,15 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
             {/* Thumbnail */}
             <div>
               {(form.thumbnailUrl || thumbLocalPreview) ? (
-                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden group bg-[#F0EBF8]">
+                <div
+                  className="relative rounded-2xl overflow-hidden group flex items-center justify-center"
+                  style={{ background: "#F0EBF8", border: "1px solid #EDE8F5" }}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={form.thumbnailUrl || thumbLocalPreview || ""}
                     alt="썸네일"
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto max-h-[320px] object-contain"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                     <button
@@ -291,9 +294,9 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
                 >
                   <MdCloudUpload size={36} />
                   <span className="text-sm font-medium">
-                    {upload.state === "uploading" ? "업로드 중..." : "대표 이미지 업로드"}
+                    {upload.state === "uploading" ? "업로드 중..." : "대표 이미지 (글 상단 히어로)"}
                   </span>
-                  <span className="text-xs">목록·상단에 표시됩니다</span>
+                  <span className="text-xs">목록·글 맨 위에 표시됩니다. 본문 중간 이미지는 아래 블록에서 추가하세요.</span>
                 </button>
               )}
               <input
@@ -387,7 +390,12 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
             </div>
 
             {/* Block editor */}
-            <BlogBlockEditor
+            <div>
+              <h2 className="text-sm font-semibold text-[#2D1B4E] mb-1">본문 콘텐츠</h2>
+              <p className="text-xs text-[#A895C0] mb-4">
+                문단과 이미지를 원하는 순서로 배치하세요.
+              </p>
+              <BlogBlockEditor
               blocks={form.blocks}
               onChange={(updater) =>
                 setForm((prev) => ({
@@ -403,7 +411,8 @@ export function BlogEditorWorkspace({ postId, initial }: Props) {
                 }));
               }}
               onUploadError={(msg) => showToast(msg, "error")}
-            />
+              />
+            </div>
           </div>
         </div>
 

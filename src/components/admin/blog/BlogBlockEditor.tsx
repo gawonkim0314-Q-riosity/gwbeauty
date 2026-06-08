@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Fragment } from "react";
 import {
   MdTitle,
   MdTextFields,
@@ -102,7 +102,16 @@ export function BlogBlockEditor({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-1">
+      <p
+        className="text-xs text-[#A895C0] mb-4 leading-relaxed"
+        style={{ background: "#F9F7FD", border: "1px solid #EDE8F5", borderRadius: 12, padding: "12px 14px" }}
+      >
+        본문은 블록 단위로 작성합니다. 글 <strong className="text-[#5A4070]">사이사이</strong>에
+        이미지를 넣으려면 각 블록 아래 <strong className="text-[#8B64C8]">「+ 이미지 삽입」</strong>을
+        누르세요. 업로드가 끝난 뒤 저장·발행해 주세요.
+      </p>
+
       {/* 블록 추가 툴바 */}
       <div
         className="sticky top-0 z-10 flex flex-wrap gap-1.5 p-2 rounded-xl mb-4"
@@ -125,21 +134,50 @@ export function BlogBlockEditor({
       </div>
 
       {blocks.map((block, index) => (
-        <BlockRow
-          key={block.id}
-          block={block}
-          index={index}
-          total={blocks.length}
-          isUploading={upload.state === "uploading" || pendingIds.has(block.id)}
-          onUpdate={(patch) => updateBlock(block.id, patch)}
-          onRemove={() => removeBlock(block.id)}
-          onMoveUp={() => moveBlock(index, -1)}
-          onMoveDown={() => moveBlock(index, 1)}
-          onImageUpload={(file) => handleImageUpload(block.id, file)}
-          uploadError={upload.error}
-          onAddAfter={(type) => addBlock(type, index)}
-        />
+        <Fragment key={block.id}>
+          <BlockRow
+            block={block}
+            index={index}
+            total={blocks.length}
+            isUploading={upload.state === "uploading" || pendingIds.has(block.id)}
+            onUpdate={(patch) => updateBlock(block.id, patch)}
+            onRemove={() => removeBlock(block.id)}
+            onMoveUp={() => moveBlock(index, -1)}
+            onMoveDown={() => moveBlock(index, 1)}
+            onImageUpload={(file) => handleImageUpload(block.id, file)}
+            uploadError={upload.error}
+            onAddAfter={(type) => addBlock(type, index)}
+          />
+          <BlockInsertBar onInsert={(type) => addBlock(type, index)} />
+        </Fragment>
       ))}
+    </div>
+  );
+}
+
+function BlockInsertBar({
+  onInsert,
+}: {
+  onInsert: (type: BlogBlockType) => void;
+}) {
+  return (
+    <div className="flex items-center justify-center gap-2 py-2 group/insert">
+      <div className="flex-1 h-px" style={{ background: "#EDE8F5" }} />
+      <button
+        type="button"
+        onClick={() => onInsert("paragraph")}
+        className="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-medium text-[#A895C0] hover:text-[#5A4070] hover:bg-[#F9F7FD] border border-transparent hover:border-[#EDE8F5] transition-colors"
+      >
+        <MdAdd size={12} /> 본문
+      </button>
+      <button
+        type="button"
+        onClick={() => onInsert("image")}
+        className="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold text-[#8B64C8] hover:bg-[#F0EBF8] border border-[#EDE8F5] transition-colors"
+      >
+        <MdImage size={12} /> 이미지 삽입
+      </button>
+      <div className="flex-1 h-px" style={{ background: "#EDE8F5" }} />
     </div>
   );
 }
@@ -275,12 +313,15 @@ function BlockRow({
         {block.type === "image" && (
           <div>
             {(block.url || localPreview) ? (
-              <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-[#F0EBF8]">
+              <div
+                className="rounded-xl overflow-hidden mb-3 flex items-center justify-center"
+                style={{ background: "#F0EBF8", border: "1px solid #EDE8F5" }}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={block.url || localPreview || ""}
                   alt={block.alt ?? ""}
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto max-h-[420px] object-contain"
                 />
               </div>
             ) : (
@@ -397,9 +438,9 @@ function BlockRow({
         )}
       </div>
 
-      {/* 빠른 추가 */}
+      {/* 블록 하단 빠른 추가 */}
       <div
-        className="px-3 py-1.5 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="px-3 py-2 flex gap-3 justify-end"
         style={{ borderTop: "1px solid #F0EBF8" }}
       >
         <button
@@ -412,7 +453,7 @@ function BlockRow({
         <button
           type="button"
           onClick={() => onAddAfter("image")}
-          className="text-[10px] text-[#A895C0] hover:text-[#8B64C8]"
+          className="text-[10px] font-semibold text-[#8B64C8] hover:underline"
         >
           + 이미지
         </button>
