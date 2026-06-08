@@ -5,6 +5,7 @@ import {
   updateBlogPost,
 } from "@/db/queries";
 import { requireStaff } from "@/lib/auth/server-auth";
+import { dbErrorMessage, sanitizeBlogPayload } from "@/lib/blog-api";
 
 export async function GET(
   request: NextRequest,
@@ -32,12 +33,16 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const updated = await updateBlogPost(Number(id), body);
+    const sanitized = sanitizeBlogPayload(body);
+    const updated = await updateBlogPost(Number(id), sanitized);
     if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(updated);
   } catch (error) {
     console.error("[PUT /api/blog/[id]]", error);
-    return NextResponse.json({ error: "Failed to update" }, { status: 500 });
+    return NextResponse.json(
+      { error: dbErrorMessage(error) },
+      { status: 500 }
+    );
   }
 }
 
