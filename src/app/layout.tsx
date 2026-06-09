@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import {
+  GoogleTagManagerNoscript,
+  GoogleTagManagerScript,
+} from "@/components/analytics/GoogleTagManager";
 import { QueryProvider } from "@/providers/query-provider";
 import { AuthProvider } from "@/providers/auth-provider";
 import { SITE_NAME, SITE_URL } from "@/lib/seo/site";
@@ -43,7 +47,9 @@ export default function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
+      <GoogleTagManagerScript />
       <body className="min-h-screen flex flex-col antialiased bg-bg text-text">
+        <GoogleTagManagerNoscript />
         <QueryProvider>
           <AuthProvider>{children}</AuthProvider>
         </QueryProvider>
