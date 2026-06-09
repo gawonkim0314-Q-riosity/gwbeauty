@@ -4,6 +4,9 @@ import { Link } from "@/i18n/navigation";
 import { getBlogPostBySlug, listBlogPosts } from "@/db/queries";
 import { BlogBlockRenderer } from "@/components/blog/BlogBlockRenderer";
 import { parseBlocks, formatBlogDate } from "@/lib/blog-blocks";
+import { getTranslations } from "next-intl/server";
+import { buildLocaleMetadata } from "@/lib/seo/metadata";
+import { absoluteUrl } from "@/lib/seo/site";
 
 export const dynamic = "force-dynamic";
 
@@ -12,13 +15,31 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const post = await getBlogPostBySlug(slug, true);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const [post, t] = await Promise.all([
+    getBlogPostBySlug(slug, true),
+    getTranslations({ locale, namespace: "seo" }),
+  ]);
   if (!post) return {};
-  return {
-    title: `${post.title} | GW Beauty Blog`,
-    description: post.excerpt ?? undefined,
+  const seo = {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    ogTitle: t("ogTitle"),
+    ogDescription: t("ogDescription"),
   };
+  return buildLocaleMetadata(locale, seo, {
+    path: "/blog",
+    title: `${post.title} | GW Beauty Blog`,
+    description: post.excerpt ?? seo.description,
+    type: "article",
+    image: post.thumbnailUrl
+      ? post.thumbnailUrl.startsWith("http")
+        ? post.thumbnailUrl
+        : absoluteUrl(post.thumbnailUrl)
+      : undefined,
+  });
 }
 
 export default async function BlogDetailPage({ params }: Props) {

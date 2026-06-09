@@ -1,0 +1,29 @@
+{
+  "name": "GW Beauty",
+  "short_name": "GW Beauty",
+  "description": "Premium plastic surgery and aesthetic clinic in Seoul, Korea",
+  "start_url": "/ko",
+  "display": "standalone",
+  "background_color": "#FDFBFF",
+  "theme_color": "#8B64C8",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-icon",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

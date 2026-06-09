@@ -14,7 +14,8 @@
     "about": "About Us",
     "service": "Service",
     "blog": "Blog",
-    "inquire": "Inquire"
+    "inquire": "Inquire",
+    "company": "Web制作"
   },
   "homeMenu": {
     "hero": "ようこそ",
@@ -348,10 +349,75 @@
       "unknown": "ログインに失敗しました。もう一度お試しください。"
     }
   },
+  "seo": {
+    "title": "GW Beauty | ソウル江南プレミアム美容整形クリニック",
+    "description": "GW Beautyは自然な美しさと繊細なディテールを追求する江南のプレミアム美容整形・皮膚クリニックです。二重・目元、鼻、輪郭、リフト、脂肪吸引、肌再生のご相談はこちら。",
+    "keywords": "GW Beauty, 美容整形, 韓国整形, ソウル整形, 江南クリニック, 韓国美容整形, 医療ツーリズム, 二重整形, 目元整形, 鼻整形, 輪郭整形, リフト, 脂肪吸引, ボトックス, フィラー, 皮膚科, 肌再生, レーザー, 無料相談, ビフォーアフター",
+    "ogTitle": "GW Beauty — Aesthetic Intelligence. Surgical Precision.",
+    "ogDescription": "江南で信頼できる医師主導の美容医療。自然で調和の取れた美しさを。無料カウンセリング予約はこちら。",
+    "rssTitle": "GW Beauty ブログ",
+    "rssDescription": "クリニックニュース、施術情報、症例、専門医コラム"
+  },
+  "seoCompany": {
+    "title": "LUDGI Inc. | 病院・美容整形クリニックホームページ制作 · アウトソーシング",
+    "description": "주식회사 럿지(LUDGI) — 病院・クリニック向けカスタムWeb制作。公共SI(KEPCO, KDN)と30+民間実績。",
+    "keywords": "病院ホームページ制作, 美容整形ホームページ, ホームページ制作, アウトソーシング, GW Beauty, LUDGI, 医療Web, クリニックWeb制作, Next.js開発, Web外注",
+    "ogTitle": "LUDGI — 病院・クリニックWeb制作パートナー",
+    "ogDescription": "信頼をコードに。病院サイト、CMS、CRM、多言語対応までワンストップ。"
+  },
+  "company": {
+    "eyebrow": "About LUDGI",
+    "heroBody": "LUDGI Inc.（주식회사 럿지）は公共SI実績と30以上の民間プロジェクトを持つソフトウェア開発会社です。KEPCO、KDN、韓国調達(ナラジャンタ)等の高信頼案件を担当。病院・美容クリニック向けWeb制作を提供します。",
+    "ctaContact": "プロジェクト相談",
+    "ctaOfficial": "公式会社ページ",
+    "statsEyebrow": "By the numbers",
+    "statProjects": "プロジェクト",
+    "statSatisfaction": "満足度",
+    "statOnTime": "納期遵守",
+    "statPublic": "公共SI",
+    "infoEyebrow": "Company",
+    "infoTitle": "会社情報",
+    "legalName": "法人名",
+    "ceo": "代表",
+    "founded": "設立",
+    "businessNumber": "事業者登録",
+    "duns": "DUNS",
+    "address": "住所",
+    "phone": "電話",
+    "email": "メール",
+    "capabilitiesEyebrow": "Capabilities",
+    "capabilitiesTitle": "サービス",
+    "trackEyebrow": "Track Record",
+    "trackTitle": "実績",
+    "publicSector": "公共部門",
+    "privateSector": "民間 · 30+",
+    "techEyebrow": "Technology",
+    "techTitle": "技術スタック",
+    "tech_frontend": "Frontend",
+    "tech_backend": "Backend",
+    "tech_cloud": "Cloud",
+    "tech_ai": "AI & Data",
+    "healthcareEyebrow": "Healthcare Web",
+    "healthcareTitle": "病院·クリニック",
+    "healthcareTitleAccent": "Web制作",
+    "healthcareBody": "多言語、施術CMS、相談CRM、SEOまで — 病院·美容クリニック向けWebをEnd-to-Endで構築します。",
+    "healthcareFeatures": [
+      "4言語対応 (ko/en/ja/zh)",
+      "施術詳細CMS · 管理ダッシュボード",
+      "相談CRM · メール自動化",
+      "AI連携 · おすすめ機能",
+      "ブロックエディタ · SEO基盤"
+    ],
+    "quote": "Technology isn't just functionality. It's translating trust into code.",
+    "ctaSubtitle": "病院・クリニックWeb制作・アウトソーシングのお問い合わせ",
+    "ctaEmailSubject": "病院ホームページ制作のお問い合わせ"
+  },
   "footer": {
     "addressLabel": "住所",
     "contactsLabel": "連絡先",
     "clinicSubtitle": "Plastic Surgery Clinic",
+    "siteBy": "Website by",
+    "companyLink": "LUDGI — 病院Web制作",
     "businessNumber": "事業者登録番号",
     "medicalAd": "医療広告審査進行中",
     "allRightsReserved": "All rights reserved."

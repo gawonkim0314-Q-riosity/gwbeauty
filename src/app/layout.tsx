@@ -1,7 +1,23 @@
+import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/providers/query-provider";
 import { AuthProvider } from "@/providers/auth-provider";
+import { SITE_NAME, SITE_URL } from "@/lib/seo/site";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/manifest.webmanifest",
+};
 
 const display = Cormorant_Garamond({
   variable: "--font-display-var",

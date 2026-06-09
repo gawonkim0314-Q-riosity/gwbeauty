@@ -14,7 +14,8 @@
     "about": "클리닉 소개",
     "service": "시술 안내",
     "blog": "블로그",
-    "inquire": "상담 문의"
+    "inquire": "상담 문의",
+    "company": "홈페이지 제작"
   },
   "homeMenu": {
     "hero": "메인",
@@ -348,10 +349,75 @@
       "unknown": "로그인에 실패했습니다. 다시 시도해 주세요."
     }
   },
+  "seo": {
+    "title": "GW Beauty | 강남 프리미엄 성형외과 · 피부 클리닉",
+    "description": "GW Beauty는 자연스러운 아름다움과 섬세한 디테일을 추구하는 강남 프리미엄 성형외과·피부 클리닉입니다. 눈·코·안면윤곽·리프팅·지방흡입·피부 재생 시술 상담을 받아보세요.",
+    "keywords": "GW Beauty, 지더블유뷰티, 성형외과, 강남 성형외과, 프리미엄 성형, 쌍꺼풀 수술, 눈성형, 코성형, 안면윤곽, 리프팅, 지방흡입, 보톡스, 필러, 피부과, 피부 재생, 레이저 시술, 의료관광, 한국 성형, 서울 성형외과, 상담 예약, 무료 상담",
+    "ogTitle": "GW Beauty — Aesthetic Intelligence. Surgical Precision.",
+    "ogDescription": "자연스럽고 조화로운 아름다움을 설계하는 강남 프리미엄 성형·피부 클리닉. 지금 무료 상담을 예약하세요.",
+    "rssTitle": "GW Beauty 블로그",
+    "rssDescription": "GW Beauty 클리닉 소식, 시술 정보, 전후 사례, 전문의 칼럼"
+  },
+  "seoCompany": {
+    "title": "주식회사 럿지 | 병원·성형외과 홈페이지 제작 · 웹 개발 아웃소싱",
+    "description": "주식회사 럿지(LUDGI Inc.) — 병원·성형외과·클리닉 맞춤 홈페이지 제작 전문. 공공 SI(KEPCO, KDN, 나라장터)와 30+ 민간 프로젝트 경험.",
+    "keywords": "병원 홈페이지 제작, 성형외과 홈페이지 제작, 홈페이지 제작, 아웃소싱, 병원 홈페이지, 성형외과 홈페이지, LUDGI, 주식회사 럿지, 의료기관 웹사이트, 클리닉 홈페이지 제작, Next.js 개발, 웹 개발 외주, 병원 CRM, 다국어 홈페이지",
+    "ogTitle": "LUDGI — 병원·성형외과 홈페이지 제작 파트너",
+    "ogDescription": "신뢰를 코드로. 병원·클리닉 홈페이지 제작, CMS, CRM, 다국어 지원까지 원스톱."
+  },
+  "company": {
+    "eyebrow": "About LUDGI",
+    "heroBody": "주식회사 럿지(LUDGI Inc.)는 공공 SI 실적과 30+ 민간 프로젝트 경험을 보유한 소프트웨어 개발사입니다. KEPCO, KDN, 나라장터 등 고신뢰 프로젝트를 수행하며, 병원·성형외과·클리닉 맞춤 홈페이지 제작과 웹 개발 아웃소싱을 제공합니다.",
+    "ctaContact": "프로젝트 문의하기",
+    "ctaOfficial": "공식 회사 페이지",
+    "statsEyebrow": "By the numbers",
+    "statProjects": "프로젝트",
+    "statSatisfaction": "고객 만족",
+    "statOnTime": "납기 준수",
+    "statPublic": "공공 SI",
+    "infoEyebrow": "Company",
+    "infoTitle": "회사 정보",
+    "legalName": "법인명",
+    "ceo": "대표",
+    "founded": "설립",
+    "businessNumber": "사업자등록번호",
+    "duns": "DUNS",
+    "address": "주소",
+    "phone": "전화",
+    "email": "이메일",
+    "capabilitiesEyebrow": "Capabilities",
+    "capabilitiesTitle": "우리가 하는 일",
+    "trackEyebrow": "Track Record",
+    "trackTitle": "실적",
+    "publicSector": "공공 부문",
+    "privateSector": "민간 · 30+ 프로젝트",
+    "techEyebrow": "Technology",
+    "techTitle": "기술 스택",
+    "tech_frontend": "Frontend",
+    "tech_backend": "Backend",
+    "tech_cloud": "Cloud",
+    "tech_ai": "AI & Data",
+    "healthcareEyebrow": "Healthcare Web",
+    "healthcareTitle": "병원·클리닉",
+    "healthcareTitleAccent": "홈페이지 제작",
+    "healthcareBody": "다국어 지원, 시술·콘텐츠 CMS, 상담 문의 CRM, SEO 최적화까지 — 병원·성형외과·피부 클리닉에 필요한 웹 기능을 End-to-End로 구현합니다.",
+    "healthcareFeatures": [
+      "4개국어 다국어 지원 (ko/en/ja/zh)",
+      "시술 상세 CMS · 관리자 대시보드",
+      "상담 문의 CRM · 이메일 자동화",
+      "AI 기반 콘텐츠·추천 연동",
+      "블록 에디터 블로그 · SEO 인프라"
+    ],
+    "quote": "Technology isn't just functionality. It's translating trust into code.",
+    "ctaSubtitle": "병원·성형외과 홈페이지 제작 및 웹 개발 아웃소싱 문의",
+    "ctaEmailSubject": "병원 홈페이지 제작 문의"
+  },
   "footer": {
     "addressLabel": "주소",
     "contactsLabel": "연락처",
     "clinicSubtitle": "성형외과 · 피부 클리닉",
+    "siteBy": "Website by",
+    "companyLink": "LUDGI — 병원 홈페이지 제작",
     "businessNumber": "사업자등록번호",
     "medicalAd": "의료광고 심의 진행 예정",
     "allRightsReserved": "무단 복제 및 배포를 금합니다."

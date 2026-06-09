@@ -6,6 +6,14 @@ import { Header } from "@/components/layout/Header";
 import { PublicBottomSections } from "@/components/layout/PublicBottomSections";
 import { FloatingButtons } from "@/components/layout/FloatingButtons";
 import { LoginModalProvider } from "@/providers/login-modal-provider";
+import { buildLocaleMetadata } from "@/lib/seo/metadata";
+import { rssFeedUrl } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  buildMedicalClinicJsonLd,
+  buildProfessionalServiceJsonLd,
+  buildWebSiteJsonLd,
+} from "@/lib/seo/json-ld";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -18,13 +26,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "hero" });
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const meta = buildLocaleMetadata(locale, {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    ogTitle: t("ogTitle"),
+    ogDescription: t("ogDescription"),
+  });
+
   return {
+    ...meta,
     title: {
-      default: "GW Beauty",
-      template: "%s | GW Beauty",
+      default: t("title"),
+      template: `%s | GW Beauty`,
     },
-    description: t("body"),
+    alternates: {
+      ...meta.alternates,
+      types: {
+        "application/rss+xml": [{ url: rssFeedUrl(locale), title: t("rssTitle") }],
+      },
+    },
   };
 }
 
@@ -41,6 +63,13 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <JsonLd
+        data={[
+          buildWebSiteJsonLd(locale),
+          buildMedicalClinicJsonLd(locale),
+          buildProfessionalServiceJsonLd(locale),
+        ]}
+      />
       <LoginModalProvider>
         <div className="flex min-h-screen flex-col">
           <Header />

@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/favicon.ico",
+        destination: "/icon",
+        permanent: true,
+      },
+      {
         source: "/:locale(ko|en|zh|ja)/admin",
         destination: "/admin",
         permanent: false,

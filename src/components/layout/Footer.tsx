@@ -12,6 +12,7 @@ export async function Footer() {
     { labelKey: "service" as const, href: "/service" },
     { labelKey: "blog" as const, href: "/blog" },
     { labelKey: "inquire" as const, href: "/inquire" },
+    { labelKey: "company" as const, href: "/company" },
   ];
 
   return (
@@ -115,9 +116,18 @@ export async function Footer() {
       </div>
 
       <div className="relative" style={{ borderTop: "1px solid var(--border)" }}>
-        <div className="section-container flex flex-col gap-1 py-5 text-[0.62rem] text-[var(--text-3)] md:flex-row md:justify-between">
+        <div className="section-container flex flex-col gap-2 py-5 text-[0.62rem] text-[var(--text-3)] md:flex-row md:items-center md:justify-between">
           <p>© {year} {siteConfig.legalName}. {t("allRightsReserved")}</p>
-          <p>{t("businessNumber")} {siteConfig.businessNumber} · {t("medicalAd")}</p>
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span>{t("businessNumber")} {siteConfig.businessNumber} · {t("medicalAd")}</span>
+            <span aria-hidden>·</span>
+            <Link
+              href="/company"
+              className="transition-colors hover:text-[var(--purple)]"
+            >
+              {t("siteBy")} {t("companyLink")}
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

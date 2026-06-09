@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import {
   getActiveServiceById,
@@ -14,6 +14,7 @@ import { DetailImagesSection } from "@/components/service/detail/DetailImagesSec
 import { YouTubeSection } from "@/components/service/detail/YouTubeSection";
 import { RelatedServicesSection } from "@/components/service/detail/RelatedServicesSection";
 import { CTASection } from "@/components/service/detail/CTASection";
+import { buildLocaleMetadata } from "@/lib/seo/metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -23,14 +24,26 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { locale, id } = await params;
-  const service = await getServiceTitleMeta(Number(id));
+  setRequestLocale(locale);
+  const [service, t] = await Promise.all([
+    getServiceTitleMeta(Number(id)),
+    getTranslations({ locale, namespace: "seo" }),
+  ]);
 
   if (!service) return {};
   const title = locale !== "ko" && service.titleEn ? service.titleEn : service.title;
-  return {
-    title: `${title} | GW Beauty`,
-    description: service.description,
+  const seo = {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    ogTitle: t("ogTitle"),
+    ogDescription: t("ogDescription"),
   };
+  return buildLocaleMetadata(locale, seo, {
+    path: "/service",
+    title: `${title} | GW Beauty`,
+    description: service.description ?? seo.description,
+  });
 }
 
 export default async function ServiceDetailPage({ params }: Props) {
