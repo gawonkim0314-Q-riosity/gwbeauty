@@ -1,4 +1,4 @@
-import { ludgiConfig } from "@/lib/ludgi-config";
+import { gwConfig } from "@/lib/gw-config";
 import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo/site";
 
 export function buildOrganizationJsonLd(locale: string) {
@@ -6,21 +6,17 @@ export function buildOrganizationJsonLd(locale: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${SITE_URL}/#organization-ludgi`,
-    name: ludgiConfig.name,
-    legalName: ludgiConfig.legalName,
-    url: ludgiConfig.url,
+    "@id": `${SITE_URL}/#organization-gw`,
+    name: gwConfig.legalName,
+    url: absoluteUrl(`/${locale}/company`),
     logo: absoluteUrl("/icon"),
-    email: ludgiConfig.email,
-    telephone: ludgiConfig.phone,
-    foundingDate: ludgiConfig.founded,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: isKo ? ludgiConfig.addressKo : ludgiConfig.address,
-      addressCountry: "KR",
-    },
-    sameAs: [ludgiConfig.url, ludgiConfig.companyUrl],
-    description: isKo ? ludgiConfig.description : ludgiConfig.tagline,
+    email: gwConfig.email,
+    telephone: gwConfig.phoneRaw,
+    foundingDate: gwConfig.founded,
+    founder: { "@type": "Person", name: isKo ? gwConfig.ceoKo : gwConfig.ceo },
+    description: isKo
+      ? "5년차 개발 역량, SI·금융·ERP 경험을 바탕으로 병원·성형외과·클리닉 맞춤 홈페이지 제작 및 웹 개발 아웃소싱을 제공합니다."
+      : "Hospital and clinic website development with 5+ years of experience in SI, finance, and ERP systems.",
   };
 }
 
@@ -32,13 +28,8 @@ export function buildWebSiteJsonLd(locale: string) {
     name: SITE_NAME,
     url: absoluteUrl(`/${locale}`),
     inLanguage: locale,
-    publisher: { "@id": `${SITE_URL}/#organization-ludgi` },
-    creator: { "@id": `${SITE_URL}/#organization-ludgi` },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/${locale}/service?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
+    publisher: { "@id": `${SITE_URL}/#organization-gw` },
+    creator: { "@id": `${SITE_URL}/#organization-gw` },
   };
 }
 
@@ -61,12 +52,12 @@ export function buildProfessionalServiceJsonLd(locale: string) {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${SITE_URL}/#professional-service-ludgi`,
+    "@id": `${SITE_URL}/#professional-service-gw`,
     name: isKo
-      ? "주식회사 럿지 — 병원·성형외과 홈페이지 제작"
-      : "LUDGI Inc. — Hospital & Clinic Website Development",
+      ? "주식회사 GW — 병원·성형외과 홈페이지 제작"
+      : "GW Inc. — Hospital & Clinic Website Development",
     url: absoluteUrl(`/${locale}/company`),
-    provider: { "@id": `${SITE_URL}/#organization-ludgi` },
+    provider: { "@id": `${SITE_URL}/#organization-gw` },
     areaServed: { "@type": "Country", name: "South Korea" },
     serviceType: isKo
       ? ["병원 홈페이지 제작", "성형외과 홈페이지 제작", "홈페이지 제작", "웹 개발 아웃소싱"]
@@ -87,12 +78,9 @@ export function buildCompanyPageJsonLd(locale: string) {
     "@type": "WebPage",
     "@id": `${SITE_URL}/${locale}/company#webpage`,
     url: absoluteUrl(`/${locale}/company`),
-    name:
-      locale === "ko"
-        ? "주식회사 럿지 — 회사 소개"
-        : "LUDGI Inc. — Company",
+    name: locale === "ko" ? "주식회사 GW — 회사 소개" : "GW Inc. — Company",
     isPartOf: { "@id": `${SITE_URL}/#website` },
-    about: { "@id": `${SITE_URL}/#organization-ludgi` },
+    about: { "@id": `${SITE_URL}/#organization-gw` },
     inLanguage: locale,
     primaryImageOfPage: absoluteUrl("/opengraph-image"),
   };

@@ -2,7 +2,7 @@
 # https://www.gwbeauty.xyz
 
 > GW Beauty is a premium plastic surgery and aesthetic clinic website.
-> LUDGI Inc. (주식회사 럿지) company information: https://www.gwbeauty.xyz/ko/company
+> GW Inc. (주식회사 GW) company page: https://www.gwbeauty.xyz/ko/company
 
 ## Primary pages
 - Home (KO): https://www.gwbeauty.xyz/ko
@@ -10,11 +10,11 @@
 - Services: https://www.gwbeauty.xyz/ko/service
 - Blog: https://www.gwbeauty.xyz/ko/blog
 - Inquiry: https://www.gwbeauty.xyz/ko/inquire
-- LUDGI Company: https://www.gwbeauty.xyz/ko/company
+- GW Company: https://www.gwbeauty.xyz/ko/company
 
-## LUDGI Inc.
-- Official: https://info.ludgi.ai/company
-- Contact: milli@molluhub.com
+## 주식회사 GW
+- Contact: linking204@naver.com
+- Phone: 010-6651-2091
 
 ## Feeds
 - Sitemap: https://www.gwbeauty.xyz/sitemap.xml

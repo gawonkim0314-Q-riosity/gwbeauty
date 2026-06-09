@@ -1,11 +1,12 @@
 import { getTranslations } from "next-intl/server";
-import { ludgiConfig } from "@/lib/ludgi-config";
+import { gwConfig } from "@/lib/gw-config";
 
 export async function CompanyPage({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "company" });
   const isKo = locale === "ko";
+  const none = isKo ? gwConfig.noneLabel : gwConfig.noneLabelEn;
 
-  const caps = ludgiConfig.capabilities.map((c) => ({
+  const caps = gwConfig.capabilities.map((c) => ({
     title: isKo ? c.titleKo : c.titleEn,
     desc: isKo ? c.descKo : c.descEn,
   }));
@@ -14,7 +15,6 @@ export async function CompanyPage({ locale }: { locale: string }) {
 
   return (
     <>
-      {/* Hero */}
       <section
         className="relative overflow-hidden"
         style={{ background: "var(--bg)" }}
@@ -30,43 +30,23 @@ export async function CompanyPage({ locale }: { locale: string }) {
         <div className="section-container relative py-24 md:py-32">
           <p className="eyebrow">{t("eyebrow")}</p>
           <h1 className="section-title mt-4 max-w-3xl">
-            {ludgiConfig.legalName}
-            <br />
-            <span className="accent">{ludgiConfig.name}</span>
+            {gwConfig.legalName}
           </h1>
           <p className="mt-6 max-w-2xl text-sm leading-relaxed text-[var(--text-2)] md:text-base">
             {t("heroBody")}
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href={`mailto:${ludgiConfig.email}`}
-              className="btn-rose"
-            >
-              {t("ctaContact")}
-            </a>
-            <a
-              href={ludgiConfig.companyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border px-8 py-3 text-sm font-semibold transition-colors hover:border-[var(--purple)] hover:text-[var(--purple)]"
-              style={{ borderColor: "var(--border)", color: "var(--text-2)" }}
-            >
-              {t("ctaOfficial")} →
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* Stats */}
       <section style={{ background: "var(--bg-2)" }}>
         <div className="section-container py-16 md:py-20">
           <p className="eyebrow text-center">{t("statsEyebrow")}</p>
           <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-4">
             {[
-              { value: ludgiConfig.stats.projects, label: t("statProjects") },
-              { value: ludgiConfig.stats.satisfaction, label: t("statSatisfaction") },
-              { value: ludgiConfig.stats.onTime, label: t("statOnTime") },
-              { value: ludgiConfig.stats.publicSector, label: t("statPublic") },
+              { value: gwConfig.stats.experience, label: t("statExperience") },
+              { value: gwConfig.stats.siFinance, label: t("statSiFinance") },
+              { value: gwConfig.stats.erp, label: t("statErp") },
+              { value: gwConfig.stats.healthcare, label: t("statHealthcare") },
             ].map((s) => (
               <div
                 key={s.label}
@@ -74,7 +54,7 @@ export async function CompanyPage({ locale }: { locale: string }) {
                 style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
               >
                 <p
-                  className="font-display text-3xl md:text-4xl"
+                  className="font-display text-2xl md:text-3xl"
                   style={{ color: "var(--purple)", fontFamily: "var(--font-display-var), serif" }}
                 >
                   {s.value}
@@ -88,28 +68,30 @@ export async function CompanyPage({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Company info */}
       <section style={{ background: "var(--bg)" }}>
         <div className="section-container py-16 md:py-24">
           <p className="eyebrow">{t("infoEyebrow")}</p>
           <h2 className="section-title mt-4">{t("infoTitle")}</h2>
-          <dl className="mt-10 grid gap-0 divide-y rounded-2xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+          <dl
+            className="mt-10 grid gap-0 divide-y overflow-hidden rounded-2xl"
+            style={{ border: "1px solid var(--border)" }}
+          >
             {[
-              [t("legalName"), `${ludgiConfig.legalName} (${ludgiConfig.name})`],
-              [t("ceo"), isKo ? ludgiConfig.ceoKo : ludgiConfig.ceo],
-              [t("founded"), ludgiConfig.founded],
-              [t("businessNumber"), ludgiConfig.businessNumber],
-              [t("duns"), ludgiConfig.duns],
-              [t("address"), isKo ? ludgiConfig.addressKo : ludgiConfig.address],
-              [t("phone"), ludgiConfig.phone],
-              [t("email"), ludgiConfig.email],
+              [t("legalName"), gwConfig.legalName],
+              [t("ceo"), isKo ? gwConfig.ceoKo : gwConfig.ceo],
+              [t("founded"), gwConfig.founded],
+              [t("businessNumber"), none],
+              [t("duns"), none],
+              [t("address"), none],
+              [t("phone"), gwConfig.phone],
+              [t("email"), gwConfig.email],
             ].map(([label, value]) => (
               <div
                 key={label}
                 className="grid gap-2 px-6 py-4 md:grid-cols-[200px_1fr] md:gap-8"
                 style={{ background: "var(--bg-card)" }}
               >
-                <dt className="text-xs font-semibold tracking-wide text-[var(--text-3)] uppercase">
+                <dt className="text-xs font-semibold uppercase tracking-wide text-[var(--text-3)]">
                   {label}
                 </dt>
                 <dd className="text-sm text-[var(--text-2)]">{value}</dd>
@@ -119,7 +101,6 @@ export async function CompanyPage({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Capabilities */}
       <section style={{ background: "var(--bg-pink)" }}>
         <div className="section-container py-16 md:py-24">
           <p className="eyebrow">{t("capabilitiesEyebrow")}</p>
@@ -145,82 +126,39 @@ export async function CompanyPage({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Track record */}
-      <section style={{ background: "var(--bg-2)" }}>
-        <div className="section-container py-16 md:py-24">
-          <p className="eyebrow">{t("trackEyebrow")}</p>
-          <h2 className="section-title mt-4">{t("trackTitle")}</h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
-            <div
-              className="rounded-2xl p-8"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-            >
-              <h3 className="text-sm font-semibold tracking-wide text-[var(--purple)] uppercase">
-                {t("publicSector")}
-              </h3>
-              <ul className="mt-6 space-y-3">
-                {ludgiConfig.publicSector.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-[var(--text-2)]">
-                    <span style={{ color: "var(--pink)" }}>●</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div
-              className="rounded-2xl p-8"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-            >
-              <h3 className="text-sm font-semibold tracking-wide text-[var(--purple)] uppercase">
-                {t("privateSector")}
-              </h3>
-              <ul className="mt-6 space-y-3">
-                {ludgiConfig.privateSectors.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-[var(--text-2)]">
-                    <span style={{ color: "var(--pink)" }}>●</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech stack */}
       <section style={{ background: "var(--bg)" }}>
         <div className="section-container py-16 md:py-24">
           <p className="eyebrow">{t("techEyebrow")}</p>
           <h2 className="section-title mt-4">{t("techTitle")}</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {(Object.keys(ludgiConfig.techStack) as Array<keyof typeof ludgiConfig.techStack>).map(
+            {(Object.keys(gwConfig.techStack) as Array<keyof typeof gwConfig.techStack>).map(
               (key) => {
-                const tags = ludgiConfig.techStack[key];
+                const tags = gwConfig.techStack[key];
                 return (
-              <div
-                key={key}
-                className="rounded-2xl p-6"
-                style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-              >
-                <h3 className="text-xs font-semibold tracking-widest text-[var(--text-3)] uppercase">
-                  {t(`tech_${key}` as "tech_frontend")}
-                </h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full px-3 py-1 text-xs font-medium"
-                      style={{
-                        background: "var(--purple-pale)",
-                        color: "var(--purple-deep)",
-                        border: "1px solid var(--border)",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                  <div
+                    key={key}
+                    className="rounded-2xl p-6"
+                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
+                  >
+                    <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--text-3)]">
+                      {t(`tech_${key}` as "tech_frontend")}
+                    </h3>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full px-3 py-1 text-xs font-medium"
+                          style={{
+                            background: "var(--purple-pale)",
+                            color: "var(--purple-deep)",
+                            border: "1px solid var(--border)",
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 );
               }
             )}
@@ -228,11 +166,7 @@ export async function CompanyPage({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Healthcare web solutions */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "var(--bg-2)" }}
-      >
+      <section style={{ background: "var(--bg-2)" }}>
         <div className="section-container py-16 md:py-24">
           <p className="eyebrow">{t("healthcareEyebrow")}</p>
           <h2 className="section-title mt-4">
@@ -255,28 +189,6 @@ export async function CompanyPage({ locale }: { locale: string }) {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* Quote + CTA */}
-      <section style={{ background: "var(--bg-pink)" }}>
-        <div className="section-container py-20 text-center md:py-28">
-          <blockquote
-            className="mx-auto max-w-2xl font-display text-xl italic leading-relaxed md:text-2xl"
-            style={{ color: "var(--text)", fontFamily: "var(--font-display-var), serif" }}
-          >
-            &ldquo;{t("quote")}&rdquo;
-          </blockquote>
-          <p className="mt-6 text-sm text-[var(--text-3)]">— LUDGI, {ludgiConfig.founded}</p>
-          <div className="mt-12">
-            <p className="text-sm text-[var(--text-2)]">{t("ctaSubtitle")}</p>
-            <a
-              href={`mailto:${ludgiConfig.email}?subject=${encodeURIComponent(t("ctaEmailSubject"))}`}
-              className="btn-rose mt-6 inline-flex"
-            >
-              {t("ctaContact")}
-            </a>
-          </div>
         </div>
       </section>
     </>
