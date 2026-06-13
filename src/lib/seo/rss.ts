@@ -9,6 +9,8 @@ export type RssItem = {
   author?: string;
   category?: string;
   enclosureUrl?: string;
+  /** File size in bytes (required by RSS 2.0 <enclosure length="...">). */
+  enclosureLength?: number;
 };
 
 export type RssChannel = {
@@ -60,7 +62,7 @@ export function buildRssXml(channel: RssChannel): string {
   const itemsXml = channel.items
     .map((item) => {
       const enclosure = item.enclosureUrl
-        ? `\n      <enclosure url="${escapeXml(item.enclosureUrl)}" type="image/jpeg" />`
+        ? `\n      <enclosure url="${escapeXml(item.enclosureUrl)}" length="${item.enclosureLength ?? 0}" type="image/jpeg" />`
         : "";
       const category = item.category
         ? `\n      <category>${escapeXml(item.category)}</category>`
@@ -99,6 +101,34 @@ ${alternateLinks}
 ${itemsXml}
   </channel>
 </rss>`;
+}
+
+export async function enrichRssItemsWithEnclosureLengths(
+  items: RssItem[]
+): Promise<RssItem[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      if (!item.enclosureUrl) return item;
+      const enclosureLength = await fetchEnclosureLength(item.enclosureUrl);
+      return { ...item, enclosureLength };
+    })
+  );
+}
+
+async function fetchEnclosureLength(url: string): Promise<number> {
+  try {
+    const res = await fetch(url, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return 0;
+    const length = res.headers.get("content-length");
+    if (!length) return 0;
+    const bytes = Number.parseInt(length, 10);
+    return Number.isFinite(bytes) && bytes >= 0 ? bytes : 0;
+  } catch {
+    return 0;
+  }
 }
 
 export function blogRssDescription(

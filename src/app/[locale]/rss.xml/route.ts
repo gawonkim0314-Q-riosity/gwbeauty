@@ -10,6 +10,7 @@ import {
 import {
   blogRssDescription,
   buildRssXml,
+  enrichRssItemsWithEnclosureLengths,
   rssLanguageTag,
 } from "@/lib/seo/rss";
 
@@ -21,22 +22,24 @@ async function buildFeed(locale: string) {
   const t = await getTranslations({ locale, namespace: "seo" });
   const posts = await listBlogPosts(true, 50);
 
-  const items = posts
-    .filter((post) => post.slug)
-    .map((post) => ({
-      title: post.title,
-      link: `${SITE_URL}/${locale}/blog/${post.slug}`,
-      guid: `${SITE_URL}/${locale}/blog/${post.slug}`,
-      description: blogRssDescription(post.excerpt, post.content),
-      pubDate: post.publishedAt ?? post.createdAt ?? new Date(),
-      author: post.author ?? "GW Beauty",
-      category: post.category ?? undefined,
-      enclosureUrl: post.thumbnailUrl?.startsWith("http")
-        ? post.thumbnailUrl
-        : post.thumbnailUrl
-          ? absoluteUrl(post.thumbnailUrl)
-          : undefined,
-    }));
+  const items = await enrichRssItemsWithEnclosureLengths(
+    posts
+      .filter((post) => post.slug)
+      .map((post) => ({
+        title: post.title,
+        link: `${SITE_URL}/${locale}/blog/${post.slug}`,
+        guid: `${SITE_URL}/${locale}/blog/${post.slug}`,
+        description: blogRssDescription(post.excerpt, post.content),
+        pubDate: post.publishedAt ?? post.createdAt ?? new Date(),
+        author: post.author ?? "GW Beauty",
+        category: post.category ?? undefined,
+        enclosureUrl: post.thumbnailUrl?.startsWith("http")
+          ? post.thumbnailUrl
+          : post.thumbnailUrl
+            ? absoluteUrl(post.thumbnailUrl)
+            : undefined,
+      }))
+  );
 
   return buildRssXml({
     locale,
