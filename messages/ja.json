@@ -225,6 +225,8 @@
     "submitting": "送信中…",
     "submitAnother": "追加でお問い合わせ",
     "submitError": "送信に失敗しました。しばらくしてから再度お試しください。",
+    "captchaError": "セキュリティ確認を完了してください。",
+    "rateLimitError": "リクエストが多すぎます。しばらくしてから再度お試しください。",
     "privacyError": "個人情報の収集・利用に同意してください。",
     "phoneFallback": "お急ぎの場合はお電話でもご連絡ください",
     "successTitle": "カウンセリング申し込みが完了しました",

@@ -225,6 +225,8 @@
     "submitting": "提交中…",
     "submitAnother": "再次咨询",
     "submitError": "提交失败，请稍后重试。",
+    "captchaError": "请完成安全验证。",
+    "rateLimitError": "请求过于频繁，请稍后再试。",
     "privacyError": "请同意个人信息收集与使用条款。",
     "phoneFallback": "紧急咨询也可致电",
     "successTitle": "咨询申请已完成",

@@ -4,6 +4,7 @@ import {
   and,
   desc,
   eq,
+  gte,
   ilike,
   isNotNull,
   isNull,
@@ -102,6 +103,30 @@ export async function getInquiryById(id: number) {
 export async function createInquiry(data: NewInquiry) {
   const [row] = await db.insert(inquiries).values(data).returning();
   return row;
+}
+
+export async function countRecentInquiriesByEmail(
+  email: string,
+  windowMs: number
+): Promise<number> {
+  const since = new Date(Date.now() - windowMs);
+  const [row] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(inquiries)
+    .where(and(eq(inquiries.email, email), gte(inquiries.createdAt, since)));
+  return row?.count ?? 0;
+}
+
+export async function countRecentInquiriesByIp(
+  ip: string,
+  windowMs: number
+): Promise<number> {
+  const since = new Date(Date.now() - windowMs);
+  const [row] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(inquiries)
+    .where(and(eq(inquiries.submitterIp, ip), gte(inquiries.createdAt, since)));
+  return row?.count ?? 0;
 }
 
 export async function updateInquiry(id: number, data: Partial<NewInquiry>) {

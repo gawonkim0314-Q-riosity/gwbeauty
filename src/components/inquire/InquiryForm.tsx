@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { MdCheckCircle } from "react-icons/md";
+import {
+  InquiryAntiSpamFields,
+  useInquiryAntiSpam,
+} from "@/components/inquiry/InquiryAntiSpam";
 
 type FormState = {
   name: string;
@@ -34,6 +38,13 @@ export function InquiryForm({ locale }: { locale: string }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const {
+    honeypot,
+    setHoneypot,
+    setTurnstileToken,
+    payload: antiSpam,
+    turnstileEnabled,
+  } = useInquiryAntiSpam();
 
   const services = t.raw("services") as string[];
   const timeSlots = t.raw("timeSlots") as string[];
@@ -49,12 +60,17 @@ export function InquiryForm({ locale }: { locale: string }) {
       return;
     }
 
+    if (turnstileEnabled && !antiSpam.turnstileToken) {
+      setError(t("captchaError"));
+      return;
+    }
+
     setSubmitting(true);
     try {
       const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, locale }),
+        body: JSON.stringify({ ...form, locale, ...antiSpam }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -213,6 +229,12 @@ export function InquiryForm({ locale }: { locale: string }) {
           {error}
         </p>
       )}
+
+      <InquiryAntiSpamFields
+        honeypot={honeypot}
+        onHoneypotChange={setHoneypot}
+        onTurnstileToken={setTurnstileToken}
+      />
 
       <button
         type="submit"

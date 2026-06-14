@@ -225,6 +225,8 @@
     "submitting": "Submitting…",
     "submitAnother": "Submit another inquiry",
     "submitError": "Failed to submit. Please try again.",
+    "captchaError": "Please complete the security check.",
+    "rateLimitError": "Too many requests. Please try again later.",
     "privacyError": "Please agree to the privacy policy.",
     "phoneFallback": "For urgent inquiries, you may also call us at",
     "successTitle": "Consultation request submitted",

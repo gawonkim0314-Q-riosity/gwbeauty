@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import {
+  InquiryAntiSpamFields,
+  useInquiryAntiSpam,
+} from "@/components/inquiry/InquiryAntiSpam";
 
 export function ConsultationFormSection() {
   const t = useTranslations("consultation");
@@ -14,6 +18,13 @@ export function ConsultationFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const {
+    honeypot,
+    setHoneypot,
+    setTurnstileToken,
+    payload: antiSpam,
+    turnstileEnabled,
+  } = useInquiryAntiSpam();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -37,6 +48,11 @@ export function ConsultationFormSection() {
 
     if (!form.privacy) {
       setError(t("privacyError"));
+      return;
+    }
+
+    if (turnstileEnabled && !antiSpam.turnstileToken) {
+      setError(t("captchaError"));
       return;
     }
 
@@ -65,6 +81,7 @@ export function ConsultationFormSection() {
           preferredTime: form.time,
           message,
           locale,
+          ...antiSpam,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -231,6 +248,12 @@ export function ConsultationFormSection() {
                   {error}
                 </p>
               )}
+
+              <InquiryAntiSpamFields
+                honeypot={honeypot}
+                onHoneypotChange={setHoneypot}
+                onTurnstileToken={setTurnstileToken}
+              />
 
               <button
                 type="submit"

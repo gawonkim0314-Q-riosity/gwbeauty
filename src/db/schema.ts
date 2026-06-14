@@ -157,6 +157,8 @@ export const inquiries = pgTable("inquiries", {
   preferredTime: text("preferred_time"),
   message: text("message"),
   locale: text("locale").default("ko"),
+  /** Rate-limit tracking (not shown in admin UI). */
+  submitterIp: text("submitter_ip"),
   status: text("status").default("pending"), // pending | contacted | completed | cancelled
   /** 관리자 이메일 답변 내용 */
   adminReply: text("admin_reply"),

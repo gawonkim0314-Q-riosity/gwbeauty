@@ -6,10 +6,8 @@ import {
 } from "@/db/queries";
 import { requireStaff } from "@/lib/auth/server-auth";
 import { sanitizeCreateInquiry } from "@/lib/inquiry-api";
-import {
-  sendInquiryAdminNotification,
-  sendInquiryReceivedEmail,
-} from "@/lib/email";
+import { getClientIp, validateInquirySpam } from "@/lib/inquiry-spam";
+import { sendInquiryAdminNotification } from "@/lib/email";
 
 export async function GET(request: NextRequest) {
   const { error } = await requireStaff(request);
@@ -53,15 +51,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: validationError }, { status: 400 });
     }
 
-    const created = await createInquiry(data);
+    const spam = await validateInquirySpam(request, body, data.email!);
+    if (!spam.ok) {
+      return NextResponse.json({ error: spam.error }, { status: spam.status });
+    }
+
+    const clientIp = getClientIp(request);
+    const created = await createInquiry({
+      ...data,
+      submitterIp: clientIp !== "unknown" ? clientIp : null,
+    });
 
     try {
-      await Promise.all([
-        sendInquiryReceivedEmail(created),
-        sendInquiryAdminNotification(created),
-      ]);
+      await sendInquiryAdminNotification(created);
     } catch (emailErr) {
-      console.error("[POST /api/inquiries] email notification failed:", emailErr);
+      console.error("[POST /api/inquiries] admin notification failed:", emailErr);
     }
 
     return NextResponse.json(created, { status: 201 });
