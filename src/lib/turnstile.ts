@@ -27,20 +27,18 @@ export function isTurnstileConfigured(): boolean {
 }
 
 export async function verifyTurnstileToken(
-  token: string,
-  remoteIp?: string
-): Promise<boolean> {
+  token: string
+): Promise<{ ok: boolean; errorCodes?: string[] }> {
   const secret = getTurnstileSecretKey();
-  if (!secret) return false;
-  if (!token?.trim()) return false;
+  if (!secret) return { ok: false, errorCodes: ["missing-secret"] };
+  if (!token?.trim()) return { ok: false, errorCodes: ["missing-token"] };
 
   const body = new URLSearchParams({
     secret,
     response: token,
   });
-  if (remoteIp && remoteIp !== "unknown") {
-    body.set("remoteip", remoteIp);
-  }
+  // remoteip는 Vercel 등 프록시 환경에서 토큰 발급 IP와 불일치해
+  // invalid-input-response를 유발할 수 있어 전달하지 않음.
 
   try {
     const res = await fetch(TURNSTILE_VERIFY_URL, {
@@ -49,10 +47,16 @@ export async function verifyTurnstileToken(
       body,
       signal: AbortSignal.timeout(8000),
     });
-    if (!res.ok) return false;
-    const data = (await res.json()) as { success?: boolean };
-    return data.success === true;
+    if (!res.ok) return { ok: false, errorCodes: ["http-error"] };
+    const data = (await res.json()) as {
+      success?: boolean;
+      "error-codes"?: string[];
+    };
+    return {
+      ok: data.success === true,
+      errorCodes: data["error-codes"],
+    };
   } catch {
-    return false;
+    return { ok: false, errorCodes: ["network-error"] };
   }
 }

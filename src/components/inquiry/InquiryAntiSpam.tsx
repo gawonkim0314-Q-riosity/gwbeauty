@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { TURNSTILE_SITE_KEY } from "@/lib/turnstile-public";
 
 export type InquiryAntiSpamPayload = {
@@ -12,20 +12,30 @@ export type InquiryAntiSpamPayload = {
 
 export function useInquiryAntiSpam() {
   const formLoadedAt = useRef(Date.now());
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
   const [honeypot, setHoneypot] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
 
-  const payload: InquiryAntiSpamPayload = {
-    website: honeypot,
-    formLoadedAt: formLoadedAt.current,
-    turnstileToken,
-  };
+  function getPayload(): InquiryAntiSpamPayload {
+    return {
+      website: honeypot,
+      formLoadedAt: formLoadedAt.current,
+      turnstileToken,
+    };
+  }
+
+  function resetTurnstile() {
+    setTurnstileToken("");
+    turnstileRef.current?.reset();
+  }
 
   return {
     honeypot,
     setHoneypot,
     setTurnstileToken,
-    payload,
+    getPayload,
+    resetTurnstile,
+    turnstileRef,
     turnstileEnabled: Boolean(TURNSTILE_SITE_KEY),
   };
 }
@@ -34,12 +44,14 @@ type InquiryAntiSpamFieldsProps = {
   honeypot: string;
   onHoneypotChange: (value: string) => void;
   onTurnstileToken: (token: string) => void;
+  turnstileRef: React.RefObject<TurnstileInstance | null>;
 };
 
 export function InquiryAntiSpamFields({
   honeypot,
   onHoneypotChange,
   onTurnstileToken,
+  turnstileRef,
 }: InquiryAntiSpamFieldsProps) {
   return (
     <>
@@ -61,6 +73,7 @@ export function InquiryAntiSpamFields({
       {TURNSTILE_SITE_KEY ? (
         <div className="flex justify-center pt-1">
           <Turnstile
+            ref={turnstileRef}
             siteKey={TURNSTILE_SITE_KEY}
             onSuccess={onTurnstileToken}
             onExpire={() => onTurnstileToken("")}

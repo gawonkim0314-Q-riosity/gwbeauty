@@ -42,7 +42,9 @@ export function InquiryForm({ locale }: { locale: string }) {
     honeypot,
     setHoneypot,
     setTurnstileToken,
-    payload: antiSpam,
+    getPayload,
+    resetTurnstile,
+    turnstileRef,
     turnstileEnabled,
   } = useInquiryAntiSpam();
 
@@ -60,7 +62,7 @@ export function InquiryForm({ locale }: { locale: string }) {
       return;
     }
 
-    if (turnstileEnabled && !antiSpam.turnstileToken) {
+    if (turnstileEnabled && !getPayload().turnstileToken) {
       setError(t("captchaError"));
       return;
     }
@@ -70,10 +72,11 @@ export function InquiryForm({ locale }: { locale: string }) {
       const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, locale, ...antiSpam }),
+        body: JSON.stringify({ ...form, locale, ...getPayload() }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
+        resetTurnstile();
         throw new Error(data.error ?? t("submitError"));
       }
       setSuccess(true);
@@ -234,6 +237,7 @@ export function InquiryForm({ locale }: { locale: string }) {
         honeypot={honeypot}
         onHoneypotChange={setHoneypot}
         onTurnstileToken={setTurnstileToken}
+        turnstileRef={turnstileRef}
       />
 
       <button

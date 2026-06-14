@@ -22,7 +22,9 @@ export function ConsultationFormSection() {
     honeypot,
     setHoneypot,
     setTurnstileToken,
-    payload: antiSpam,
+    getPayload,
+    resetTurnstile,
+    turnstileRef,
     turnstileEnabled,
   } = useInquiryAntiSpam();
 
@@ -51,7 +53,7 @@ export function ConsultationFormSection() {
       return;
     }
 
-    if (turnstileEnabled && !antiSpam.turnstileToken) {
+    if (turnstileEnabled && !getPayload().turnstileToken) {
       setError(t("captchaError"));
       return;
     }
@@ -81,11 +83,12 @@ export function ConsultationFormSection() {
           preferredTime: form.time,
           message,
           locale,
-          ...antiSpam,
+          ...getPayload(),
         }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
+        resetTurnstile();
         throw new Error(data.error ?? t("submitError"));
       }
       setSubmitted(true);
@@ -253,6 +256,7 @@ export function ConsultationFormSection() {
                 honeypot={honeypot}
                 onHoneypotChange={setHoneypot}
                 onTurnstileToken={setTurnstileToken}
+                turnstileRef={turnstileRef}
               />
 
               <button

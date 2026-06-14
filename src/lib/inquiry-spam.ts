@@ -51,11 +51,18 @@ export async function validateInquirySpam(
 
   if (isTurnstileConfigured()) {
     const token = String(payload.turnstileToken ?? "").trim();
-    const valid = await verifyTurnstileToken(token, clientIp);
-    if (!valid) {
+    const verification = await verifyTurnstileToken(token);
+    if (!verification.ok) {
+      console.warn(
+        "[inquiry-spam] Turnstile verification failed:",
+        verification.errorCodes?.join(", ") ?? "unknown"
+      );
+      const isExpired = verification.errorCodes?.includes("timeout-or-duplicate");
       return {
         ok: false,
-        error: "보안 확인에 실패했습니다. 새로고침 후 다시 시도해 주세요.",
+        error: isExpired
+          ? "보안 확인이 만료되었습니다. 캡차를 다시 완료한 후 제출해 주세요."
+          : "보안 확인에 실패했습니다. 새로고침 후 다시 시도해 주세요.",
         status: 400,
       };
     }
